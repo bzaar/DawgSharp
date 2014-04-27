@@ -61,4 +61,10 @@ Now, about those lambdas that you pass to ```Load``` and ```Save```.  This is ho
 
 Future plans
 ------------
+###Better API.  
+
+The API was designed to fit a particular usage scenario (see above) and can be extended to support other scenarios eg being able to add new words to the dictionary after it's been compacted.  I just didn't need this so it's not implemented.  You won't get any exceptions.  There is just no ```Insert``` method on the ```Dawg``` class.
+
+###More optimizations.  
+
 I went from not knowing anything about DAWGs to a complete implementation and a real life application in just two days.  While writing the code, I always went for the simplest thing that could work and haven't done much optimization since.  I was happy with the 20x speed increase and a 40x file size reduction that I got by switching to DAWG.  That said, there is still a lot of potential for optimization both for speed and disk/RAM usage.  If you feel like going for it, just fork this repo and optimize away.  There are unit tests in place to make sure you don't break anything.
