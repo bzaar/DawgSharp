@@ -3,9 +3,11 @@
 DawgSharp, a clever string dictionary in C#
 ===========================================
 
-DAWG stands for 'Directed Acyclic Word Graph' and is a data structure for effectively storing and searching large word lists.  It is basically a Dictionary &lt;string, T&gt;, only a lot faster.  Just for your reference, replacing the standard Dictionary with DawgSharp in my website that used a dictionary of over 2 million words has cut down the load time from 7 seconds to 0.3 seconds and the file size from 56M to 1.4M.
+DAWG (Directed Acyclic Word Graph) is a data structure for storing and searching large word lists and dictionaries.  It can be 40x more efficient than the .NET ```Dictionary``` class taking less memory (both disk and RAM), less time to load from disk and delivering quicker lookups.
 
-How is this possible?  Why is the standard Dictionary not as clever as the DAWG?  The thing is, the DAWG works well with natural language strings and may not work as well for generated strings such as license keys (OIN1r4Be2su+UXSeOj0TaQ).  Human language words tend to have lots of common letter sequences eg _-ility_ in _ability_, _possibility_, _agility_ etc and the algorithm takes advantage of that by finding those sequences and storing them only once for all words.  The history of DAWG dates back as far as 1985.  For more backgroud google DAWG or DAFSA (Deterministic Acyclic Finite State Automaton).
+As an example, [my website](http://russiangram.com) hosts a 2 million word dictionary which used to take 56 meg on disk and took 7 seconds to load.  After switching to DAWG, it now takes 1.4 meg on disk and takes 0.3 seconds to load.
+
+How is this possible?  Why is the standard Dictionary not as clever as the DAWG?  The thing is, the DAWG works well with natural language strings and may not work as well for generated strings such as license keys (OIN1r4Be2su+UXSeOj0TaQ).  Human language words tend to have lots of common letter sequences eg _-ility_ in _ability_, _possibility_, _agility_ etc and the algorithm takes advantage of that by finding those sequences and storing them only once for all words.  DAWG has also proved useful in representing DNA data (sequences of genes).  The history of DAWG dates back as far as 1985.  For more backgroud, google DAWG or DAFSA (Deterministic Acyclic Finite State Automaton).
 
 The above is true for the DAWG data structure in general.  Now more about what is specific to DawgSharp.
 
