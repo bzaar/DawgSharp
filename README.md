@@ -15,9 +15,8 @@ DawgSharp is an implementation of DAWG, one of many.  What makes it special?
  * It has no dependencies.
  * It introduces no limitations on characters in keys.  Some competing implementations allow only 26 English letters.  This implementation handles any Unicode characters.
  * The compaction algorithm visits every node only once which makes it really fast (10 seconds for my 2 million word list).
- * Load/Save methods to write the data to disk and read it back.
- * Unit tests (using the Visual Studio testing framework).
-
+ * It offers out-of-the-box persistence: call ```Load/Save``` to write the data to disk and read it back.
+ * It has unit tests (using the Visual Studio testing framework).
 
 Usage
 -----
