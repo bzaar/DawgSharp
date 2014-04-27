@@ -18,9 +18,11 @@ This implementation features:
 
 Usage
 -----
-My usage scenario involved two programs, one to generate the dictionary and write it to disk and the other to load that file and use the read-only dictionary for lookups.
+In this example we will simulate a usage  usage scenario involving two programs, one to generate the dictionary and write it to disk and the other to load that file and use the read-only dictionary for lookups.
 
-You start by creating and populating a DawgBuilder object:
+First get the code by cloning this repository or installing the [NuGet package](https://www.nuget.org/packages/DawgSharp/).
+
+We'll start by creating and populating a DawgBuilder object:
 
 ```
 var dawgBuilder = new DawgBuilder <bool> ();
@@ -31,7 +33,7 @@ foreach (string key in ...)
 }
 ```
 
-And then you call BuildDawg on it to get the compressed version and save it to disk:
+And then we'll call BuildDawg on it to get the compressed version and save it to disk:
 
 ```
 var dawg = dawgBuilder.BuildDawg (); // Computer is working.  Please wait ...
