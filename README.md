@@ -9,13 +9,12 @@ As an example, [my website](http://russiangram.com) hosts a 2 million word dicti
 
 How is this possible?  Why is the standard Dictionary not as clever as the DAWG?  The thing is, the DAWG works well with natural language strings and may not work as well for generated strings such as license keys (OIN1r4Be2su+UXSeOj0TaQ).  Human language words tend to have lots of common letter sequences eg _-ility_ in _ability_, _possibility_, _agility_ etc and the algorithm takes advantage of that by finding those sequences and storing them only once for all words.  DAWG has also proved useful in representing DNA data (sequences of genes).  The history of DAWG dates back as far as 1985.  For more backgroud, google DAWG or DAFSA (Deterministic Acyclic Finite State Automaton).
 
-The above is true for the DAWG data structure in general.  Now more about what is specific to DawgSharp.
+DawgSharp is an implementation of DAWG, one of many.  What makes it special?
 
-This implementation features:
- * Pure C# code that compiles to MSIL (AnyCPU) and works on .NET 3.5 and above.
- * No dependencies.
- * No limitations on characters in keys.  Some competing implementations allow only 26 English letters.  This implementation can handle any Unicode characters.
- * The compaction algorithm visits every node only once which makes it really fast (10 seconds for my 2 million word list) on a single CPU core.
+ * It is written in pure C#, compiles to MSIL (AnyCPU) and works on .NET 3.5 and above.
+ * It has no dependencies.
+ * It introduces no limitations on characters in keys.  Some competing implementations allow only 26 English letters.  This implementation handles any Unicode characters.
+ * The compaction algorithm visits every node only once which makes it really fast (10 seconds for my 2 million word list).
  * Load/Save methods to write the data to disk and read it back.
  * Unit tests (using the Visual Studio testing framework).
 
