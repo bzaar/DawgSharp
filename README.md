@@ -1,7 +1,7 @@
 DawgSharp, a clever string dictionary in C#
 ===============================================
 
-DAWG stands for 'Directed Acyclic Word Graph' and is a data structure for effectivly storing and searching large word lists.  It is basically a Dictionary &lt;string, T&gt;, only a lot faster.  Just for your reference, replacing the standard Dictionary with DawgSharp in my website that uses a dictionary of over 2 million words has cut down the load time from 7 seconds to 0.3 seconds and the file size from 56M to 1.4M.
+DAWG stands for 'Directed Acyclic Word Graph' and is a data structure for effectively storing and searching large word lists.  It is basically a Dictionary &lt;string, T&gt;, only a lot faster.  Just for your reference, replacing the standard Dictionary with DawgSharp in my website that uses a dictionary of over 2 million words has cut down the load time from 7 seconds to 0.3 seconds and the file size from 56M to 1.4M.
 
 How is this possible?  Why is the standard Dictionary not as clever as the DAWG?  The thing is, the DAWG works well with natural language strings and may not work as well for generated strings such as license keys (OIN1r4Be2su+UXSeOj0TaQ).  Human language words tend to have lots of common letter sequences eg _-ility_ in _ability_, _possibility_, _agility_ etc and the algorithm takes advantage of that by finding those sequences and storing them only once for all words.  The history of DAWG dates back as far as 1985.  For more backgroud google DAWG or DAFSA (Deterministic Acyclic Finite State Automaton).
 
