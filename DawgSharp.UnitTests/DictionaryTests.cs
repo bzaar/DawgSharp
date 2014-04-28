@@ -60,5 +60,17 @@ namespace DawgSharp.UnitTests
             Assert.AreEqual (10, dawg ["ego"]);
             Assert.AreEqual (0, dawg ["eg"]);
         }
+
+        [TestMethod]
+        public void EmptyKey ()
+        {
+            var dawgBuilder = new DawgBuilder<int> ();
+
+            dawgBuilder.Insert ("", 5);
+
+            var dawg = dawgBuilder.BuildDawg ();
+
+            Assert.AreEqual (5,  dawg [""]);
+        }
     }
 }
