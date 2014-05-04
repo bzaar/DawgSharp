@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>DawgSharp</id>
+        <version>1.0.2</version>
+        <title>A clever string dictionary in C#</title>
+        <authors>Sergey Slepov</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>DAWG is a data structure for effectively storing and searching large word lists. DawgSharp is an open-source C# implementation featuring a linear time graph reduction algoritm and persistence support.</description>
+        <tags>DAWG string dictionary</tags>
+    </metadata>
+    <files>
+        <file src="DawgSharp\bin\Release\DawgSharp.dll" target="DawgSharp.dll" />
+    </files>
+</package>
