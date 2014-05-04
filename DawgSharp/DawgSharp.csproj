@@ -41,6 +41,7 @@
     <Compile Include="Node.cs" />
     <Compile Include="NodeWrapper.cs" />
     <Compile Include="NodeWrapperEqualityComparer.cs" />
+    <Compile Include="PrefixMatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

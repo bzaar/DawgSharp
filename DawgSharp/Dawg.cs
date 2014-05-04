@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace DawgSharp
 {
@@ -9,21 +10,44 @@ namespace DawgSharp
     {
         readonly Node <TPayload> root = new Node <TPayload> ();
 
-        public TPayload this [string word]
+        public TPayload this [IEnumerable<char> word]
         {
-            get 
+            get
             {
-                var node = root;
+                var node = FindNode (word);
 
-                foreach (char c in word)
-                {
-                    node = node.GetChild (c);
-
-                    if (node == null) return default (TPayload);
-                }
-
-                return node.Payload;
+                return node == null ? default (TPayload) : node.Payload;
             }
+        }
+
+        private Node <TPayload> FindNode (IEnumerable<char> word)
+        {
+            var node = root;
+
+            foreach (char c in word)
+            {
+                node = node.GetChild (c);
+
+                if (node == null) return null;
+            }
+
+            return node;
+        }
+
+
+        /// <summary>
+        /// Returns all elements with key matching given <paramref name="prefix"/>.
+        /// </summary>
+        public IEnumerable<KeyValuePair <string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
+        {
+            var node = FindNode (prefix);
+
+            if (node == null) return Enumerable.Empty <KeyValuePair <string, TPayload>> ();
+
+            var sb = new StringBuilder ();
+            sb.Append (prefix);
+
+            return new PrefixMatcher <TPayload> (sb).MatchPrefix (node);
         }
 
         public static Dawg <TPayload> Load (Stream stream, Func <BinaryReader, TPayload> readPayload)

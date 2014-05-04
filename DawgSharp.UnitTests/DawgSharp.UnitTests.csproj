@@ -45,6 +45,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MatchPrefixTests.cs" />
     <Compile Include="PersistenceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DictionaryTests.cs" />

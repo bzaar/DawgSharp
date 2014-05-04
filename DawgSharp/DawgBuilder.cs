@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DawgSharp
 {
@@ -6,7 +7,7 @@ namespace DawgSharp
     {
         readonly Node <TPayload> root = new Node <TPayload> ();
 
-        public void Insert (string key, TPayload value)
+        public void Insert (IEnumerable<char> key, TPayload value)
         {
             var node = root;
 
