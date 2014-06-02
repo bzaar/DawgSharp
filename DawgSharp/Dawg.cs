@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DawgSharp
 {
-    public class Dawg <TPayload>
+    public class Dawg <TPayload> : IEnumerable <KeyValuePair <string, TPayload>>
     {
         readonly Node <TPayload> root = new Node <TPayload> ();
 
@@ -163,6 +163,16 @@ namespace DawgSharp
         public int GetNodeCount ()
         {
             return root.GetChildNodeCount ();
+        }
+
+        public IEnumerator<KeyValuePair<string, TPayload>> GetEnumerator()
+        {
+            return MatchPrefix ("").GetEnumerator ();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator ();
         }
     }
 }
