@@ -34,18 +34,35 @@ namespace DawgSharp
             return node;
         }
 
+        public int GetLongestCommonPrefixLength (IEnumerable<char> word)
+        {
+            var node = root;
+            int len = 0; 
+
+            foreach (char c in word)
+            {
+                node = node.GetChild (c);
+
+                if (node == null) break;
+
+                ++len;
+            }
+
+            return len;
+        }
 
         /// <summary>
         /// Returns all elements with key matching given <paramref name="prefix"/>.
         /// </summary>
-        public IEnumerable<KeyValuePair <string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
+        public IEnumerable <KeyValuePair <string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
         {
             var node = FindNode (prefix);
 
             if (node == null) return Enumerable.Empty <KeyValuePair <string, TPayload>> ();
 
             var sb = new StringBuilder ();
-            sb.Append (prefix);
+
+            sb.Append (prefix.ToArray ());
 
             return new PrefixMatcher <TPayload> (sb).MatchPrefix (node);
         }

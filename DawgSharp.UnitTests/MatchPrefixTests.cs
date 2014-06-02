@@ -3,9 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DawgSharp.UnitTests
 {
-    /// <summary>
-    /// Summary description for MatchPrefixTests
-    /// </summary>
     [TestClass]
     public class MatchPrefixTests
     {
@@ -36,6 +33,23 @@ namespace DawgSharp.UnitTests
 
             Assert.IsTrue (dawg.MatchPrefix ("boot").Count () == 0);
             Assert.IsTrue (dawg.MatchPrefix ("").Count () == 0);
+        }
+
+        /// <summary>
+        /// You can do suffix matching as easily as prefix matching.  Simply Reverse() the keys:
+        /// </summary>
+        [TestMethod]
+        public void SuffixMatchTest ()
+        {
+            var dawgBuilder = new DawgBuilder<bool> ();
+
+            dawgBuilder.Insert ( "visibility".Reverse (), true);
+            dawgBuilder.Insert ("possibility".Reverse (), true);
+            dawgBuilder.Insert ("dexterity".Reverse (), true);
+
+            var dawg = dawgBuilder.BuildDawg ();
+
+            Assert.IsTrue (dawg.MatchPrefix ("ility".Reverse ()).Count () == 2);
         }
     }
 }
