@@ -63,6 +63,13 @@ The ```Dawg``` and ```DawgBuilder``` classes take a template parameter called ``
 
 Now, about those lambdas that you pass to ```Load``` and ```Save```.  This is how you tell these methods how to serialize and deserialize TPayload.  Since you choose the type, you must tell the library how to serialize it.  You must write something to the BinaryWriter, even if the value of TPayload is ```null```.
 
+Thread Safety
+-------------
+
+The ```DawgBuilder``` class is *not* thread-safe and must be accessed by only one thread at any particular time.
+
+The ```Dawg``` class is immutable and thus thread-safe.
+
 Future plans
 ------------
 ###Better API
