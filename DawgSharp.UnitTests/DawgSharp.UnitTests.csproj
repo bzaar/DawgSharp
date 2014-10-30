@@ -45,6 +45,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnekoWordListTest.cs" />
     <Compile Include="EnumerableTests.cs" />
     <Compile Include="MatchPrefixTests.cs" />
     <Compile Include="PersistenceTests.cs" />
@@ -56,6 +57,9 @@
       <Project>{4285FED3-5A96-493E-8B52-F7D93758D62F}</Project>
       <Name>DawgSharp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="eneko-words.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
