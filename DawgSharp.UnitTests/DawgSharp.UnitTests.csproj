@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="EnekoWordListTest.cs" />
     <Compile Include="EnumerableTests.cs" />
+    <Compile Include="LongStringTest.cs" />
     <Compile Include="MatchPrefixTests.cs" />
     <Compile Include="PersistenceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
