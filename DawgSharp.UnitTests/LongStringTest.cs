@@ -5,7 +5,6 @@ namespace DawgSharp.UnitTests
     [TestClass]
     public class LongStringTest
     {
-        [Ignore]
         [TestMethod]
         public void TestMethod1()
         {
