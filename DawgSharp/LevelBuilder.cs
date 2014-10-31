@@ -12,7 +12,7 @@ namespace DawgSharp
             get { return levels; }
         }
 
-        public int GetLevel (Node <TPayload> node, Node<TPayload> super, char @char)
+        public int GetLevel (Node <TPayload> node, Node <TPayload> super, char @char)
         {
             var level = node.HasChildren () ? node.Children.Max (child => GetLevel (child.Value, node, child.Key)) + 1 : 0;
 
@@ -29,6 +29,15 @@ namespace DawgSharp
             }
 
             return level;
+        }
+
+        public static List <List <NodeWrapper <TPayload>>> BuildLevels (Node <TPayload> root)
+        {
+            var levelBuilder = new LevelBuilder<TPayload> ();
+
+            levelBuilder.GetLevel (root, null, ' ');
+
+            return levelBuilder.Levels;
         }
     }
 }

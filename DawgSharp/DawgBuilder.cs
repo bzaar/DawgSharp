@@ -21,11 +21,7 @@ namespace DawgSharp
 
         public Dawg <TPayload> BuildDawg ()
         {
-            var levelBuilder = new LevelBuilder<TPayload> ();
-
-            levelBuilder.GetLevel (root, null, ' ');
-
-            var levels = levelBuilder.Levels;
+            var levels = LevelBuilder <TPayload>.BuildLevels (root);
 
             foreach (var level in levels)
             {

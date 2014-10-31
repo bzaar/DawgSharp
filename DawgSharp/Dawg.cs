@@ -116,11 +116,9 @@ namespace DawgSharp
 
         public void SaveTo (Stream stream, Action <BinaryWriter, TPayload> writePayload)
         {
-            var levelBuilder = new LevelBuilder<TPayload> ();
+            var levels = LevelBuilder <TPayload>.BuildLevels (root);
 
-            levelBuilder.GetLevel (root, null, ' ');
-
-            var allNodes = levelBuilder.Levels.SelectMany (level => level.Distinct (new NodeSuperEqualityComparerByNode ()))
+            var allNodes = levels.SelectMany (level => level.Distinct (new NodeSuperEqualityComparerByNode ()))
                 .Concat (new [] {new NodeWrapper<TPayload> (root, null, ' ')})
                 .ToArray ();
 
