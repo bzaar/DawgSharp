@@ -16,7 +16,9 @@ namespace DawgSharp
 
         public int GetHashCode (NodeWrapper <TPayload> obj)
         {
-            var hashCode = EqualityComparer<TPayload>.Default.GetHashCode (obj.Node.Payload) + obj.Node.SortedChildren.Sum (c => c.GetHashCode ()) + obj.Char.GetHashCode ();
+            var hashCode = EqualityComparer<TPayload>.Default.GetHashCode (obj.Node.Payload) 
+                + obj.Node.Children.Select (c => c.Value).Sum (c => c.GetHashCode ()) 
+                + obj.Char.GetHashCode ();
 
             return hashCode;
         }

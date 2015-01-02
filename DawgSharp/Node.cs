@@ -13,11 +13,7 @@ namespace DawgSharp
         {
             Node <TPayload> newNode;
 
-            if (children.ContainsKey (c))
-            {
-                newNode = children [c];
-            }
-            else
+            if (! children.TryGetValue (c, out newNode))
             {
                 newNode = new Node <TPayload> ();
 
