@@ -31,9 +31,11 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion ("1.0.5.0")]
-[assembly: AssemblyFileVersion ("1.0.5.0")]
+[assembly: AssemblyVersion ("1.0.7.0")]
+[assembly: AssemblyFileVersion ("1.0.7.0")]
 // 1.0.1 - Persist child count as Int16 rathen than Int32 to reduce file size.
 // 1.0.2 - Remove unused dependencies.
 // 1.0.3 - Add MatchPrefix
 // 1.0.5 - 
+// 1.0.6 - (AssemblyVersion was left 1.0.5)
+// 1.0.7 - Speed improvements
