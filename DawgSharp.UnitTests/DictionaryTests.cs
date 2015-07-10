@@ -58,7 +58,8 @@ namespace DawgSharp.UnitTests
 
             Assert.AreEqual (9,  dawg ["ago"]);
             Assert.AreEqual (10, dawg ["ego"]);
-            Assert.AreEqual (0, dawg ["eg"]);
+            Assert.AreEqual (0,  dawg ["ag"]);
+            Assert.AreEqual (0,  dawg ["eg"]);
         }
 
         [TestMethod]
@@ -70,7 +71,7 @@ namespace DawgSharp.UnitTests
 
             var dawg = dawgBuilder.BuildDawg ();
 
-            Assert.AreEqual (5,  dawg [""]);
+            Assert.AreEqual (5, dawg [""]);
         }
     }
 }
