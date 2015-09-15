@@ -79,3 +79,15 @@ The API was designed to fit a particular usage scenario (see above) and can be e
 ###More optimizations
 
 I went from not knowing anything about DAWGs to a complete implementation and a real life application in just two days.  While writing the code, I always went for the simplest thing that could work and haven't done much optimization since.  I was happy with the 20x speed increase and a 40x file size reduction that I got by switching to DAWG.  That said, there is still a lot of potential for optimization both for speed and disk/RAM usage.  If you feel like going for it, just fork this repo and optimize away.  There are unit tests in place to make sure you don't break anything.
+
+Literature
+----------
+ * [DotNetPerls](http://www.dotnetperls.com/directed-acyclic-word-graph)
+ * [Radix trie - Wikipedia](https://en.wikipedia.org/wiki/Radix_tree)
+
+Competing Implementations
+-------------------------
+ * [dawgdic (C++)](https://code.google.com/p/dawgdic/)
+ * [MARISA (C++)](https://code.google.com/p/marisa-trie/)
+ * [libdatrie (C)](http://linux.thai.net/~thep/datrie/datrie.html)
+
