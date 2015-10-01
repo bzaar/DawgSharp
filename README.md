@@ -84,6 +84,7 @@ Literature
 ----------
  * [DotNetPerls](http://www.dotnetperls.com/directed-acyclic-word-graph)
  * [Radix trie - Wikipedia](https://en.wikipedia.org/wiki/Radix_tree)
+ * [http://wutka.com/dawg.html](http://wutka.com/dawg.html)
 
 Competing Implementations
 -------------------------
