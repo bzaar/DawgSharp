@@ -82,6 +82,7 @@ I went from not knowing anything about DAWGs to a complete implementation and a 
 
 Literature
 ----------
+ * [Comparisons of Efficient Implementations for DAWG](http://www.ijcte.org/vol8/1018-C024.pdf)
  * [DotNetPerls](http://www.dotnetperls.com/directed-acyclic-word-graph)
  * [Radix trie - Wikipedia](https://en.wikipedia.org/wiki/Radix_tree)
  * [http://wutka.com/dawg.html](http://wutka.com/dawg.html)
