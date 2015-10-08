@@ -45,14 +45,11 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnekoWordListTest.cs" />
-    <Compile Include="EnumerableTests.cs" />
-    <Compile Include="LongStringTest.cs" />
-    <Compile Include="MatchPrefixTests.cs" />
-    <Compile Include="PersistenceTests.cs" />
+    <Compile Include="MatrixDawgTests.cs" />
+    <Compile Include="DawgTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DictionaryTests.cs" />
-    <Compile Include="TryGetValueTests.cs" />
+    <Compile Include="DawgBuilderTests.cs" />
+    <Compile Include="YaleDawgTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DawgSharp\DawgSharp.csproj">

@@ -28,7 +28,7 @@ namespace DawgSharp
                     yield return kvp;
                 }
 
-                sb.Remove (sb.Length - 1, 1);
+                --sb.Length;
             }
         }
     }

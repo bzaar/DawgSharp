@@ -1,6 +1,10 @@
-﻿namespace DawgSharp
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace DawgSharp
 {
-    struct NodeWrapper <TPayload>
+    class NodeWrapper <TPayload>
     {
         public NodeWrapper (Node<TPayload> node, Node<TPayload> super, char @char)
         {
@@ -12,5 +16,16 @@
         public readonly Node<TPayload> Node;
         public readonly Node<TPayload> Super;
         public readonly char Char;
+        KeyValuePair<char, Node<TPayload>> [] sortedChildren;
+
+        private KeyValuePair<char, Node<TPayload>>[] GetSortedChildren()
+        {
+            return Node.Children.OrderBy(c => c.Key).ToArray();
+        }
+
+        public KeyValuePair<char, Node<TPayload>> [] SortedChildren
+        {
+            get { return sortedChildren ?? (sortedChildren = GetSortedChildren()); }
+        }
     }
 }

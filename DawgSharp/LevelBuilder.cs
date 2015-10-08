@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DawgSharp
 {
     class LevelBuilder <TPayload>
     {
-        public static List <List <NodeWrapper <TPayload>>> BuildLevels (Node <TPayload> root)
+        public static void BuildLevelsExcludingRoot (Node <TPayload> root)
         {
-            var levels = new List <List <NodeWrapper <TPayload>>> ();
+            var levels = new List <Dictionary <NodeWrapper <TPayload>, NodeWrapper <TPayload>>> ();
 
             var stack = new Stack <StackNode <TPayload>> ();
 
@@ -14,10 +15,10 @@ namespace DawgSharp
 
             while (stack.Count > 0)
             {
-                if (stack.Peek ().ChildIterator.MoveNext ())
+                if (stack.Peek().ChildIterator.MoveNext ())
                 {
                     // go deeper
-                    Push (stack, stack.Peek ().ChildIterator.Current.Value);
+                    Push (stack, stack.Peek().ChildIterator.Current.Value);
                 }
                 else
                 {
@@ -25,33 +26,43 @@ namespace DawgSharp
 
                     if (stack.Count > 0)
                     {
+                        var parent = stack.Peek ();
+
                         int level = current.Level;
 
                         if (levels.Count <= level)
                         {
-                            levels.Add (new List <NodeWrapper <TPayload>> ());
+                            levels.Add (new Dictionary <NodeWrapper <TPayload>, NodeWrapper <TPayload>> (new NodeWrapperEqualityComparer<TPayload> ()));
                         }
 
-                        var list = levels [level];
+                        var dictionary = levels [level];
 
-                        list.Add (new NodeWrapper <TPayload> (current.Node, stack.Peek ().Node, stack.Peek ().ChildIterator.Current.Key));
+                        var nodeWrapper = new NodeWrapper <TPayload> (current.Node, parent.Node, parent.ChildIterator.Current.Key);
 
-                        int superLevel = current.Level + 1;
-
-                        if (stack.Peek ().Level < superLevel)
+                        NodeWrapper <TPayload> existing;
+                        if (dictionary.TryGetValue (nodeWrapper, out existing))
                         {
-                            stack.Peek ().Level = superLevel;
+                            parent.Node.Children [parent.ChildIterator.Current.Key] = existing.Node;
+                        }
+                        else
+                        {
+                            dictionary.Add (nodeWrapper, nodeWrapper);
+                        }
+
+                        int parentLevel = current.Level + 1;
+
+                        if (parent.Level < parentLevel)
+                        {
+                            parent.Level = parentLevel;
                         }
                     }
                 }
             }
-
-            return levels;
         }
 
         private static void Push (Stack <StackNode <TPayload>> stack, Node <TPayload> node)
         {
-            stack.Push (new StackNode <TPayload> {Node = node, ChildIterator = node.Children.GetEnumerator ()});
+            stack.Push (new StackNode <TPayload> {Node = node, ChildIterator = node.Children.ToList ().GetEnumerator ()});
         }
     }
 

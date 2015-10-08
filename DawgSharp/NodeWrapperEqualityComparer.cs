@@ -7,20 +7,48 @@ namespace DawgSharp
     {
         public bool Equals (NodeWrapper <TPayload> x, NodeWrapper <TPayload> y)
         {
-            var @equals = x.Char == y.Char
-                          && EqualityComparer<TPayload>.Default.Equals (x.Node.Payload, y.Node.Payload) 
-                          && x.Node.SortedChildren.SequenceEqual (y.Node.SortedChildren);
+            var @equals = EqualityComparer<TPayload>.Default.Equals (x.Node.Payload, y.Node.Payload)
+                          && SequenceEqual(x.Node.SortedChildren, y.Node.SortedChildren);
 
             return @equals;
         }
 
-        public int GetHashCode (NodeWrapper <TPayload> obj)
+        private static bool SequenceEqual(
+            IEnumerable<KeyValuePair<char, Node<TPayload>>> x, 
+            IEnumerable<KeyValuePair<char, Node<TPayload>>> y)
         {
-            var hashCode = EqualityComparer<TPayload>.Default.GetHashCode (obj.Node.Payload) 
-                + obj.Node.Children.Select (c => c.Value).Sum (c => c.GetHashCode ()) 
-                + obj.Char.GetHashCode ();
+            var xe = x.GetEnumerator();
+            var ye = y.GetEnumerator();
+
+            while (xe.MoveNext())
+            {
+                if (!ye.MoveNext()) return false;
+
+                var xcurrent = xe.Current;
+                var ycurrent = ye.Current;
+
+                if (xcurrent.Key != ycurrent.Key) return false;
+                if (!Equals(xcurrent.Value, ycurrent.Value)) return false;
+            }
+
+            return !ye.MoveNext();
+        }
+
+        static int GetHashCode (Node<TPayload> node)
+        {
+            int hashCode = EqualityComparer<TPayload>.Default.GetHashCode (node.Payload);
+
+            foreach (var c in node.Children)
+            {
+                hashCode ^= c.Key ^ c.Value.GetHashCode();
+            }
 
             return hashCode;
+        }
+
+        public int GetHashCode (NodeWrapper <TPayload> obj)
+        {
+            return GetHashCode (obj.Node);
         }
     }
 }
