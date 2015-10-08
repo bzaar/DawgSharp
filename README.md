@@ -27,11 +27,12 @@ First get the code by cloning this repository or install the [NuGet package](htt
 Create and populate a ```DawgBuilder``` object:
 
 ```
-var dawgBuilder = new DawgBuilder <bool> (); // <bool> is the value type. Key type is always string.
+var dawgBuilder = new DawgBuilder <bool> (); // <bool> is the value type.
+                                             // Key type is always string.
 
-foreach (string key in ...)
+foreach (string key in new [] {"Aaron", "abacus", "abashed"})
 {
-  dawgBuilder.Insert (key, true);
+    dawgBuilder.Insert (key, true);
 }
 ```
 
@@ -50,7 +51,7 @@ var dawg = Dawg <bool>.Load (File.Open ("DAWG.bin"));
 
 if (dawg ["chihuahua"])
 {
-  Console.WriteLine ("Word is found.");
+    Console.WriteLine ("Word is found.");
 }
 ```
 
