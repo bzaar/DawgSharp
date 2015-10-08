@@ -14,7 +14,7 @@ DawgSharp is an implementation of DAWG, one of many.  What makes it special?
  * It is written in pure C#, compiles to MSIL (AnyCPU) and works on .NET 3.5 and above.
  * It has no dependencies.
  * It introduces no limitations on characters in keys.  Some competing implementations allow only 26 English letters.  This implementation handles any Unicode characters.
- * The compaction algorithm visits every node only once which makes it really fast (10 seconds for my 2 million word list).
+ * The compaction algorithm visits every node only once which makes it really fast (5 seconds for my 2 million word list).
  * It offers out-of-the-box persistence: call ```Load/Save``` to write the data to disk and read it back.
  * It has unit tests (using the Visual Studio testing framework).
 
@@ -27,7 +27,7 @@ First get the code by cloning this repository or install the [NuGet package](htt
 Create and populate a ```DawgBuilder``` object:
 
 ```
-var dawgBuilder = new DawgBuilder <bool> (); // more on <bool> below
+var dawgBuilder = new DawgBuilder <bool> (); // <bool> is the value type. Key type is always string.
 
 foreach (string key in ...)
 {
@@ -40,15 +40,13 @@ Call ```BuildDawg``` on it to get the compressed version and save it to disk:
 ```
 var dawg = dawgBuilder.BuildDawg (); // Computer is working.  Please wait ...
 
-dawg.Save (File.Create ("DAWG.bin"), 
-  (writer, value) => writer.Write (value)); // explained below
+dawg.Save (File.Create ("DAWG.bin"));
 ```
 
 Now read the file back in and check if a particular word is in the dictionary:
 
 ```
-var dawg = Dawg <bool>.Load (File.Open ("DAWG.bin"), 
-   reader => reader.ReadBool ());           // explained below
+var dawg = Dawg <bool>.Load (File.Open ("DAWG.bin"));
 
 if (dawg ["chihuahua"])
 {
@@ -56,12 +54,10 @@ if (dawg ["chihuahua"])
 }
 ```
 
-&lt;TPayload&gt;
+The Value Type, &lt;TPayload&gt;
 ----------
 
 The ```Dawg``` and ```DawgBuilder``` classes take a template parameter called ```<TPayload>```.  It can be any type you want.  Just to be able to test if a word is in the dictionary, a bool is enough.  You can also make it an ```int``` or a ```string``` or a custom class.  But beware of one important limitation.  DAWG works well only when the set of values that TPayload can take is relatively small.  The smaller the better.  Eg if you add a definition for each word, it will make each entry unique and it won't be able to compact the graph and thus you will loose all the benefits of DAWG.
-
-Now, about those lambdas that you pass to ```Load``` and ```Save```.  This is how you tell these methods how to serialize and deserialize TPayload.  Since you choose the type, you must tell the library how to serialize it.  You must write something to the BinaryWriter, even if the value of TPayload is ```null```.
 
 Thread Safety
 -------------
@@ -76,10 +72,6 @@ Future plans
 
 The API was designed to fit a particular usage scenario (see above) and can be extended to support other scenarios eg being able to add new words to the dictionary after it's been compacted.  I just didn't need this so it's not implemented.  You won't get any exceptions.  There is just no ```Insert``` method on the ```Dawg``` class.
 
-###More optimizations
-
-I went from not knowing anything about DAWGs to a complete implementation and a real life application in just two days.  While writing the code, I always went for the simplest thing that could work and haven't done much optimization since.  I was happy with the 20x speed increase and a 40x file size reduction that I got by switching to DAWG.  That said, there is still a lot of potential for optimization both for speed and disk/RAM usage.  If you feel like going for it, just fork this repo and optimize away.  There are unit tests in place to make sure you don't break anything.
-
 Literature
 ----------
  * [Comparisons of Efficient Implementations for DAWG](http://www.ijcte.org/vol8/1018-C024.pdf)
@@ -89,6 +81,7 @@ Literature
 
 Competing Implementations
 -------------------------
+ * [DAWG (C#)](https://www.nuget.org/packages/DAWG)
  * [dawgdic (C++)](https://code.google.com/p/dawgdic/)
  * [MARISA (C++)](https://code.google.com/p/marisa-trie/)
  * [libdatrie (C)](http://linux.thai.net/~thep/datrie/datrie.html)
