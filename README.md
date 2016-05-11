@@ -1,4 +1,4 @@
-[NuGet Package](https://www.nuget.org/packages/DawgSharp/)
+[[NuGet Package](https://www.nuget.org/packages/DawgSharp/)]   [[Get a Commercial License](http://morpher.co.uk)]
 
 DawgSharp, a clever string dictionary in C#
 ===========================================
@@ -91,3 +91,8 @@ Competing Implementations
  * [MARISA (C++)](https://code.google.com/p/marisa-trie/)
  * [libdatrie (C)](http://linux.thai.net/~thep/datrie/datrie.html)
 
+License
+-------
+DawgSharp is licensed under GPLv3 which means it can be used free of charge in open-sources projects. [Read the full license](License.txt)
+
+If you would like to use DawgSharp in a proprietary project, please purchase a commercial license at [http://morpher.co.uk](http://morpher.co.uk).
