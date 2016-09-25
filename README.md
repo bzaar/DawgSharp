@@ -1,22 +1,23 @@
-[NuGet Package](https://www.nuget.org/packages/DawgSharp/)
+[[NuGet Package](https://www.nuget.org/packages/DawgSharp/)]   [[Get a Commercial License](http://morpher.co.uk)]
 
 DawgSharp, a clever string dictionary in C#
 ===========================================
 
 DAWG (Directed Acyclic Word Graph) is a data structure for storing and searching large word lists and dictionaries.  It can be 40x more efficient than the .NET ```Dictionary``` class for certain types of data.
 
-As an example, [my website](http://russiangram.com) hosts a 2 million word dictionary which used to take up 56 meg on disk and took 7 seconds to load.  After switching to DAWG, it now takes 1.4 meg on disk and  0.3 seconds to load.
+As an example, [my website](http://russiangram.com) hosts a 2 million word dictionary which used to take up 56 meg on disk and took 7 seconds to load.  After switching to DAWG, it now takes 1.4 meg on disk and 0.3 seconds to load.
 
 How is this possible?  Why is the standard Dictionary not as clever as DAWG?  The thing is, DAWG works well with natural language strings and may not work as well for generated strings such as license keys (OIN1r4Be2su+UXSeOj0TaQ).  Human language words tend to have lots of common letter sequences eg _-ility_ in _ability_, _possibility_, _agility_ etc and the algorithm takes advantage of that by finding those sequences and storing them only once for all words.  DAWG has also proved useful in representing DNA data (sequences of genes).  The history of DAWG dates back as far as 1985.  For more backgroud, google DAWG or DAFSA (Deterministic Acyclic Finite State Automaton).
 
 DawgSharp is an implementation of DAWG, one of many.  What makes it special?
 
- * It is written in pure C#, compiles to MSIL (AnyCPU) and works on .NET 3.5 and above.
+ * It is written in pure C#, compiles to MSIL (AnyCPU) and runs on .NET 3.5 and above.
  * It has no dependencies.
  * It introduces no limitations on characters in keys.  Some competing implementations allow only 26 English letters.  This implementation handles any Unicode characters.
  * The compaction algorithm visits every node only once which makes it really fast (5 seconds for my 2 million word list).
  * It offers out-of-the-box persistence: call ```Load/Save``` to write the data to disk and read it back.
  * It has unit tests (using the Visual Studio testing framework).
+ * It has received several man-hours of performance profiling sessions so it's pretty much as fast as it can be. The next step of makeing it faster would be rewriting the relevant code in IL.
 
 Usage
 -----
@@ -91,3 +92,8 @@ Competing Implementations
  * [MARISA (C++)](https://code.google.com/p/marisa-trie/)
  * [libdatrie (C)](http://linux.thai.net/~thep/datrie/datrie.html)
 
+License
+-------
+DawgSharp is licensed under GPLv3 which means it can be used free of charge in open-sources projects. [Read the full license](License.txt)
+
+If you would like to use DawgSharp in a proprietary project, please purchase a commercial license at [http://morpher.co.uk](http://morpher.co.uk).
