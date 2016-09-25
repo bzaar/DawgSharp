@@ -52,7 +52,9 @@ namespace DawgSharp
         /// <param name="writePayload">Optional, can be null for basic types (int, string, etc).</param>
         public void SaveTo (Stream stream, Action<BinaryWriter, TPayload> writePayload = null)
         {
+#pragma warning disable 618
             SaveAsYaleDawg (stream, writePayload ?? GetStandardWriter ());
+#pragma warning restore 618
         }
 
         /// <summary>
