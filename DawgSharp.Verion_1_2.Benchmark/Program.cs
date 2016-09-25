@@ -59,7 +59,7 @@ namespace DawgSharp.Verion_1_2.Benchmark
         {
             if (args.Name == "DawgSharp, Version=1.1.1.0, Culture=neutral, PublicKeyToken=null")
             {
-                return Assembly.LoadFrom(@"C:\Users\Sergey\Documents\mt\russian\morpher\DawgSharp\packages\DawgSharp.1.1.1\lib\net\DawgSharp.dll");
+                return Assembly.LoadFrom(@"..\..\..\packages\DawgSharp.1.1.1\lib\net\DawgSharp.dll");
             }
 
             return null;
