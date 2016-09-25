@@ -102,7 +102,7 @@ namespace DawgSharp.UnitTests
         [TestMethod]
         public void EnekoWordListTest()
         {
-            var words = File.ReadAllLines (@"..\..\..\..\..\eneko-words.txt");
+            var words = File.ReadAllLines ("eneko-words.txt");
 
             var dawgBuilder = new DawgBuilder<bool> ();
 
