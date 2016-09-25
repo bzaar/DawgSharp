@@ -25,10 +25,10 @@ namespace DawgSharp.Verion_1_2.Benchmark
 
             var tests = new Dictionary<string, Dictionary<string, double>>
             {
-//                {"Dictionary", RunTest(new DictionaryDawgFactory())},
+                {"Dictionary", RunTest(new DictionaryDawgFactory())},
                 {"v. 1.1.1", RunTest(new OldDawgFactory())},
 #pragma warning disable 612,618
-//                {"MatrixDawg", RunTest(new NewDawgFactory((d, s) => d.SaveAsMatrixDawg(s)))},
+                {"MatrixDawg", RunTest(new NewDawgFactory((d, s) => d.SaveAsMatrixDawg(s)))},
                 {"v 1.2", RunTest(new NewDawgFactory((d, s) => d.SaveAsYaleDawg(s)))},
 #pragma warning restore 612,618
             };
