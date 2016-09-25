@@ -15,8 +15,8 @@ namespace DawgSharp
 
             public Child(int index, ushort charIndex)
             {
-                CharIndex = charIndex;
                 Index = index;
+                CharIndex = charIndex;
             }
         }
 
