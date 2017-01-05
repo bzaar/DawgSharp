@@ -89,8 +89,8 @@ namespace DawgSharp
             writer.Write (allNodes.Length);
 
             var nodeIndex = allNodes
-                .Select((node, i) => Tuple.Create(node, i))
-                .ToDictionary(t => t.Item1, t => t.Item2);
+                .Select((node, i) => new {node, i})
+                .ToDictionary(t => t.node, t => t.i);
 
             int rootNodeIndex;
             if (!nodeIndex.TryGetValue(root, out rootNodeIndex))
@@ -135,21 +135,21 @@ namespace DawgSharp
 
             var cube = new Node <TPayload> [2,2] [];
 
-            var nodeGroups = allNodes.GroupBy (node => Tuple.Create(node.HasPayload, node.HasChildren))
+            var nodeGroups = allNodes.GroupBy (node => new {node.HasPayload, node.HasChildren})
                 .ToDictionary(g => g.Key, g => g.ToArray());
 
             for (int p = 0; p < 2;  ++p)
             for (int c = 0; c < 2;  ++c)
             {
                 Node<TPayload> [] arr;
-                cube [p, c] = nodeGroups.TryGetValue(Tuple.Create(p != 0, c != 0), out arr) ? arr : new Node<TPayload>[0];
+                cube [p, c] = nodeGroups.TryGetValue(new {HasPayload = p != 0, HasChildren = c != 0}, out arr) ? arr : new Node<TPayload>[0];
             }
 
             var nodesWithPayloads = cube [1, 1].Concat(cube [1, 0]).ToArray();
 
             var nodeIndex = nodesWithPayloads.Concat(cube [0, 1].Concat(cube [0, 0]))
-                .Select((node, i) => Tuple.Create(node, i))
-                .ToDictionary(t => t.Item1, t => t.Item2);
+                .Select((node, i) => new {node, i})
+                .ToDictionary(t => t.node, t => t.i);
 
             var rootNodeIndex = nodeIndex [root];
 
