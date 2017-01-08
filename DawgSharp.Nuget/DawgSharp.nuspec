@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>DawgSharp</id>
+    <version>1.2.1</version>
+    <authors>Sergey Slepov</authors>
+    <licenseUrl>https://github.com/bzaar/DawgSharp/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/bzaar/DawgSharp</projectUrl>
+    <iconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      DAWG (Directed Acyclic Word Graph) is a data structure for storing and searching large word lists while keeping your memory footprint small and lookups fast. DawgSharp is an open-source C# implementation featuring a linear time graph reduction algorithm and out-of-the-box persistence support.
+
+      The two main objects in the library are Dawg and DawgBuilder. Dawg is immutable, you must use DawgBuilder to build a Dawg and then save it to a stream. Then use Dawg.Load to rehydrate the data. Once reloaded, Dawg re-emerges as a completely different data structure (but, oddly, the same class) that is nearly as fast as a HashSet for lookups and is much, much more memory-efficient (factors of 30x - 40x are not uncommon). Please note that the Save/Load step is necessary to get the full potential out of the Dawg object. Use a MemoryStream if disk interaction is not desired.
+
+      The Dawg class can be thought of as a read-only Dictionary &lt;string, Value&gt; type. It has the ["string"] indexer and implements IEnumerable &lt;KeyValuePair &lt;string, Value&gt;&gt;.
+
+      One other very useful feature of Dawg (not found in Dictionary) is the ability to quickly find all words that start with a particular substring: dawg.MatchPrefix ("star") could possibly yield "star", "starch", "start", "starting", etc.
+
+      This package is provided under the terms of the GNU GPL v3. Source code and documentation are available on GitHub: https://github.com/bzaar/DawgSharp. Commercial licenses are also available at http://morpher.co.uk
+    </description>
+    <summary>High-performance string dictionary in C#</summary>
+    <releaseNotes>Added an icon to the package and bumped the package version to 1.2.1. The assembly version is still 1.2.0.</releaseNotes>
+    <copyright>2014 - 2017 Sergey Slepov</copyright>
+    <tags>DAWG string dictionary</tags>
+  </metadata>
+  <files>
+    <file src="..\LICENSE.txt" target="content\licenses\DawgSharp\LICENSE.txt" />
+    <file src="\bin\Release 4.0\DawgSharp.dll" target="lib\net40\DawgSharp.dll" />
+    <file src="\bin\Release 3.5\DawgSharp.dll" target="lib\net35\DawgSharp.dll" />
+  </files>
+</package>
