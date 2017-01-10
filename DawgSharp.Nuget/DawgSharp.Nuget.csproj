@@ -31,13 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="build.bat" />
-    <None Include="DawgSharp.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="NuGet.exe" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
