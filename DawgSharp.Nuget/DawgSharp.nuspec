@@ -26,7 +26,8 @@
   </metadata>
   <files>
     <file src="..\LICENSE.txt" target="content\licenses\DawgSharp\LICENSE.txt" />
-    <file src="\bin\Release 4.0\DawgSharp.dll" target="lib\net40\DawgSharp.dll" />
-    <file src="\bin\Release 3.5\DawgSharp.dll" target="lib\net35\DawgSharp.dll" />
+    <file src="bin\Release\net40\DawgSharp.dll" target="lib\net40\DawgSharp.dll" />
+    <file src="bin\Release\net35\DawgSharp.dll" target="lib\net35\DawgSharp.dll" />
+    <file src="bin\Release\netstandard1.6\DawgSharp.dll" target="lib\netstandard1.6\DawgSharp.dll"/>
   </files>
 </package>

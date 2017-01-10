@@ -1,0 +1,47 @@
+﻿{
+  "version": "1.2.1",
+  "runtimes": { "win": {} },
+
+  "frameworks": {
+    "net40": {
+      "frameworkAssemblies": {
+        "System": { "type": "build" },
+        "System.Core": { "type": "build" }
+      }
+    },
+    "net35": {
+      "frameworkAssemblies": {
+        "System": { "type": "build" },
+        "System.Core": { "type": "build" }
+      }
+    },
+    "netstandard1.6": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
+      }
+    }
+  },
+
+  "buildOptions": {
+    "outputName": "DawgSharp",
+    "keyFile": "../DawgSharp/key.snk",
+    "compile": {
+      "includeFiles": [
+        "../DawgSharp/MatrixDawg.cs",
+        "../DawgSharp/Dawg.cs",
+        "../DawgSharp/IDawg.cs",
+        "../DawgSharp/OldDawg.cs",
+        "../DawgSharp/DawgBuilder.cs",
+        "../DawgSharp/DawgExtensions.cs",
+        "../DawgSharp/LevelBuilder.cs",
+        "../DawgSharp/Node.cs",
+        "../DawgSharp/NodeWrapper.cs",
+        "../DawgSharp/NodeWrapperEqualityComparer.cs",
+        "../DawgSharp/PrefixMatcher.cs",
+        "../DawgSharp/YaleDawg.cs",
+        "../DawgSharp/Properties/AssemblyInfo.cs"
+      ]
+    }
+  }
+}

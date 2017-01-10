@@ -215,3 +215,4 @@ pip-log.txt
 .mr.developer.cfg
 *.nupkg
 packages/
+/.vs/config/applicationhost.config
