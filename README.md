@@ -18,13 +18,13 @@ DawgSharp is an implementation of DAWG, one of many.  What makes it special?
  * The compaction algorithm visits every node only once which makes it really fast (5 seconds for my 2 million word list).
  * It offers out-of-the-box persistence: call ```Load/Save``` to write the data to disk and read it back.
  * It has unit tests (using the Visual Studio testing framework).
- * It has received several man-hours of performance profiling sessions so it's pretty much as fast as it can be. The next step of makeing it faster would be rewriting the relevant code in IL.
+ * It has received several man-hours of performance profiling sessions so it's pretty much as fast as it can be. The next step of making it faster would be rewriting the relevant code in IL.
 
 Usage
 -----
 In this example we will simulate a usage scenario involving two programs, one to generate the dictionary and write it to disk and the other to load that file and use the read-only dictionary for lookups.
 
-First get the code by cloning this repository or install the [NuGet package](https://www.nuget.org/packages/DawgSharp/).
+First get the code by cloning this repository or installing the [NuGet package](https://www.nuget.org/packages/DawgSharp/).
 
 Create and populate a ```DawgBuilder``` object:
 
