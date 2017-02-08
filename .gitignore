@@ -216,3 +216,5 @@ pip-log.txt
 *.nupkg
 packages/
 /.vs/config/applicationhost.config
+
+**/*.nuget.targets
