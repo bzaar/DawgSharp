@@ -2,7 +2,7 @@
   "name": "DawgSharp",
   "copyright": "2014 - 2017 Sergey Slepov",
   "authors": [ "Sergey Slepov" ],
-  "version": "1.2.1",
+  "version": "1.2.1-*",
   "runtimes": { "win": {} },
 
   "frameworks": {
