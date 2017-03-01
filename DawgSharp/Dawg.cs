@@ -15,10 +15,7 @@ namespace DawgSharp
             this.dawg = dawg;
         }
 
-        public TPayload this [IEnumerable<char> word]
-        {
-            get { return dawg [word]; }
-        }
+        public TPayload this [IEnumerable<char> word] => dawg [word];
 
         public int GetLongestCommonPrefixLength (IEnumerable<char> word)
         {

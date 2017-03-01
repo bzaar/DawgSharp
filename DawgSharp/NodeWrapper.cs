@@ -23,9 +23,6 @@ namespace DawgSharp
             return Node.Children.OrderBy(c => c.Key).ToArray();
         }
 
-        public KeyValuePair<char, Node<TPayload>> [] SortedChildren
-        {
-            get { return sortedChildren ?? (sortedChildren = GetSortedChildren()); }
-        }
+        public KeyValuePair<char, Node<TPayload>> [] SortedChildren => sortedChildren ?? (sortedChildren = GetSortedChildren());
     }
 }

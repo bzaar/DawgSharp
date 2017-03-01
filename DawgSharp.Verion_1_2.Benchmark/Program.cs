@@ -200,10 +200,7 @@ namespace DawgSharp.Verion_1_2.Benchmark
             this.dawg = dawg;
         }
 
-        ushort IDawg.this [IEnumerable<char> word]
-        {
-            get { return dawg [word]; }
-        }
+        ushort IDawg.this [IEnumerable<char> word] => dawg [word];
 
         public IEnumerable<KeyValuePair<string, ushort>> MatchPrefix(IEnumerable<char> word)
         {
@@ -220,10 +217,7 @@ namespace DawgSharp.Verion_1_2.Benchmark
             this.dawg = dawg;
         }
 
-        ushort IDawg.this [IEnumerable<char> word]
-        {
-            get { return dawg [word]; }
-        }
+        ushort IDawg.this [IEnumerable<char> word] => dawg [word];
 
         public IEnumerable<KeyValuePair<string, ushort>> MatchPrefix(IEnumerable<char> word)
         {
@@ -258,10 +252,7 @@ namespace DawgSharp.Verion_1_2.Benchmark
             new BinaryFormatter ().Serialize(stream, dict);
         }
 
-        ushort IDawg.this[IEnumerable<char> word]
-        {
-            get { return dict [word as string ?? new string(word.ToArray())]; }
-        }
+        ushort IDawg.this[IEnumerable<char> word] => dict [word as string ?? new string(word.ToArray())];
 
         IEnumerable<KeyValuePair<string, ushort>> IDawg.MatchPrefix(IEnumerable<char> word)
         {

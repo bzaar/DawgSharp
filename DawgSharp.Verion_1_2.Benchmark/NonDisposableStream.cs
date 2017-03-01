@@ -16,29 +16,17 @@ namespace DawgSharp.Verion_1_2.Benchmark
             this.stream = stream;
         }
 
-        public override bool CanRead
-        {
-            get { return false; }
-        }
+        public override bool CanRead => false;
 
-        public override bool CanSeek
-        {
-            get { return false; }
-        }
+        public override bool CanSeek => false;
 
-        public override bool CanWrite
-        {
-            get { return true; }
-        }
+        public override bool CanWrite => true;
 
         public override void Flush()
         {
         }
 
-        public override long Length
-        {
-            get { return stream.Length; }
-        }
+        public override long Length => stream.Length;
 
         public override long Position
         {

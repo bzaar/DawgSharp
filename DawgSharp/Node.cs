@@ -33,15 +33,9 @@ namespace DawgSharp
             return node;
         }
 
-        public bool HasChildren
-        {
-            get { return children.Count > 0; }
-        }
+        public bool HasChildren => children.Count > 0;
 
-        public Dictionary<char, Node<TPayload>> Children
-        {
-            get {return children;}
-        }
+        public Dictionary<char, Node<TPayload>> Children => children;
 
         public IOrderedEnumerable<KeyValuePair<char, Node<TPayload>>> SortedChildren
         {
@@ -86,9 +80,6 @@ namespace DawgSharp
             }
         }
 
-        public bool HasPayload
-        {
-            get { return !EqualityComparer<TPayload>.Default.Equals(Payload, default (TPayload)); }
-        }
+        public bool HasPayload => !EqualityComparer<TPayload>.Default.Equals(Payload, default (TPayload));
     }
 }
