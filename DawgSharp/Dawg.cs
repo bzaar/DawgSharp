@@ -85,14 +85,14 @@ namespace DawgSharp
         static Action <BinaryWriter, TPayload> GetStandardWriter ()
         {
             object writer;
-            if (!writers.TryGetValue(typeof (TPayload), out writer))
+            if (!Writers.TryGetValue(typeof (TPayload), out writer))
             {
                 throw new Exception("Could not find a serialization method for " + typeof(TPayload).Name + ". Use a SaveXXX overload with a 'writePayload' parameter.");
             }
             return (Action <BinaryWriter, TPayload>) writer;
         }
 
-        static readonly Dictionary<Type, object> writers = new Dictionary<Type, object>
+        static readonly Dictionary<Type, object> Writers = new Dictionary<Type, object>
         {
             {typeof (bool),    new Action <BinaryWriter, bool>    ((r, payload) => r.Write(payload))},
             {typeof (int),     new Action <BinaryWriter, int>     ((r, payload) => r.Write(payload))},
@@ -110,7 +110,7 @@ namespace DawgSharp
             {typeof (decimal), new Action <BinaryWriter, decimal> ((r, payload) => r.Write(payload))},
         };
 
-        static readonly Dictionary<Type, object> readers = new Dictionary<Type, object>
+        static readonly Dictionary<Type, object> Readers = new Dictionary<Type, object>
         {
             {typeof (bool),    new Func <BinaryReader, bool>    (r => r.ReadBoolean())},
             {typeof (int),     new Func <BinaryReader, int>     (r => r.ReadInt32())},
@@ -130,7 +130,7 @@ namespace DawgSharp
 
         public static Dawg <TPayload> Load (Stream stream, Func <BinaryReader, TPayload> readPayload = null)
         {
-            return new Dawg <TPayload> (LoadIDawg (stream, readPayload ?? (Func <BinaryReader, TPayload>) readers [typeof(TPayload)])); 
+            return new Dawg <TPayload> (LoadIDawg (stream, readPayload ?? (Func <BinaryReader, TPayload>) Readers [typeof(TPayload)])); 
         }
 
         static IDawg <TPayload> LoadIDawg (Stream stream, Func <BinaryReader, TPayload> readPayload)
