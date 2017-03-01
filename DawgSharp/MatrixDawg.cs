@@ -74,7 +74,6 @@ namespace DawgSharp
 
         public int GetLongestCommonPrefixLength (IEnumerable <char> word)
         {
-            return GetPath (word).Where(i => i != -1).Count() - 1;
         }
 
         struct StackItem
