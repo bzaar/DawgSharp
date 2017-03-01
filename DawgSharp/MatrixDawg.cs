@@ -74,6 +74,7 @@ namespace DawgSharp
 
         public int GetLongestCommonPrefixLength (IEnumerable <char> word)
         {
+            return GetPath (word).Count(i => i != -1) - 1;
         }
 
         struct StackItem
@@ -190,8 +191,8 @@ namespace DawgSharp
 
             charToIndexPlusOne = GetCharToIndexPlusOneMap(indexToChar);
 
-            children1 = ReadChildren(reader, indexToChar, charToIndexPlusOne);
-            children0 = ReadChildren(reader, indexToChar, charToIndexPlusOne);
+            children1 = ReadChildren(reader, indexToChar);
+            children0 = ReadChildren(reader, indexToChar);
 
             firstChar = indexToChar.FirstOrDefault();
             lastChar = indexToChar.LastOrDefault();
@@ -211,7 +212,7 @@ namespace DawgSharp
             return charToIndex;
         }
 
-        private static int[,] ReadChildren(BinaryReader reader, char[] indexToChar, ushort[] charToIndexPlusOne)
+        private static int[,] ReadChildren(BinaryReader reader, char[] indexToChar)
         {
             uint nodeCount = reader.ReadUInt32();
 
