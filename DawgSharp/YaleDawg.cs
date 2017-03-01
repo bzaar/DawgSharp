@@ -167,7 +167,7 @@ namespace DawgSharp
 
         int IDawg<TPayload>.GetLongestCommonPrefixLength(IEnumerable<char> word)
         {
-            return GetPath (word).Where(i => i != -1).Count() - 1; // -1 for root node
+            return GetPath (word).Count(i => i != -1) - 1; // -1 for root node
         }
 
         IEnumerable<KeyValuePair<string, TPayload>> IDawg<TPayload>.MatchPrefix(IEnumerable<char> prefix)
