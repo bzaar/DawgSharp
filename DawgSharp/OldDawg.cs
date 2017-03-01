@@ -8,7 +8,7 @@ namespace DawgSharp
 {
     class OldDawg <TPayload> : IDawg<TPayload>
     {
-        readonly Node <TPayload> root = new Node <TPayload> ();
+        readonly Node <TPayload> root;
 
         public TPayload this [IEnumerable<char> word]
         {
