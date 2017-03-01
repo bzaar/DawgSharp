@@ -6,10 +6,10 @@ namespace DawgSharp
     {
         public bool Equals (NodeWrapper <TPayload> x, NodeWrapper <TPayload> y)
         {
-            var @equals = EqualityComparer<TPayload>.Default.Equals (x.Node.Payload, y.Node.Payload)
+            var equals = EqualityComparer<TPayload>.Default.Equals (x.Node.Payload, y.Node.Payload)
                           && SequenceEqual(x.Node.SortedChildren, y.Node.SortedChildren);
 
-            return @equals;
+            return equals;
         }
 
         private static bool SequenceEqual(
