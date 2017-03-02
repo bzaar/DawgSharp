@@ -16,8 +16,12 @@ namespace DawgSharp
             IEnumerable<KeyValuePair<char, Node<TPayload>>> x, 
             IEnumerable<KeyValuePair<char, Node<TPayload>>> y)
         {
+            // Do not bother disposing of these enumerators.
+
+            // ReSharper disable GenericEnumeratorNotDisposed
             var xe = x.GetEnumerator();
             var ye = y.GetEnumerator();
+            // ReSharper restore GenericEnumeratorNotDisposed
 
             while (xe.MoveNext())
             {
