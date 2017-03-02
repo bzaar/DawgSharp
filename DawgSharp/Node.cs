@@ -36,15 +36,11 @@ namespace DawgSharp
 
         public Dictionary<char, Node<TPayload>> Children => children;
 
-        public IOrderedEnumerable<KeyValuePair<char, Node<TPayload>>> SortedChildren
-        {
-            get {return children.OrderBy (e => e.Key);}
-        }
+        public IOrderedEnumerable<KeyValuePair<char, Node<TPayload>>> SortedChildren 
+            => children.OrderBy(e => e.Key);
 
-        public int GetRecursiveChildNodeCount ()
-        {
-            return GetAllDistinctNodes ().Count ();
-        }
+        public int GetRecursiveChildNodeCount () 
+            => GetAllDistinctNodes ().Count ();
 
         public IEnumerable<Node<TPayload>> GetAllDistinctNodes ()
         {
