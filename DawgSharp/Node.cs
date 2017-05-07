@@ -46,8 +46,6 @@ namespace DawgSharp
         {
             var visitedNodes = new HashSet<Node<TPayload>> {this};
 
-            yield return this;
-
             var stack = new Stack <IEnumerator<KeyValuePair<char, Node<TPayload>>>> ();
 
             var enumerator = this.children.GetEnumerator();
@@ -64,7 +62,6 @@ namespace DawgSharp
                         continue;
                     }
                     visitedNodes.Add(node);
-                    yield return node;
                     stack.Push (node.children.GetEnumerator());
                 }
                 else
@@ -73,6 +70,8 @@ namespace DawgSharp
                     if (stack.Count == 0) break;
                 }
             }
+
+            return visitedNodes;
         }
 
         public bool HasPayload => !EqualityComparer<TPayload>.Default.Equals(Payload, default (TPayload));
