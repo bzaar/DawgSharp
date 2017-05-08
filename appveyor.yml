@@ -1,0 +1,6 @@
+before_build:
+- nuget restore
+
+after_build:
+- cd DawgSharp.Nuget
+- dotnet pack -c Release
