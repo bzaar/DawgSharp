@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/4htqh2lt5l5vfgxd?svg=true)](https://ci.appveyor.com/project/bzaar/dawgsharp)
+[![Build status](https://ci.appveyor.com/api/projects/status/4htqh2lt5l5vfgxd?svg=true)](https://ci.appveyor.com/project/morpher/dawgsharp)
   [[NuGet Package](https://www.nuget.org/packages/DawgSharp/)]   [[Get Commercial License](http://morpher.co.uk)]   
 
 DawgSharp, a clever string dictionary in C#
