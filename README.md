@@ -43,7 +43,7 @@ Call ```BuildDawg``` on it to get the compressed version and save it to disk:
 ```
 var dawg = dawgBuilder.BuildDawg (); // Computer is working.  Please wait ...
 
-dawg.Save (File.Create ("DAWG.bin"));
+dawg.SaveTo (File.Create ("DAWG.bin"));
 ```
 
 Now read the file back in and check if a particular word is in the dictionary:
