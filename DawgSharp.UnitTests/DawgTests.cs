@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using NUnit.Framework;
 
 namespace DawgSharp.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class DawgTests
     {
-        [TestMethod]
+        [Test]
         public void AssertNodeCount ()
         {
             var dawgBuilder = new DawgBuilder<int> ();
@@ -21,7 +21,7 @@ namespace DawgSharp.UnitTests
             Assert.AreEqual (4, rehydrated.GetNodeCount());
         }
 
-        [TestMethod]
+        [Test]
         public void PersistenceTest ()
         {
             var dawgBuilder = new DawgBuilder<int> ();
@@ -47,7 +47,7 @@ namespace DawgSharp.UnitTests
             Assert.AreEqual (0, rehydrated [""]);
         }
 
-        [TestMethod]
+        [Test]
         public void EmptyNodeTest ()
         {
             var dawgBuilder = new DawgBuilder<int> ();
@@ -59,7 +59,7 @@ namespace DawgSharp.UnitTests
             Assert.AreEqual (0, rehydrated ["tip"]);
         }
 
-        [TestMethod]
+        [Test]
         public void TipTapTest ()
         {
             var dawgBuilder = new DawgBuilder<int> ();
@@ -73,7 +73,7 @@ namespace DawgSharp.UnitTests
             Assert.AreEqual (3, rehydrated ["tip"]);
         }
 
-        [TestMethod]
+        [Test]
         public void EmptyKey ()
         {
             var dawgBuilder = new DawgBuilder<int> ();
@@ -85,7 +85,7 @@ namespace DawgSharp.UnitTests
             Assert.AreEqual (5, rehydrated [""]);
         }
 
-        [TestMethod]
+        [Test]
         public void LongStringTest()
         {
             var longString = Enumerable.Repeat ('a', 200 * 1000);
@@ -99,10 +99,10 @@ namespace DawgSharp.UnitTests
             Assert.IsTrue (rehydrated [longString]);
         }
 
-        [TestMethod]
+        [Test]
         public void EnekoWordListTest()
         {
-            var words = File.ReadAllLines ("eneko-words.txt");
+            var words = File.ReadAllLines (Path.Combine(TestContext.CurrentContext.TestDirectory, "eneko-words.txt"));
 
             var dawgBuilder = new DawgBuilder<bool> ();
 
@@ -119,7 +119,7 @@ namespace DawgSharp.UnitTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MatchPrefixTest ()
         {
             var dawgBuilder = new DawgBuilder<bool> ();
@@ -149,7 +149,7 @@ namespace DawgSharp.UnitTests
             return dawg;
         }
 
-        [TestMethod]
+        [Test]
         public void EmptyDictionaryTest ()
         {
             var dawgBuilder = new DawgBuilder<bool> ();
@@ -165,7 +165,7 @@ namespace DawgSharp.UnitTests
         /// <summary>
         /// You can do suffix matching as easily as prefix matching.  Simply Reverse() the keys:
         /// </summary>
-        [TestMethod]
+        [Test]
         public void SuffixMatchTest ()
         {
             var dawgBuilder = new DawgBuilder<bool> ();
