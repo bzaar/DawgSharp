@@ -9,7 +9,7 @@
     <RootNamespace>DawgSharp</RootNamespace>
     <Title>An ultra-compact string dictionary</Title>
     <PackageVersion>1.3.0</PackageVersion>
-    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <AssemblyVersion>999.0.0.0</AssemblyVersion> <!--'999' is required for DawgSharp.Verion_1_2.Benchmark to work correctly.-->
     <FileVersion>0.0.0.0</FileVersion>
     <InformationalVersion>0.0.0.0</InformationalVersion>
     <Authors>morpher</Authors>
