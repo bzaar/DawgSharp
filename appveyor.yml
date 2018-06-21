@@ -7,6 +7,10 @@ environment:
 version: '$(major_version).$(minor_version).$(patch_version).{build}'
 dotnet_csproj:
   patch: true
+  package_version: '$(major_version).$(minor_version).$(patch_version)'
+  assembly_version: '$(major_version).0.0'
+  file_version: '{version}'
+  informational_version: '{version}'
 before_build:
 - nuget restore
 after_build:
