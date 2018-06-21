@@ -5,5 +5,5 @@ before_build:
 after_build:
 - cmd: dotnet pack DawgSharp/DawgSharp.csproj --no-build -c Release
 artifacts:
-- path: '**\*.nupkg'
+- path: 'DawgSharp\**\*.nupkg'
   name: Nuget
