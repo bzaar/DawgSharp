@@ -7,7 +7,6 @@ environment:
 version: '$(major_version).$(minor_version).$(patch_version).{build}'
 dotnet_csproj:
   patch: true
-  file: 'DawgSharp/DawgSharp.csproj'
 before_build:
 - nuget restore
 after_build:
