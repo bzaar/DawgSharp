@@ -1,6 +1,21 @@
+image: Visual Studio 2017
+configuration: Release
+environment:
+  major_version: 3
+  minor_version: 0
+  patch_version: 0
+version: '$(major_version).$(minor_version).$(patch_version).{build}'
+dotnet_csproj:
+  patch: true
+  file: 'DawgSharp\DawgSharp.csproj'
+  package_version: '$(major_version).$(minor_version).$(patch_version)'
+  assembly_version: '$(major_version).0.0'
+  file_version: '{version}'
+  informational_version: '{version}'
 before_build:
 - nuget restore
-
 after_build:
-- cd DawgSharp.Nuget
-- dotnet pack -c Release
+- cmd: dotnet pack DawgSharp/DawgSharp.csproj --no-build -c Release
+artifacts:
+- path: 'DawgSharp\**\*.nupkg'
+  name: Nuget
