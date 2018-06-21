@@ -105,7 +105,7 @@ namespace DawgSharp
             return node_i < payloads.Length ? payloads [node_i] : default (TPayload);
         }
 
-        IEnumerable<int> GetPath (IEnumerable<char> word)
+        IEnumerable<int> GetPath(IEnumerable<char> word)
         {
             int node_i = rootNodeIndex;
 
@@ -179,6 +179,29 @@ namespace DawgSharp
             var sb = new StringBuilder (prefixStr);
 
             return MatchPrefix(sb, node_i);
+        }
+
+        public IEnumerable<KeyValuePair<string, TPayload>> GetPrefixes(IEnumerable<char> key)
+        {
+            var sb = new StringBuilder();
+
+            string keyStr = key as string ?? new string(key.ToArray());
+
+            int strIndex = 0;
+
+            foreach (int node_i in GetPath(keyStr))
+            {
+                if (node_i == -1) break;
+
+                var payload = GetPayload(node_i);
+                
+                if (!EqualityComparer<TPayload>.Default.Equals(payload, default(TPayload)))
+                {
+                    yield return new KeyValuePair<string, TPayload>(sb.ToString(), payload);
+                }
+
+                sb.Append(keyStr[strIndex++]);
+            }
         }
 
         private IEnumerable<KeyValuePair<string, TPayload>> MatchPrefix (StringBuilder sb, int node_i)

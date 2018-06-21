@@ -214,6 +214,11 @@ namespace DawgSharp
             }
         }
 
+        IEnumerable<KeyValuePair<string, TPayload>> IDawg<TPayload>.GetPrefixes(IEnumerable<char> key)
+        {
+            throw new NotImplementedException();
+        }
+
         internal OldDawg (Node <TPayload> root)
         {
             this.root = root;

@@ -159,6 +159,11 @@ namespace DawgSharp
             }
         }
 
+        IEnumerable<KeyValuePair<string, TPayload>> IDawg<TPayload>.GetPrefixes(IEnumerable<char> key)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SaveAsOldDawg (Stream stream, Action <BinaryWriter, TPayload> writePayload)
         {
             throw new NotImplementedException();

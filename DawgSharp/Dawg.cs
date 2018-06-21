@@ -22,9 +22,20 @@ namespace DawgSharp
             return dawg.GetLongestCommonPrefixLength(word);
         }
 
+        /// <summary>
+        /// Returns all items with a given word.
+        /// </summary>
         public IEnumerable<KeyValuePair<string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
         {
             return dawg.MatchPrefix (prefix);
+        }
+
+        /// <summary>
+        /// Returns all items that are substrings of a given word.
+        /// </summary>
+        public IEnumerable<KeyValuePair<string, TPayload>> GetPrefixes (IEnumerable<char> word)
+        {
+            return dawg.GetPrefixes (word);
         }
 
         public int GetNodeCount ()

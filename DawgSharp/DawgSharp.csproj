@@ -32,7 +32,7 @@
     <PackageReleaseNotes>
       Support for .NET Standard 1.6.
       XML comments file added.
-      New method 'SplitKey'.
+      New method 'GetPrefixes'.
     </PackageReleaseNotes>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DawgSharp.xml</DocumentationFile>
     <NoWarn>1591</NoWarn> <!--"Missing XML comment for publicly visible type or member."-->
