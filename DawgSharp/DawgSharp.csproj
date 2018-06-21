@@ -7,32 +7,20 @@
 
     <PackageId>DawgSharp</PackageId>
     <RootNamespace>DawgSharp</RootNamespace>
+    <Title>An ultra-compact string dictionary</Title>
     <PackageVersion>1.3.0</PackageVersion>
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <FileVersion>0.0.0.0</FileVersion>
     <InformationalVersion>0.0.0.0</InformationalVersion>
     <Authors>morpher</Authors>
     <Description>
-      DAWG (Directed Acyclic Word Graph) is a data structure for storing and searching large word lists 
-      while keeping your memory footprint small and lookups fast. 
-      DawgSharp is an open-source C# implementation featuring a linear time graph reduction algorithm 
-      and out-of-the-box persistence support.
-      The two main objects in the library are Dawg and DawgBuilder. 
-      Dawg is immutable, you must use DawgBuilder to build a Dawg and then save it to a stream. 
-      Then use Dawg.Load to rehydrate the data. 
-      Once reloaded, Dawg re-emerges as a completely different data structure (but, oddly, the same class) 
-      that is nearly as fast as a HashSet for lookups and is much, much more memory-efficient 
-      (factors of 30x - 40x are not uncommon). 
-      Please note that the Save/Load step is necessary to get the full potential out of the Dawg object. 
-      Use a MemoryStream if disk interaction is not desired.
-      The Dawg class can be thought of as a read-only Dictionary&lt;string, Value&gt;:
-      it has a ["string"] indexer and implements IEnumerable&lt;KeyValuePair&lt;string, Value&gt;&gt;.
-      One other very useful feature of Dawg (not found in Dictionary) is the ability 
-      to quickly find all words that start with a particular substring: 
-      dawg.MatchPrefix("star") could possibly yield "star", "starch", "start", "starting", etc.
-      This package is provided under the terms of the GNU GPL v3. 
-      Source code and documentation are available on GitHub: https://github.com/bzaar/DawgSharp. 
-      Commercial licenses are also available at http://morpher.co.uk
+      DAWG (Directed Acyclic Word Graph) is a data structure for storing and searching large word lists while keeping your memory footprint small and lookups fast. DawgSharp is an open-source C# implementation featuring a linear time graph reduction algorithm and out-of-the-box persistence support.
+      
+      The two main objects in the library are Dawg and DawgBuilder. Dawg is immutable, you must use DawgBuilder to build a Dawg and then save it to a stream. Then use Dawg.Load to rehydrate the data. Once reloaded, Dawg re-emerges as a completely different data structure (but, oddly, the same class) that is nearly as fast as a HashSet for lookups and is much, much more memory-efficient (factors of 30x - 40x are not uncommon). Please note that the Save/Load step is necessary to get the full potential out of the Dawg object. Use a MemoryStream if disk interaction is not desired.
+      
+      The Dawg class can be thought of as a read-only Dictionary&lt;string, Value&gt;: it has a ["string"] indexer and implements IEnumerable&lt;KeyValuePair&lt;string, Value&gt;&gt;. One other very useful feature of Dawg (not found in Dictionary) is the ability to quickly find all words that start with a particular substring: dawg.MatchPrefix("star") could possibly yield "star", "starch", "start", "starting", etc.
+      
+      This package is provided under the terms of the GNU GPL v3. Source code and documentation are available on GitHub: https://github.com/bzaar/DawgSharp. Commercial licenses are also available at http://morpher.co.uk
     </Description>
     <Copyright>2014 - 2018 Sergey Slepov</Copyright>
     <PackageTags>DAWG;string;dictionary;lookup</PackageTags>
