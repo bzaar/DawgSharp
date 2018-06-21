@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DawgSharp.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class DawgBuilderTests
     {
-        [TestMethod]
+        [Test]
         public void EmptyKey ()
         {
             var db = new DawgBuilder<int>();
@@ -16,7 +16,7 @@ namespace DawgSharp.UnitTests
             Assert.AreEqual(0, n);
         }
 
-        [TestMethod]
+        [Test]
         public void IncrementValue ()
         {
             var db = new DawgBuilder<int>();
@@ -37,7 +37,7 @@ namespace DawgSharp.UnitTests
             db.Insert(key, n + 1);
         }
 
-        [TestMethod]
+        [Test]
         public void IEnumerableCountWorksForDawg ()
         {
             var fruit = new [] {"apple", "banana", "orange"};
