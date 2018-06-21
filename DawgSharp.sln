@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawgSharp", "DawgSharp\DawgSharp.csproj", "{4285FED3-5A96-493E-8B52-F7D93758D62F}"
 EndProject
@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawgSharp.Verion_1_2.Benchmark", "DawgSharp.Verion_1_2.Benchmark\DawgSharp.Verion_1_2.Benchmark.csproj", "{5F92043E-7B64-4AC6-98FA-FC8A9982C0E9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawgSharp.Nuget", "DawgSharp.Nuget\DawgSharp.Nuget.csproj", "{97F9B9DE-62BB-45BD-A41F-E353A12379BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,15 +34,11 @@ Global
 		{5F92043E-7B64-4AC6-98FA-FC8A9982C0E9}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{5F92043E-7B64-4AC6-98FA-FC8A9982C0E9}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{5F92043E-7B64-4AC6-98FA-FC8A9982C0E9}.Release|Mixed Platforms.Build.0 = Release|x86
-		{97F9B9DE-62BB-45BD-A41F-E353A12379BB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{97F9B9DE-62BB-45BD-A41F-E353A12379BB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{97F9B9DE-62BB-45BD-A41F-E353A12379BB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{97F9B9DE-62BB-45BD-A41F-E353A12379BB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = DawgSharp.vsmdi
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B053E6D-D059-4BD5-91A4-3C0A3FD272EA}
 	EndGlobalSection
 EndGlobal

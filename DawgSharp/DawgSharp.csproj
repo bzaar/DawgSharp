@@ -1,69 +1,53 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4285FED3-5A96-493E-8B52-F7D93758D62F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DawgSharp</RootNamespace>
-    <AssemblyName>DawgSharp</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>netstandard1.6;net35;net40</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+
+    <PackageId>DawgSharp</PackageId>
+    <RootNamespace>DawgSharp</RootNamespace>
+    <PackageVersion>1.3.0</PackageVersion>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+    <InformationalVersion>0.0.0.0</InformationalVersion>
+    <Authors>morpher</Authors>
+    <Description>
+      DAWG (Directed Acyclic Word Graph) is a data structure for storing and searching large word lists 
+      while keeping your memory footprint small and lookups fast. 
+      DawgSharp is an open-source C# implementation featuring a linear time graph reduction algorithm 
+      and out-of-the-box persistence support.
+      The two main objects in the library are Dawg and DawgBuilder. 
+      Dawg is immutable, you must use DawgBuilder to build a Dawg and then save it to a stream. 
+      Then use Dawg.Load to rehydrate the data. 
+      Once reloaded, Dawg re-emerges as a completely different data structure (but, oddly, the same class) 
+      that is nearly as fast as a HashSet for lookups and is much, much more memory-efficient 
+      (factors of 30x - 40x are not uncommon). 
+      Please note that the Save/Load step is necessary to get the full potential out of the Dawg object. 
+      Use a MemoryStream if disk interaction is not desired.
+      The Dawg class can be thought of as a read-only Dictionary&lt;string, Value&gt;:
+      it has a ["string"] indexer and implements IEnumerable&lt;KeyValuePair&lt;string, Value&gt;&gt;.
+      One other very useful feature of Dawg (not found in Dictionary) is the ability 
+      to quickly find all words that start with a particular substring: 
+      dawg.MatchPrefix("star") could possibly yield "star", "starch", "start", "starting", etc.
+      This package is provided under the terms of the GNU GPL v3. 
+      Source code and documentation are available on GitHub: https://github.com/bzaar/DawgSharp. 
+      Commercial licenses are also available at http://morpher.co.uk
+    </Description>
+    <Copyright>2014 - 2018 Sergey Slepov</Copyright>
+    <PackageTags>DAWG;string;dictionary;lookup</PackageTags>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <RepositoryUrl>https://github.com/bzaar/DawgSharp</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/bzaar/DawgSharp</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/bzaar/DawgSharp/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png</PackageIconUrl>
+    <PackageReleaseNotes>
+      Support for .NET Standard 1.6.
+      XML comments file added.
+      New method 'SplitKey'.
+    </PackageReleaseNotes>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DawgSharp.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn> <!--"Missing XML comment for publicly visible type or member."-->
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="MatrixDawg.cs" />
-    <Compile Include="Dawg.cs" />
-    <Compile Include="IDawg.cs" />
-    <Compile Include="OldDawg.cs" />
-    <Compile Include="DawgBuilder.cs" />
-    <Compile Include="DawgExtensions.cs" />
-    <Compile Include="LevelBuilder.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="NodeWrapper.cs" />
-    <Compile Include="NodeWrapperEqualityComparer.cs" />
-    <Compile Include="PrefixMatcher.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="YaleDawg.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="key.snk" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
