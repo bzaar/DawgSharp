@@ -3,16 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawgSharp", "DawgSharp\DawgSharp.csproj", "{4285FED3-5A96-493E-8B52-F7D93758D62F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DawgSharp", "DawgSharp\DawgSharp.csproj", "{4285FED3-5A96-493E-8B52-F7D93758D62F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawgSharp.UnitTests", "DawgSharp.UnitTests\DawgSharp.UnitTests.csproj", "{68692CCC-230D-4092-A530-6C47B6ED1A2D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F57DF86F-AA19-4B33-9299-0B7F0AF905B4}"
-	ProjectSection(SolutionItems) = preProject
-		DawgSharp.vsmdi = DawgSharp.vsmdi
-		Local.testsettings = Local.testsettings
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawgSharp.Verion_1_2.Benchmark", "DawgSharp.Verion_1_2.Benchmark\DawgSharp.Verion_1_2.Benchmark.csproj", "{5F92043E-7B64-4AC6-98FA-FC8A9982C0E9}"
 EndProject
