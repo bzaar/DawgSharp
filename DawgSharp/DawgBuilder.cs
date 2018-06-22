@@ -86,9 +86,9 @@ namespace DawgSharp
             return new Dawg<TPayload>(new OldDawg <TPayload> (root));
         }
 
-        public static Dawg<TPayload> BuildYaleDawg(DawgBuilder<TPayload> dawgBuilder)
+        public Dawg<TPayload> BuildYaleDawg()
         {
-            var dawg = dawgBuilder.BuildDawg();
+            var dawg = BuildDawg();
 
             var memoryStream = new MemoryStream();
 

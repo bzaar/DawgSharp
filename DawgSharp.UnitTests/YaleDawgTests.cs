@@ -9,7 +9,7 @@ namespace DawgSharp.UnitTests
     {
         protected override Dawg<TPayload> GetDawg <TPayload> (DawgBuilder<TPayload> dawgBuilder)
         {
-            return DawgBuilder<TPayload>.BuildYaleDawg(dawgBuilder);
+            return dawgBuilder.BuildYaleDawg();
         }
 
         [Test]
