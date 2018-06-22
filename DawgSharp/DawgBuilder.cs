@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace DawgSharp
 {
@@ -83,6 +84,23 @@ namespace DawgSharp
             LevelBuilder <TPayload>.BuildLevelsExcludingRoot (root);
 
             return new Dawg<TPayload>(new OldDawg <TPayload> (root));
+        }
+
+        public static Dawg<TPayload> BuildYaleDawg(DawgBuilder<TPayload> dawgBuilder)
+        {
+            var dawg = dawgBuilder.BuildDawg();
+
+            var memoryStream = new MemoryStream();
+
+#pragma warning disable 612,618
+            dawg.SaveAsYaleDawg(memoryStream);
+#pragma warning restore 612,618
+
+            memoryStream.Position = 0;
+
+            var rehydrated = Dawg<TPayload>.Load(memoryStream);
+
+            return rehydrated;
         }
     }
 }
