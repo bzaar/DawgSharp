@@ -172,7 +172,7 @@ namespace DawgSharp
 
         IEnumerable<KeyValuePair<string, TPayload>> IDawg<TPayload>.MatchPrefix(IEnumerable<char> prefix)
         {
-            string prefixStr = prefix as string ?? new string(prefix.ToArray());
+            string prefixStr = prefix.AsString();
 
             int node_i = GetPath (prefixStr).Last();
 
@@ -185,7 +185,7 @@ namespace DawgSharp
         {
             var sb = new StringBuilder();
 
-            string keyStr = key as string ?? new string(key.ToArray());
+            string keyStr = key.AsString();
 
             int strIndex = 0;
 

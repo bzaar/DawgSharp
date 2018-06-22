@@ -56,13 +56,15 @@ namespace DawgSharp
         /// </summary>
         public IEnumerable <KeyValuePair <string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
         {
-            var node = FindNode (prefix);
+            string prefixStr = prefix.AsString();
+
+            var node = FindNode (prefixStr);
 
             if (node == null) return Enumerable.Empty <KeyValuePair <string, TPayload>> ();
 
             var sb = new StringBuilder ();
 
-            sb.Append (prefix.ToArray ());
+            sb.Append (prefixStr);
 
             return new PrefixMatcher <TPayload> (sb).MatchPrefix (node);
         }
@@ -71,7 +73,9 @@ namespace DawgSharp
         {
             public int Compare(Node<TPayload> x, Node<TPayload> y)
             {
+                // ReSharper disable PossibleNullReferenceException
                 return - x.HasPayload.CompareTo(y.HasPayload);
+                // ReSharper restore PossibleNullReferenceException
             }
         }
 
@@ -91,8 +95,7 @@ namespace DawgSharp
                 .Select((node, i) => new {node, i})
                 .ToDictionary(t => t.node, t => t.i);
 
-            int rootNodeIndex;
-            if (!nodeIndex.TryGetValue(root, out rootNodeIndex))
+            if (!nodeIndex.TryGetValue(root, out var rootNodeIndex))
             {
                 rootNodeIndex = -1;
             }
@@ -137,11 +140,11 @@ namespace DawgSharp
             var nodeGroups = allNodes.GroupBy (node => new {node.HasPayload, node.HasChildren})
                 .ToDictionary(g => g.Key, g => g.ToArray());
 
-            for (int p = 0; p < 2;  ++p)
-            for (int c = 0; c < 2;  ++c)
+            for (int p = 0; p < 2; ++p)
+            for (int c = 0; c < 2; ++c)
             {
-                Node<TPayload> [] arr;
-                cube [p, c] = nodeGroups.TryGetValue(new {HasPayload = p != 0, HasChildren = c != 0}, out arr) ? arr : new Node<TPayload>[0];
+                var key = new {HasPayload = p != 0, HasChildren = c != 0};
+                cube [p, c] = nodeGroups.TryGetValue(key, out var arr) ? arr : new Node<TPayload>[0];
             }
 
             var nodesWithPayloads = cube [1, 1].Concat(cube [1, 0]).ToArray();

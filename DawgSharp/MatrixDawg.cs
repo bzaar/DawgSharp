@@ -84,7 +84,7 @@ namespace DawgSharp
 
         public IEnumerable <KeyValuePair <string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
         {
-            string prefixStr = prefix as string ?? new string(prefix.ToArray());
+            string prefixStr = prefix.AsString();
 
             int node_i = prefixStr.Length == 0 ? rootNodeIndex : GetPath (prefixStr).Last();
 
@@ -249,8 +249,7 @@ namespace DawgSharp
         static IEnumerable<T> ReadSequence <T> (BinaryReader reader, Func<BinaryReader, T> read)
         {
             for (;;) yield return read (reader);
-// ReSharper disable FunctionNeverReturns
+            // ReSharper disable once IteratorNeverReturns
         }
-// ReSharper restore FunctionNeverReturns
     }
 }
