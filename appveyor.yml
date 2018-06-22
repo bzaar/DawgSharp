@@ -1,8 +1,8 @@
 image: Visual Studio 2017
 configuration: Release
 environment:
-  major_version: 3
-  minor_version: 0
+  major_version: 1
+  minor_version: 3
   patch_version: 0
 version: '$(major_version).$(minor_version).$(patch_version).{build}'
 dotnet_csproj:
