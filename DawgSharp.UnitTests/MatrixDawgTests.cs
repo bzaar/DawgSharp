@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace DawgSharp.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class MatrixDawgTests : DawgTests
     {
         protected override Dawg<TPayload> GetDawg <TPayload> (DawgBuilder<TPayload> dawgBuilder)
