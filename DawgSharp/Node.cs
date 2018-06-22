@@ -11,9 +11,7 @@ namespace DawgSharp
 
         public Node<TPayload> GetOrAddEdge (char c)
         {
-            Node<TPayload> newNode;
-
-            if (! children.TryGetValue (c, out newNode))
+            if (! children.TryGetValue (c, out Node<TPayload> newNode))
             {
                 newNode = new Node<TPayload>();
 
@@ -25,9 +23,7 @@ namespace DawgSharp
 
         public Node<TPayload> GetChild (char c)
         {
-            Node<TPayload> node;
-
-            children.TryGetValue (c, out node);
+            children.TryGetValue (c, out Node<TPayload> node);
 
             return node;
         }

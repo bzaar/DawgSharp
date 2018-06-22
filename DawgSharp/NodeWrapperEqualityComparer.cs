@@ -6,8 +6,10 @@ namespace DawgSharp
     {
         public bool Equals (NodeWrapper <TPayload> x, NodeWrapper <TPayload> y)
         {
+            // ReSharper disable PossibleNullReferenceException
             var equals = EqualityComparer<TPayload>.Default.Equals (x.Node.Payload, y.Node.Payload)
                           && SequenceEqual(x.Node.SortedChildren, y.Node.SortedChildren);
+            // ReSharper restore PossibleNullReferenceException
 
             return equals;
         }

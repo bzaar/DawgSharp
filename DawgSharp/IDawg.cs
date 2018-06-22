@@ -12,6 +12,7 @@ namespace DawgSharp
         /// Returns all elements with key matching given <paramref name="prefix"/>.
         /// </summary>
         IEnumerable <KeyValuePair <string, TPayload>> MatchPrefix (IEnumerable<char> prefix);
+        IEnumerable <KeyValuePair <string, TPayload>> GetPrefixes (IEnumerable<char> key);
 
         int GetNodeCount ();
     }

@@ -39,8 +39,7 @@ namespace DawgSharp
 
                         var nodeWrapper = new NodeWrapper <TPayload> (current.Node, parent.Node, parent.ChildIterator.Current.Key);
 
-                        NodeWrapper <TPayload> existing;
-                        if (dictionary.TryGetValue (nodeWrapper, out existing))
+                        if (dictionary.TryGetValue (nodeWrapper, out NodeWrapper<TPayload> existing))
                         {
                             parent.Node.Children [parent.ChildIterator.Current.Key] = existing.Node;
                         }
