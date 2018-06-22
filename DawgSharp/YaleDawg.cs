@@ -187,11 +187,13 @@ namespace DawgSharp
 
             string keyStr = key.AsString();
 
-            int strIndex = 0;
+            int strIndex = -1;
 
             foreach (int node_i in GetPath(keyStr))
             {
                 if (node_i == -1) break;
+
+                if (strIndex >= 0) sb.Append(keyStr[strIndex]);
 
                 var payload = GetPayload(node_i);
                 
@@ -200,7 +202,7 @@ namespace DawgSharp
                     yield return new KeyValuePair<string, TPayload>(sb.ToString(), payload);
                 }
 
-                sb.Append(keyStr[strIndex++]);
+                if (strIndex++ == keyStr.Length) break;
             }
         }
 

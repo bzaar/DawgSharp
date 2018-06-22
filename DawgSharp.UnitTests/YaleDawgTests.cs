@@ -26,6 +26,30 @@ namespace DawgSharp.UnitTests
         }
 
         [Test]
+        public void GetPrefixesWithKeyShorterThanItem()
+        {
+            var dawgBuilder = new DawgBuilder<bool>();
+
+            dawgBuilder.Insert("ab", true);
+
+            var rehydrated = GetDawg(dawgBuilder);
+
+            Assert.AreEqual("", string.Join(",", rehydrated.GetPrefixes("a").Select(kvp => kvp.Key)));
+        }
+
+        [Test]
+        public void GetPrefixesWithKeySameLengthAsItem()
+        {
+            var dawgBuilder = new DawgBuilder<bool>();
+
+            dawgBuilder.Insert("ab", true);
+
+            var rehydrated = GetDawg(dawgBuilder);
+
+            Assert.AreEqual("ab", string.Join(",", rehydrated.GetPrefixes("ab").Select(kvp => kvp.Key)));
+        }
+
+        [Test]
         public void GetPrefixesOnEmptyGraph()
         {
             var dawgBuilder = new DawgBuilder<bool>();
