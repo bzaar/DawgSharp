@@ -9,19 +9,7 @@ namespace DawgSharp.UnitTests
     {
         protected override Dawg<TPayload> GetDawg <TPayload> (DawgBuilder<TPayload> dawgBuilder)
         {
-            var dawg = dawgBuilder.BuildDawg ();
-
-            var memoryStream = new MemoryStream ();
-
-#pragma warning disable 612,618
-            dawg.SaveAsYaleDawg (memoryStream);
-#pragma warning restore 612,618
-
-            var buffer = memoryStream.GetBuffer ();
-
-            var rehydrated = Dawg<TPayload>.Load (new MemoryStream (buffer));
-
-            return rehydrated;
+            return dawgBuilder.BuildYaleDawg();
         }
 
         [Test]
@@ -35,6 +23,30 @@ namespace DawgSharp.UnitTests
             var rehydrated = GetDawg(dawgBuilder);
 
             Assert.AreEqual("read,reading", string.Join(",", rehydrated.GetPrefixes("readings").Select(kvp => kvp.Key)));
+        }
+
+        [Test]
+        public void GetPrefixesWithKeyShorterThanItem()
+        {
+            var dawgBuilder = new DawgBuilder<bool>();
+
+            dawgBuilder.Insert("ab", true);
+
+            var rehydrated = GetDawg(dawgBuilder);
+
+            Assert.AreEqual("", string.Join(",", rehydrated.GetPrefixes("a").Select(kvp => kvp.Key)));
+        }
+
+        [Test]
+        public void GetPrefixesWithKeySameLengthAsItem()
+        {
+            var dawgBuilder = new DawgBuilder<bool>();
+
+            dawgBuilder.Insert("ab", true);
+
+            var rehydrated = GetDawg(dawgBuilder);
+
+            Assert.AreEqual("ab", string.Join(",", rehydrated.GetPrefixes("ab").Select(kvp => kvp.Key)));
         }
 
         [Test]
