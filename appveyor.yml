@@ -9,7 +9,7 @@ dotnet_csproj:
   patch: true
   file: 'DawgSharp\DawgSharp.csproj'
   package_version: '$(major_version).$(minor_version).$(patch_version)'
-  assembly_version: '$(major_version).0.0'
+  assembly_version: '{version}'
   file_version: '{version}'
   informational_version: '{version}'
 before_build:
