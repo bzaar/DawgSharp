@@ -28,7 +28,7 @@
     <RepositoryUrl>https://github.com/bzaar/DawgSharp</RepositoryUrl>
     <PackageProjectUrl>https://github.com/bzaar/DawgSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/bzaar/DawgSharp/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageIconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png</PackageIconUrl>
+    <PackageIconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageReleaseNotes>
       - XML comments file added.
       - New method 'Dawg.GetPrefixes' for splitting prefixes off a word.
