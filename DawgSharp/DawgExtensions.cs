@@ -9,7 +9,7 @@ namespace DawgSharp
         {
             var dawgBuilder = new DawgBuilder <TPayload> ();
 
-            foreach (var elem in enumerable)
+            foreach (T elem in enumerable)
             {
                 dawgBuilder.Insert (key (elem), payload (elem));
             }

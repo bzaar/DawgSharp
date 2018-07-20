@@ -137,7 +137,7 @@ namespace DawgSharp
 
         private static int GetSignature()
         {
-            var bytes = Encoding.UTF8.GetBytes("DAWG");
+            byte[] bytes = Encoding.UTF8.GetBytes("DAWG");
 
             return bytes [0]
                 + bytes [1] << 8
@@ -149,9 +149,9 @@ namespace DawgSharp
         {
             var nodes = new Node<TPayload>[nodeCount];
 
-            var rootIndex = reader.ReadInt32 ();
+            int rootIndex = reader.ReadInt32 ();
 
-            var chars = reader.ReadChars (nodeCount);
+            char[] chars = reader.ReadChars (nodeCount);
 
             for (int i = 0; i < nodeCount; ++i)
             {
