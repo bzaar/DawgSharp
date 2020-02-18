@@ -19,6 +19,7 @@ DawgSharp is an implementation of DAWG, one of many.  What makes it special?
  * It offers out-of-the-box persistence: call ```Load/Save``` to write the data to disk and read it back.
  * It has unit tests (using the Visual Studio testing framework).
  * It has received several man-hours of performance profiling sessions so it's pretty much as fast as it can be. The next step of making it faster would be rewriting the relevant code in IL.
+ * It's GC-friendly: the Garbage Collector only sees 3 large arrays of ints where a Dictionary would store millions of strings.
 
 Usage
 -----
