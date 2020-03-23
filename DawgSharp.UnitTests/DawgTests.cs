@@ -120,6 +120,40 @@ namespace DawgSharp.UnitTests
         }
 
         [Test]
+        public void EnekoWordListSaveToFileTest()
+        {
+            var words = File.ReadAllLines (Path.Combine(TestContext.CurrentContext.TestDirectory, "eneko-words.txt"));
+
+            var dawgBuilder = new DawgBuilder<bool> ();
+
+            foreach (var word in words)
+            {
+                dawgBuilder.Insert (word, true);
+            }
+
+            var dawg = dawgBuilder.BuildDawg ();
+
+            var rehydrated = SaveToFileAndLoadBack(dawg);
+
+            foreach (string word in words)
+            {
+                Assert.IsTrue(rehydrated [word], word);
+            }
+        }
+
+        private static Dawg<bool> SaveToFileAndLoadBack(Dawg<bool> dawg)
+        {
+            string binFilePath = Path.GetTempFileName();
+
+            using (var file = File.OpenWrite(binFilePath))
+                dawg.SaveTo(file);
+
+            var rehydrated = Dawg<bool>.Load(File.OpenRead(binFilePath));
+            
+            return rehydrated;
+        }
+
+        [Test]
         public void MatchPrefixTest ()
         {
             var dawgBuilder = new DawgBuilder<bool> ();
