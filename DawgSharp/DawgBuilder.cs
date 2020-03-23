@@ -77,7 +77,7 @@ namespace DawgSharp
 
             value = node.Payload;
 
-            return true;
+            return node.HasPayload;
         }
 
         public Dawg <TPayload> BuildDawg ()

@@ -12,7 +12,7 @@ namespace DawgSharp.UnitTests
             var db = new DawgBuilder<int>();
 
             int n;
-            Assert.AreEqual(true, db.TryGetValue("", out n));
+            Assert.False(db.TryGetValue("", out n));
             Assert.AreEqual(0, n);
         }
 
@@ -28,6 +28,16 @@ namespace DawgSharp.UnitTests
             int n;
             Assert.AreEqual(true, db.TryGetValue("test", out n));
             Assert.AreEqual(3, n);
+        }
+
+        [Test]
+        public void TryGetValueOnPartialKey()
+        {
+            var builder = new DawgBuilder<bool>();
+            builder.Insert("dates", true);
+            bool b = builder.TryGetValue("date", out var v);
+            Assert.False(v);
+            Assert.False(b);
         }
 
         private static void Increment(DawgBuilder<int> db, string key)
