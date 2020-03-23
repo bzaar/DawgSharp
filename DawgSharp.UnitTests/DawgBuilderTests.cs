@@ -11,8 +11,7 @@ namespace DawgSharp.UnitTests
         {
             var db = new DawgBuilder<int>();
 
-            int n;
-            Assert.False(db.TryGetValue("", out n));
+            Assert.False(db.TryGetValue("", out int n));
             Assert.AreEqual(0, n);
         }
 
