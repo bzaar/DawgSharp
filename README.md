@@ -73,11 +73,11 @@ The ```Dawg``` class is immutable and thus thread-safe.
 
 Future plans
 ------------
-###More usage scenarios
+### More usage scenarios
 
 The API was designed to fit a particular usage scenario (see above) and can be extended to support other scenarios eg being able to add new words to the dictionary after it's been compacted.  I just didn't need this so it's not implemented.  You won't get any exceptions.  There is just no ```Insert``` method on the ```Dawg``` class.
 
-###Better API
+### Better API
 
 Implement the IDictionary interface on both DawgBuilder and Dawg ([#5](https://github.com/bzaar/DawgSharp/issues/5)).
 
