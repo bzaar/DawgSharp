@@ -94,7 +94,7 @@ namespace DawgSharp
             {
                 int node_i = GetPath(word).Last();
 
-                if (node_i == -1) return default;
+                if (node_i == -1) return default (TPayload);
 
                 return GetPayload(node_i);
             }
@@ -102,7 +102,7 @@ namespace DawgSharp
 
         private TPayload GetPayload(int node_i)
         {
-            return node_i < payloads.Length ? payloads [node_i] : default;
+            return node_i < payloads.Length ? payloads [node_i] : default (TPayload);
         }
 
         IEnumerable<int> GetPath(IEnumerable<char> word)
@@ -197,7 +197,7 @@ namespace DawgSharp
 
                 var payload = GetPayload(node_i);
                 
-                if (!EqualityComparer<TPayload>.Default.Equals(payload, default))
+                if (!EqualityComparer<TPayload>.Default.Equals(payload, default(TPayload)))
                 {
                     yield return new KeyValuePair<string, TPayload>(sb.ToString(), payload);
                 }
@@ -212,7 +212,7 @@ namespace DawgSharp
             {
                 var payload = GetPayload(node_i);
 
-                if (!EqualityComparer<TPayload>.Default.Equals(payload, default))
+                if (!EqualityComparer<TPayload>.Default.Equals(payload, default (TPayload)))
                 {
                     yield return new KeyValuePair<string, TPayload>(sb.ToString(), payload);
                 }

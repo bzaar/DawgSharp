@@ -14,7 +14,7 @@ namespace DawgSharp
 
         public IEnumerable<KeyValuePair <string, TPayload>> MatchPrefix (Node <TPayload> node)
         {
-            if (!EqualityComparer <TPayload>.Default.Equals (node.Payload, default))
+            if (!EqualityComparer <TPayload>.Default.Equals (node.Payload, default (TPayload)))
             {
                 yield return new KeyValuePair <string, TPayload> (sb.ToString (), node.Payload);
             }

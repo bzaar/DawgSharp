@@ -18,14 +18,14 @@ namespace DawgSharp
                 {
                     int childIndexPlusOne = GetChildIndexPlusOne(node_i, c);
 
-                    if (childIndexPlusOne == 0) return default;
+                    if (childIndexPlusOne == 0) return default (TPayload);
 
                     node_i = childIndexPlusOne - 1;
                 }
 
-                if (node_i == -1) return default;
+                if (node_i == -1) return default (TPayload);
 
-                return node_i < payloads.Length ? payloads [node_i] : default;
+                return node_i < payloads.Length ? payloads [node_i] : default (TPayload);
             }
         }
 
@@ -96,7 +96,7 @@ namespace DawgSharp
                 {
                     var payload = payloads [node_i];
 
-                    if (! EqualityComparer<TPayload>.Default.Equals(payload, default))
+                    if (! EqualityComparer<TPayload>.Default.Equals(payload, default (TPayload)))
                     {
                         yield return new KeyValuePair<string, TPayload> (prefixStr, payload);
                     }
@@ -136,7 +136,7 @@ namespace DawgSharp
                             {
                                 var payload = payloads [node_i];
 
-                                if (! EqualityComparer<TPayload>.Default.Equals(payload, default))
+                                if (! EqualityComparer<TPayload>.Default.Equals(payload, default (TPayload)))
                                 {
                                     yield return new KeyValuePair<string, TPayload> (sb.ToString(), payload);
                                 }

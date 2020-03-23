@@ -70,6 +70,6 @@ namespace DawgSharp
             return visitedNodes;
         }
 
-        public bool HasPayload => !EqualityComparer<TPayload>.Default.Equals(Payload, default);
+        public bool HasPayload => !EqualityComparer<TPayload>.Default.Equals(Payload, default (TPayload));
     }
 }
