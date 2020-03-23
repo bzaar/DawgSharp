@@ -64,7 +64,7 @@ namespace DawgSharp
 
         public bool TryGetValue (IEnumerable<char> key, out TPayload value)
         {
-            value = default (TPayload);
+            value = default;
 
             var node = root;
 
