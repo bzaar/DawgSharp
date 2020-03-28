@@ -83,7 +83,7 @@ dawgBuilder.Insert("ability".Reverse(), true);
 dawg.MatchPrefix("ility".Reverse())
 ```
 
-One other neat feature is the method ```int GetLongestCommonPrefixLength(IEnumerable<char> word)```. If ```word``` is found in the dictionary, it will return its length; if not, it will return the length of the longest word that *is* found in the dictionary and that is also the beginning of the given word. For example, if **awesomenesses** is not in the dictionary but **awesomeness** is, then ```dawg.GetLongestCommonPrefixLength("awesomeness")``` will return ```"awesomeness".Length```.
+One other neat feature is the method ```int GetLongestCommonPrefixLength(IEnumerable<char> word)```. If ```word``` is found in the dictionary, it will return its length; if not, it will return the length of the longest word that *is* found in the dictionary and that is also the beginning of the given word. For example, if **prepare** is in the dictionary but **preempt** is not, then ```dawg.GetLongestCommonPrefixLength("preempt")``` will return 3 which is the length of "pre".
 
 Thread Safety
 -------------
