@@ -119,7 +119,9 @@ namespace DawgSharp
 
             foreach (char c in word)
             {
-                if (c < firstChar || c > lastChar)
+                ushort charIndexPlusOne;
+
+                if (c < firstChar || c > lastChar || (charIndexPlusOne = charToIndexPlusOne [c - firstChar]) == 0)
                 {
                     yield return -1;
                     yield break;
@@ -128,14 +130,6 @@ namespace DawgSharp
                 int firstChild_i = firstChildForNode [node_i];
 
                 int lastChild_i = firstChildForNode [node_i + 1];
-
-                ushort charIndexPlusOne = charToIndexPlusOne [c - firstChar];
-
-                if (charIndexPlusOne == 0)
-                {
-                    yield return -1;
-                    yield break;
-                }
 
                 var nChildren = lastChild_i - firstChild_i;
 
