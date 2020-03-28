@@ -72,7 +72,7 @@ One other attractive side of DAWG is its ability to efficiently retrieve all wor
 dawg.MatchPrefix("awe")
 ```
 
-The above query will return an IEnumerable which might contain keys such as **awe, aweful** and **awesome**. The call ```dawg.MatchPrefix("")``` will return all items in the dictionary.
+The above query will return an ```IEnumerable<KeyValuePair>``` which might contain keys such as **awe, aweful** and **awesome**. The call ```dawg.MatchPrefix("")``` will return all items in the dictionary.
 
 If you need to look up by suffix instead, there is no MatchSuffix method. But the desired effect can be achieved
 by adding the reversed keys and then using MatchPrefix() on the reversed keys:
@@ -82,6 +82,8 @@ dawgBuilder.Insert("ability".Reverse(), true);
 ...
 dawg.MatchPrefix("ility".Reverse())
 ```
+
+One other neat feature is the method ```int GetLongestCommonPrefixLength(IEnumerable<char> word)```. If ```word``` is found in the dictionary, it will return its length; if not, it will return the length of the longest word that *is* found in the dictionary and that is also the beginning of the given word. For example, if **awesomenesses** is not in the dictionary but **awesomeness** is, then ```dawg.GetLongestCommonPrefixLength("awesomeness")``` will return ```"awesomeness".Length```.
 
 Thread Safety
 -------------
