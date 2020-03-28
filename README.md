@@ -29,7 +29,7 @@ First get the code by cloning this repository or installing the [NuGet package](
 
 Create and populate a ```DawgBuilder``` object:
 
-```
+```csharp
 var dawgBuilder = new DawgBuilder <bool> (); // <bool> is the value type.
                                              // Key type is always string.
 
@@ -41,7 +41,7 @@ foreach (string key in new [] {"Aaron", "abacus", "abashed"})
 
 Call ```BuildDawg``` on it to get the compressed version and save it to disk:
 
-```
+```csharp
 var dawg = dawgBuilder.BuildDawg (); // Computer is working.  Please wait ...
 
 using (var file = File.Create ("DAWG.bin")) 
@@ -50,7 +50,7 @@ using (var file = File.Create ("DAWG.bin"))
 
 Now read the file back in and check if a particular word is in the dictionary:
 
-```
+```csharp
 var dawg = Dawg <bool>.Load (File.Open ("DAWG.bin"));
 
 if (dawg ["chihuahua"])
@@ -63,6 +63,25 @@ The Value Type, &lt;TPayload&gt;
 ----------
 
 The ```Dawg``` and ```DawgBuilder``` classes take a template parameter called ```<TPayload>```.  It can be any type you want.  Just to be able to test if a word is in the dictionary, a bool is enough.  You can also make it an ```int``` or a ```string``` or a custom class.  But beware of one important limitation.  DAWG works well only when the set of values that TPayload can take is relatively small.  The smaller the better.  Eg if you add a definition for each word, it will make each entry unique and it won't be able to compact the graph and thus you will loose all the benefits of DAWG.
+
+MatchPrefix()
+-------------
+One other attractive side of DAWG is its ability to efficiently retrieve all words starting with a particular substring:
+
+```csharp
+dawg.MatchPrefix("awe")
+```
+
+The above query will return an IEnumerable which might contain keys such as **awe, aweful** and **awesome**. The call ```dawg.MatchPrefix("")``` will return all items in the dictionary.
+
+If you need to look up by suffix instead, there is no MatchSuffix method. But the desired effect can be achieved
+by adding the reversed keys and then using MatchPrefix() on the reversed keys:
+
+```csharp
+dawgBuilder.Insert("ability".Reverse(), true);
+...
+dawg.MatchPrefix("ility".Reverse())
+```
 
 Thread Safety
 -------------
