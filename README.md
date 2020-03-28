@@ -83,6 +83,19 @@ dawgBuilder.Insert("ability".Reverse(), true);
 dawg.MatchPrefix("ility".Reverse())
 ```
 
+GetPrefixes()
+-------------
+
+GetPrefixes() returns all dictionary items whose keys are substrings of a given string. For example:
+
+```csharp
+dawg.GetPrefixes("awesomenesses")
+```
+Might return keys such as **awe, awesome, awesomeness** and finally **awesomenesses**.
+
+GetLongestCommonPrefixLength()
+------------------------------
+
 One other neat feature is the method ```int GetLongestCommonPrefixLength(IEnumerable<char> word)```. If ```word``` is found in the dictionary, it will return its length; if not, it will return the length of the longest word that *is* found in the dictionary and that is also the beginning of the given word. For example, if **prepare** is in the dictionary but **preempt** is not, then ```dawg.GetLongestCommonPrefixLength("preempt")``` will return 3 which is the length of "pre".
 
 Thread Safety
