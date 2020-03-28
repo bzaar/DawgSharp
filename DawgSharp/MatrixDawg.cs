@@ -190,9 +190,9 @@ namespace DawgSharp
 
             rootNodeIndex = reader.ReadInt32();
 
-            payloads = ReadArray(reader, readPayload);
+            payloads = reader.ReadArray(readPayload);
 
-            indexToChar = ReadArray(reader, r => r.ReadChar());
+            indexToChar = reader.ReadArray(r => r.ReadChar());
 
             charToIndexPlusOne = GetCharToIndexPlusOneMap(indexToChar);
 
@@ -237,19 +237,6 @@ namespace DawgSharp
             }
 
             return children;
-        }
-
-        public static T [] ReadArray <T> (BinaryReader reader, Func<BinaryReader, T> read)
-        {
-            int len = reader.ReadInt32();
-
-            return ReadSequence(reader, read).Take(len).ToArray();
-        }
-
-        static IEnumerable<T> ReadSequence <T> (BinaryReader reader, Func<BinaryReader, T> read)
-        {
-            for (;;) yield return read (reader);
-            // ReSharper disable once IteratorNeverReturns
         }
     }
 }

@@ -36,9 +36,9 @@ namespace DawgSharp
 
             rootNodeIndex = reader.ReadInt32();
 
-            payloads = MatrixDawg<TPayload>.ReadArray(reader, readPayload);
+            payloads = reader.ReadArray(readPayload);
 
-            indexToChar = MatrixDawg<TPayload>.ReadArray(reader, r => r.ReadChar());
+            indexToChar = reader.ReadArray(r => r.ReadChar());
 
             charToIndexPlusOne = MatrixDawg<TPayload>.GetCharToIndexPlusOneMap(indexToChar);
 
