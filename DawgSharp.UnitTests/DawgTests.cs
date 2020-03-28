@@ -190,8 +190,8 @@ namespace DawgSharp.UnitTests
 
             var dawg = GetDawg (dawgBuilder);
 
-            Assert.IsTrue (dawg.MatchPrefix ("boot").Count () == 0);
-            Assert.IsTrue (dawg.MatchPrefix ("").Count () == 0);
+            Assert.AreEqual(0, dawg.MatchPrefix ("boot").Count ());
+            Assert.AreEqual(0, dawg.MatchPrefix ("").Count ());
             Assert.IsFalse(dawg [""]);
             Assert.IsFalse(dawg ["boot"]);
         }
