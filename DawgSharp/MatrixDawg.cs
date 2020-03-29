@@ -174,6 +174,11 @@ namespace DawgSharp
             return nodeCount;
         }
 
+        public KeyValuePair<string, TPayload> GetRandomItem(Random random)
+        {
+            throw new NotImplementedException();
+        }
+
         private readonly TPayload[] payloads;
         private readonly int[,] children1;
         private readonly int[,] children0;

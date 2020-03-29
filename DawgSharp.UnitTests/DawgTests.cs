@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
@@ -211,6 +212,30 @@ namespace DawgSharp.UnitTests
             var dawg = GetDawg (dawgBuilder);
 
             Assert.IsTrue (dawg.MatchPrefix ("ility".Reverse ()).Count () == 2);
+        }
+
+        [Test]
+        public void GetRandomItemTest()
+        {
+            var dawgBuilder = new DawgBuilder<bool> ();
+
+            // Let's see how word length will affect the uniformity of the distribution.
+            dawgBuilder.Insert("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa", true);
+            dawgBuilder.Insert("aa", true);
+            dawgBuilder.Insert("b", true);
+
+            var dawg = SaveToFileAndLoadBack(dawgBuilder.BuildDawg());
+
+            int n = 100;
+            
+            var random = new Random(1);
+
+            var counters = Enumerable.Range(0, n)
+                .Select(i => dawg.GetRandomItem(random))
+                .GroupBy(item => item.Key)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            Assert.AreEqual(3, counters.Count);
         }
     }
 }

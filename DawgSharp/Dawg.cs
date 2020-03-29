@@ -173,5 +173,10 @@ namespace DawgSharp
 
             return new OldDawg <TPayload> (nodes [rootIndex]);
         }
+
+        public KeyValuePair<string, TPayload> GetRandomItem(Random random)
+        {
+            return dawg.GetRandomItem(random);
+        }
     }
 }

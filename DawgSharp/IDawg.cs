@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DawgSharp
 {
@@ -15,5 +16,7 @@ namespace DawgSharp
         IEnumerable <KeyValuePair <string, TPayload>> GetPrefixes (IEnumerable<char> key);
 
         int GetNodeCount ();
+        
+        KeyValuePair<string,TPayload> GetRandomItem(Random random);
     }
 }

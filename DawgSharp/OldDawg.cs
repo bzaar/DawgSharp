@@ -231,5 +231,10 @@ namespace DawgSharp
         {
             return root.GetRecursiveChildNodeCount ();
         }
+
+        public KeyValuePair<string, TPayload> GetRandomItem(Random random)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -237,5 +237,45 @@ namespace DawgSharp
         {
             return nodeCount;
         }
+
+        public KeyValuePair<string, TPayload> GetRandomItem(Random random)
+        {
+            int nodeIndex = random.Next(0, payloads.Length);
+
+            TPayload payload = payloads[nodeIndex];
+
+            var sb = new StringBuilder();
+            
+            for (;;)
+            {
+                var childIndexes = children.Select((c, i) => new {c, i})
+                    .Where(t => t.c.Index == nodeIndex)
+                    .Select(t => t.i)
+                    .ToList();
+
+                int childIndex = childIndexes[random.Next(0, childIndexes.Count)];
+
+                sb.Insert(0, indexToChar[children[childIndex].CharIndex]);
+                
+                int parentIndex = Array.BinarySearch(firstChildForNode, childIndex);
+
+                if (parentIndex < 0)
+                {
+                    parentIndex = ~parentIndex - 1;
+                }
+                else
+                {
+                    while (parentIndex < firstChildForNode.Length - 1 && firstChildForNode[parentIndex + 1] == childIndex) 
+                        ++parentIndex;
+                }
+
+                if (parentIndex == rootNodeIndex)
+                {
+                    return new KeyValuePair<string, TPayload>(sb.ToString(), payload);                    
+                }
+
+                nodeIndex = parentIndex;
+            }
+        }
     }
 }
