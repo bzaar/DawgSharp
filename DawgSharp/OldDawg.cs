@@ -16,7 +16,7 @@ namespace DawgSharp
             {
                 var node = FindNode (word);
 
-                return node == null ? default (TPayload) : node.Payload;
+                return node == null ? default : node.Payload;
             }
         }
 
