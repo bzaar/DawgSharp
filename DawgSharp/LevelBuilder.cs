@@ -32,7 +32,7 @@ namespace DawgSharp
 
                         if (levels.Count <= level)
                         {
-                            levels.Add (new Dictionary <NodeWrapper <TPayload>, NodeWrapper <TPayload>> (new NodeWrapperEqualityComparer<TPayload> ()));
+                            levels.Add (new Dictionary <NodeWrapper <TPayload>, NodeWrapper <TPayload>> (Comparer));
                         }
 
                         var dictionary = levels [level];
@@ -58,6 +58,8 @@ namespace DawgSharp
                 }
             }
         }
+
+        private static readonly NodeWrapperEqualityComparer<TPayload> Comparer = new NodeWrapperEqualityComparer<TPayload> ();
 
         private static void Push (Stack <StackFrame> stack, Node <TPayload> node)
         {
