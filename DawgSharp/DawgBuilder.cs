@@ -6,9 +6,9 @@ namespace DawgSharp
 {
     public class DawgBuilder <TPayload>
     {
-        readonly Node <TPayload> root = new Node <TPayload> ();
+        readonly Node<TPayload> root = new();
 
-        readonly List <Node <TPayload>> lastPath = new List <Node <TPayload>> ();
+        readonly List <Node<TPayload>> lastPath = new();
         string lastKey = "";
 
         /// <summary>

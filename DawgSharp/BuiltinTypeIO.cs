@@ -6,7 +6,7 @@ namespace DawgSharp
 {
     static class BuiltinTypeIO
     {
-        public static readonly Dictionary<Type, object> Writers = new Dictionary<Type, object>
+        public static readonly Dictionary<Type, object> Writers = new()
         {
             {typeof (bool),    new Action <BinaryWriter, bool>    ((r, payload) => r.Write(payload))},
             {typeof (int),     new Action <BinaryWriter, int>     ((r, payload) => r.Write(payload))},
@@ -24,7 +24,7 @@ namespace DawgSharp
             {typeof (decimal), new Action <BinaryWriter, decimal> ((r, payload) => r.Write(payload))},
         };
 
-        public static readonly Dictionary<Type, object> Readers = new Dictionary<Type, object>
+        public static readonly Dictionary<Type, object> Readers = new()
         {
             {typeof (bool),    new Func <BinaryReader, bool>    (r => r.ReadBoolean())},
             {typeof (int),     new Func <BinaryReader, int>     (r => r.ReadInt32())},

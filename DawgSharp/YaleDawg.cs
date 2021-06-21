@@ -86,7 +86,7 @@ namespace DawgSharp
             }
         }
 
-        static readonly ChildComparer childComparer = new ChildComparer();
+        static readonly ChildComparer childComparer = new();
 
         TPayload IDawg<TPayload>.this[IEnumerable<char> word]
         {
