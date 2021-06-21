@@ -82,7 +82,7 @@ namespace DawgSharp
 
         public Dawg <TPayload> BuildDawg ()
         {
-            LevelBuilder <TPayload>.BuildLevelsExcludingRoot (root);
+            LevelBuilder <TPayload>.MergeEnds (root);
 
             return new Dawg<TPayload>(new OldDawg <TPayload> (root));
         }

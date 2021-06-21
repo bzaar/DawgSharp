@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace DawgSharp
 {
-    class LevelBuilder <TPayload>
+    static class LevelBuilder <TPayload>
     {
-        public static void BuildLevelsExcludingRoot (Node <TPayload> root)
+        public static void MergeEnds (Node <TPayload> root)
         {
             var levels = new List <Dictionary <NodeWrapper <TPayload>, NodeWrapper <TPayload>>> ();
 
