@@ -9,7 +9,7 @@ namespace DawgSharp
         {
             var levels = new List <Dictionary <NodeWrapper <TPayload>, NodeWrapper <TPayload>>> ();
 
-            var stack = new Stack <StackNode <TPayload>> ();
+            var stack = new Stack <StackNode> ();
 
             Push (stack, root);
 
@@ -59,16 +59,16 @@ namespace DawgSharp
             }
         }
 
-        private static void Push (Stack <StackNode <TPayload>> stack, Node <TPayload> node)
+        private static void Push (Stack <StackNode> stack, Node <TPayload> node)
         {
-            stack.Push (new StackNode <TPayload> {Node = node, ChildIterator = node.Children.ToList ().GetEnumerator ()});
+            stack.Push (new StackNode {Node = node, ChildIterator = node.Children.ToList ().GetEnumerator ()});
         }
-    }
 
-    class StackNode <TPayload>
-    {
-        public Node <TPayload> Node;
-        public IEnumerator <KeyValuePair <char, Node <TPayload>>> ChildIterator;
-        public int Level;
+        class StackNode
+        {
+            public Node <TPayload> Node;
+            public IEnumerator <KeyValuePair <char, Node <TPayload>>> ChildIterator;
+            public int Level;
+        }
     }
 }
