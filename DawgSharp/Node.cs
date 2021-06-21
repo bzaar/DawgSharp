@@ -5,7 +5,7 @@ namespace DawgSharp
 {
     class Node <TPayload>
     {
-        readonly Dictionary<char, Node<TPayload>> children = new Dictionary<char, Node<TPayload>>();
+        readonly Dictionary<char, Node<TPayload>> children = new();
 
         public TPayload Payload { get; set; }
 
