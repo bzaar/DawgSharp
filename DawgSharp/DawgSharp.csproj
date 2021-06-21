@@ -4,6 +4,7 @@
     <TargetFrameworks>netstandard1.2;net35;net40</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <LangVersion>latest</LangVersion>
 
     <PackageId>DawgSharp</PackageId>
     <RootNamespace>DawgSharp</RootNamespace>
@@ -22,7 +23,7 @@
       
       This package is provided under the terms of the GNU GPL v3. Source code and documentation are available on GitHub: https://github.com/bzaar/DawgSharp. Commercial licenses are also available at http://morpher.co.uk
     </Description>
-    <Copyright>2014 - 2018 Sergey Slepov</Copyright>
+    <Copyright>2014 - 2021 Sergey Slepov</Copyright>
     <PackageTags>DAWG;string;dictionary;lookup</PackageTags>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <RepositoryUrl>https://github.com/bzaar/DawgSharp</RepositoryUrl>

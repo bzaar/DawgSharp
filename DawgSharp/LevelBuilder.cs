@@ -7,7 +7,7 @@ namespace DawgSharp
     {
         public static void MergeEnds (Node <TPayload> root)
         {
-            var levels = new List <Dictionary <NodeWrapper <TPayload>, NodeWrapper <TPayload>>> ();
+            var levels = new[] {NewLevel()}.ToList();
 
             var stack = new Stack <StackFrame> ();
 
@@ -32,12 +32,15 @@ namespace DawgSharp
 
                         if (levels.Count <= level)
                         {
-                            levels.Add (new Dictionary <NodeWrapper <TPayload>, NodeWrapper <TPayload>> (Comparer));
+                            levels.Add (NewLevel());
                         }
 
                         var dictionary = levels [level];
 
-                        var nodeWrapper = new NodeWrapper <TPayload> (current.Node, parent.Node, parent.ChildIterator.Current.Key);
+                        var nodeWrapper = new NodeWrapper <TPayload> (
+                            current.Node,
+                            parent.Node,
+                            parent.ChildIterator.Current.Key);
 
                         if (dictionary.TryGetValue (nodeWrapper, out NodeWrapper<TPayload> existing))
                         {
@@ -59,7 +62,8 @@ namespace DawgSharp
             }
         }
 
-        private static readonly NodeWrapperEqualityComparer<TPayload> Comparer = new NodeWrapperEqualityComparer<TPayload> ();
+        private static Dictionary<NodeWrapper<TPayload>, NodeWrapper<TPayload>> NewLevel() => new(Comparer);
+        private static readonly NodeWrapperEqualityComparer<TPayload> Comparer = new ();
 
         private static void Push (Stack <StackFrame> stack, Node <TPayload> node)
         {
