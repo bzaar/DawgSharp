@@ -17,38 +17,36 @@ namespace DawgSharp
             {
                 if (stack.Peek().ChildIterator.MoveNext ())
                 {
-                    // go deeper
+                    // depth first
                     Push (stack, stack.Peek().ChildIterator.Current.Value);
                 }
                 else
                 {
-                    var current = stack.Pop ();
+                    StackFrame current = stack.Pop ();
 
                     if (stack.Count > 0)
                     {
-                        var parent = stack.Peek ();
+                        StackFrame parent = stack.Peek ();
 
-                        int level = current.Level;
-
-                        if (levels.Count <= level)
+                        if (levels.Count <= current.Level)
                         {
                             levels.Add (NewLevel());
                         }
 
-                        var dictionary = levels [level];
+                        var level = levels [current.Level];
 
                         var nodeWrapper = new NodeWrapper <TPayload> (
                             current.Node,
                             parent.Node,
                             parent.ChildIterator.Current.Key);
 
-                        if (dictionary.TryGetValue (nodeWrapper, out NodeWrapper<TPayload> existing))
+                        if (level.TryGetValue (nodeWrapper, out NodeWrapper<TPayload> existing))
                         {
                             parent.Node.Children [parent.ChildIterator.Current.Key] = existing.Node;
                         }
                         else
                         {
-                            dictionary.Add (nodeWrapper, nodeWrapper);
+                            level.Add (nodeWrapper, nodeWrapper);
                         }
 
                         int parentLevel = current.Level + 1;
