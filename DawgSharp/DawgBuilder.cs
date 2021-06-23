@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DawgSharp
 {
@@ -109,6 +110,37 @@ namespace DawgSharp
             var rehydrated = Dawg<TPayload>.Load(memoryStream);
 
             return rehydrated;
+        }
+
+        public WildDawg<TPayload> BuildWildDawg()
+        {
+            var memoryStream = new MemoryStream();
+
+            SaveAsWildDawgTo(memoryStream, TextWriter.Null);
+
+            memoryStream.Position = 0;
+
+            return WildDawg<TPayload>.LoadFrom(memoryStream);
+        }
+
+        public void SaveAsWildDawgTo(Stream stream, TextWriter dump)
+        {
+            LevelBuilder<TPayload>.MergeEnds(root);
+
+            WildDawgBuilder<TPayload>.GetPayload(root);
+
+            var dawg = new Dawg<TPayload>(new OldDawg<TPayload>(root));
+
+            foreach (var pair in dawg)
+            {
+                string s = new string(pair.Key.Reverse().ToArray());
+                dump.Write($"{s,20}");
+                dump.Write(' ');
+                dump.Write(pair.Value);
+                dump.WriteLine();
+            }
+            
+            dawg.SaveAsYaleDawg(stream);
         }
     }
 }

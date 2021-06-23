@@ -28,6 +28,7 @@ namespace DawgSharp
         private readonly char lastChar;
         private readonly int [] firstChildForNode;
         private readonly Child [] children; // size = NNZ
+        private ushort wildcardCharIndexPlusOne;
 
         public YaleDawg (BinaryReader reader, Func <BinaryReader, TPayload> readPayload)
         {
@@ -71,6 +72,7 @@ namespace DawgSharp
 
             firstChar = indexToChar.FirstOrDefault();
             lastChar = indexToChar.LastOrDefault();
+            wildcardCharIndexPlusOne = GetCharIndexPlusOne('*');
         }
 
         internal static ushort ReadInt (BinaryReader reader, int countOfPossibleValues)
@@ -99,6 +101,16 @@ namespace DawgSharp
                 return GetPayload(node_i);
             }
         }
+        
+        public TPayload GetPayloadUsingWildcards(IEnumerable<char> word)
+        {
+            int node_i = GetPath(word).Last();
+
+            if (node_i == -1) return default;
+
+            return GetPayload(node_i);
+        }
+
 
         private TPayload GetPayload(int node_i)
         {
@@ -119,20 +131,26 @@ namespace DawgSharp
 
             foreach (char c in word)
             {
-                ushort charIndexPlusOne;
-
-                if (c < firstChar || c > lastChar || (charIndexPlusOne = charToIndexPlusOne [c - firstChar]) == 0)
-                {
-                    yield return -1;
-                    yield break;
-                }
- 
                 int firstChild_i = firstChildForNode [node_i];
 
                 int lastChild_i = firstChildForNode [node_i + 1];
 
                 var nChildren = lastChild_i - firstChild_i;
 
+                if (wildcardCharIndexPlusOne > 0 && nChildren == 1 && children [firstChild_i].CharIndex + 1 == wildcardCharIndexPlusOne)
+                {
+                    yield return children [firstChild_i].Index;
+                    yield break;
+                }
+                
+                ushort charIndexPlusOne = GetCharIndexPlusOne(c);
+                    
+                if (charIndexPlusOne == 0)
+                {
+                    yield return -1;
+                    yield break;
+                }
+ 
                 var charIndex = (ushort) (charIndexPlusOne - 1);
 
                 int child_i;
@@ -157,6 +175,14 @@ namespace DawgSharp
 
                 yield return node_i;
             }
+        }
+
+        private ushort GetCharIndexPlusOne(char c)
+        {
+            ushort charIndexPlusOne = c < firstChar || c > lastChar
+                ? (ushort) 0
+                : charToIndexPlusOne[c - firstChar];
+            return charIndexPlusOne;
         }
 
         int IDawg<TPayload>.GetLongestCommonPrefixLength(IEnumerable<char> word)

@@ -55,6 +55,7 @@
     <Compile Include="DawgTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DawgBuilderTests.cs" />
+    <Compile Include="WildDawgTests.cs" />
     <Compile Include="YaleDawgTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -105,7 +105,12 @@ namespace DawgSharp
 
         public static Dawg <TPayload> Load (Stream stream, Func <BinaryReader, TPayload> readPayload = null)
         {
-            return new(LoadIDawg (stream, readPayload ?? (Func <BinaryReader, TPayload>) BuiltinTypeIO.Readers [typeof(TPayload)])); 
+            return new(LoadIDawg (stream, readPayload ?? GetBuiltInTypeReader())); 
+        }
+
+        public static Func<BinaryReader, TPayload> GetBuiltInTypeReader()
+        {
+            return (Func <BinaryReader, TPayload>) BuiltinTypeIO.Readers [typeof(TPayload)];
         }
 
         static IDawg <TPayload> LoadIDawg (Stream stream, Func <BinaryReader, TPayload> readPayload)
