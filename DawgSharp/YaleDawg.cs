@@ -8,7 +8,7 @@ namespace DawgSharp
 {
     class YaleDawg <TPayload> : IDawg<TPayload>
     {
-        struct Child
+        readonly struct Child
         {
             public readonly int Index;
             public readonly ushort CharIndex;
