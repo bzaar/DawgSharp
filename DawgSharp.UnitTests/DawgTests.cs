@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DawgSharp.UnitTests
 {
     [TestFixture]
-    public class DawgTests
+    public abstract class DawgTests
     {
         [Test]
         public void AssertNodeCount ()
@@ -89,7 +89,7 @@ namespace DawgSharp.UnitTests
         [Test]
         public void LongStringTest()
         {
-            var longString = Enumerable.Repeat ('a', 200 * 1000);
+            var longString = Enumerable.Repeat ('a', 200_000);
 
             var dawgBuilder = new DawgBuilder<bool> ();
 
@@ -177,12 +177,7 @@ namespace DawgSharp.UnitTests
             return string.Join(",", dawg.MatchPrefix (prefix).Select (kvp => kvp.Key));
         }
 
-        protected virtual Dawg<TPayload> GetDawg <TPayload> (DawgBuilder<TPayload> dawgBuilder)
-        {
-            var dawg = dawgBuilder.BuildDawg ();
-
-            return dawg;
-        }
+        protected abstract Dawg<TPayload> GetDawg<TPayload>(DawgBuilder<TPayload> dawgBuilder);
 
         [Test]
         public void EmptyDictionaryTest ()
