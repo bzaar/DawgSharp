@@ -107,7 +107,7 @@ namespace DawgSharp.UnitTests
 
             var dawgBuilder = new DawgBuilder<bool> ();
 
-            foreach (var word in words)
+            foreach (string word in words)
             {
                 dawgBuilder.Insert (word, true);
             }
@@ -127,7 +127,7 @@ namespace DawgSharp.UnitTests
 
             var dawgBuilder = new DawgBuilder<bool> ();
 
-            foreach (var word in words)
+            foreach (string word in words)
             {
                 dawgBuilder.Insert (word, true);
             }

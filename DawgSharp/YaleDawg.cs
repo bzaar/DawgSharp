@@ -131,7 +131,7 @@ namespace DawgSharp
 
                 int lastChild_i = firstChildForNode [node_i + 1];
 
-                var nChildren = lastChild_i - firstChild_i;
+                int nChildren = lastChild_i - firstChild_i;
 
                 var charIndex = (ushort) (charIndexPlusOne - 1);
 
