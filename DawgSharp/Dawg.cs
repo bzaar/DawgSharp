@@ -72,7 +72,7 @@ namespace DawgSharp
         [Obsolete ("This method is only used for testing.")]
         public void SaveAsYaleDawg (Stream stream, Action <BinaryWriter, TPayload> writePayload = null)
         {
-            Save (stream, (d, w) => d.SaveAsYaleDawg (w, writePayload ?? GetStandardWriter ()));
+            Save (stream, (d, w) => d.root.SaveAsYaleDawg (w, writePayload ?? GetStandardWriter ()));
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace DawgSharp
         [Obsolete ("This method is only used for testing.")]
         public void SaveAsMatrixDawg (Stream stream, Action <BinaryWriter, TPayload> writePayload = null)
         {
-            Save (stream, (d, w) => d.SaveAsMatrixDawg (w, writePayload ?? GetStandardWriter ()));
+            Save (stream, (d, w) => d.root.SaveAsMatrixDawg (w, writePayload ?? GetStandardWriter ()));
         }
 
         private void Save (Stream stream, Action <OldDawg<TPayload>, BinaryWriter> save)
@@ -96,11 +96,7 @@ namespace DawgSharp
 
         static Action <BinaryWriter, TPayload> GetStandardWriter ()
         {
-            if (!BuiltinTypeIO.Writers.TryGetValue(typeof (TPayload), out object writer))
-            {
-                throw new Exception("Could not find a serialization method for " + typeof(TPayload).Name + ". Use a SaveXXX overload with a 'writePayload' parameter.");
-            }
-            return (Action <BinaryWriter, TPayload>) writer;
+            return Serializer.GetStandardWriter<TPayload>();
         }
 
         public static Dawg <TPayload> Load (Stream stream, Func <BinaryReader, TPayload> readPayload = null)

@@ -3,9 +3,14 @@ using System.Linq;
 
 namespace DawgSharp
 {
-    static class LevelBuilder <TPayload>
+    class LevelBuilder <TPayload>
     {
-        public static void MergeEnds (Node <TPayload> root)
+        public LevelBuilder(IEqualityComparer<TPayload> comparer = null)
+        {
+            this.comparer = new NodeWrapperEqualityComparer<TPayload>(comparer ?? EqualityComparer<TPayload>.Default);
+        }
+        
+        public void MergeEnds (Node <TPayload> root)
         {
             var levels = new[] {NewLevel()}.ToList();
 
@@ -60,8 +65,8 @@ namespace DawgSharp
             }
         }
 
-        private static Dictionary<NodeWrapper<TPayload>, NodeWrapper<TPayload>> NewLevel() => new(Comparer);
-        private static readonly NodeWrapperEqualityComparer<TPayload> Comparer = new ();
+        private Dictionary<NodeWrapper<TPayload>, NodeWrapper<TPayload>> NewLevel() => new(comparer);
+        private readonly NodeWrapperEqualityComparer<TPayload> comparer;
 
         private static void Push (Stack <StackFrame> stack, Node <TPayload> node)
         {

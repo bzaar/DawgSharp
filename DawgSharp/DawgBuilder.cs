@@ -6,7 +6,7 @@ namespace DawgSharp
 {
     public class DawgBuilder <TPayload>
     {
-        readonly Node<TPayload> root = new();
+        internal readonly Node<TPayload> root = new();
 
         readonly List <Node<TPayload>> lastPath = new();
         string lastKey = "";
@@ -82,7 +82,12 @@ namespace DawgSharp
 
         public Dawg <TPayload> BuildDawg ()
         {
-            LevelBuilder <TPayload>.MergeEnds (root);
+            return BuildDawg(EqualityComparer<TPayload>.Default);
+        }
+
+        public Dawg <TPayload> BuildDawg (IEqualityComparer<TPayload> payloadComparer)
+        {
+            new LevelBuilder <TPayload>(payloadComparer).MergeEnds (root);
 
             return new Dawg<TPayload>(new OldDawg <TPayload> (root));
         }

@@ -199,27 +199,13 @@ namespace DawgSharp
 
             indexToChar = reader.ReadArray(r => r.ReadChar());
 
-            charToIndexPlusOne = GetCharToIndexPlusOneMap(indexToChar);
+            charToIndexPlusOne = CharToIndexPlusOneMap.Get(indexToChar);
 
             children1 = ReadChildren(reader, indexToChar);
             children0 = ReadChildren(reader, indexToChar);
 
             firstChar = indexToChar.FirstOrDefault();
             lastChar = indexToChar.LastOrDefault();
-        }
-
-        public static ushort[] GetCharToIndexPlusOneMap(char [] uniqueChars)
-        {
-            if (uniqueChars.Length == 0) return null;
-
-            var charToIndex = new ushort [uniqueChars.Last() - uniqueChars.First() + 1];
-
-            for (int i = 0; i < uniqueChars.Length; ++i)
-            {
-                charToIndex [uniqueChars [i] - uniqueChars.First()] = (ushort) (i + 1);
-            }
-
-            return charToIndex;
         }
 
         private static int[,] ReadChildren(BinaryReader reader, char[] indexToChar)
@@ -230,11 +216,11 @@ namespace DawgSharp
 
             for (int node_i = 0; node_i < nodeCount; ++node_i)
             {
-                ushort childCount = YaleDawg<TPayload>.ReadInt (reader, indexToChar.Length + 1);
+                ushort childCount = YaleReader.ReadInt (reader, indexToChar.Length + 1);
 
                 for (ushort child_i = 0; child_i < childCount; ++child_i)
                 {
-                    ushort charIndex = YaleDawg<TPayload>.ReadInt (reader, indexToChar.Length);
+                    ushort charIndex = YaleReader.ReadInt (reader, indexToChar.Length);
                     int childNodeIndex = reader.ReadInt32();
 
                     children [node_i, charIndex] = childNodeIndex + 1;
