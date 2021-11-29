@@ -131,6 +131,6 @@ Competing Implementations
 
 License
 -------
-DawgSharp is licensed under GPLv3 which means it can be used free of charge in open-sources projects. [Read the full license](License.txt)
+DawgSharp is licensed under GPLv3 which means it can be used free of charge in open-sources projects. [Read the full license](LICENSE.txt)
 
 If you would like to use DawgSharp in a proprietary project, please purchase a commercial license at [http://morpher.co.uk](http://morpher.co.uk).
