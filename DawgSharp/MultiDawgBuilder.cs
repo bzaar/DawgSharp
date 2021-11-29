@@ -28,12 +28,10 @@ namespace DawgSharp
 
         public static MultiDawg<TPayload> LoadFrom(MemoryStream stream)
         {
-            if (!BuiltinTypeIO.Readers.TryGetValue(typeof(TPayload), out object payloadReader))
-            {
-                throw new Exception($"No built in reader found for type {nameof(TPayload)}.");
-            }
-
-            return LoadFrom(stream, (Func<BinaryReader, TPayload>)payloadReader);
+            var reader = BuiltinTypeIO.TryGetReader<TPayload>()
+                         ?? throw new Exception($"No built in reader found for type {nameof(TPayload)}.");
+            
+            return LoadFrom(stream, reader);
         }
 
         public static MultiDawg<TPayload> LoadFrom(MemoryStream stream, Func <BinaryReader, TPayload> readPayload)
@@ -67,7 +65,7 @@ namespace DawgSharp
             var writer = new BinaryWriter(stream);
             writer.Write(Signature);
             writer.Write(Version);
-            Serializer.SaveAsMultiDawg(writer, root, Serializer.GetStandardWriter<TPayload>());
+            Serializer.SaveAsMultiDawg(writer, root, BuiltinTypeIO.GetWriter<TPayload>());
             writer.Flush(); // do not close the stream
         }
     }

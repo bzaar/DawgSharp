@@ -96,12 +96,12 @@ namespace DawgSharp
 
         static Action <BinaryWriter, TPayload> GetStandardWriter ()
         {
-            return Serializer.GetStandardWriter<TPayload>();
+            return BuiltinTypeIO.GetWriter<TPayload>();
         }
 
         public static Dawg <TPayload> Load (Stream stream, Func <BinaryReader, TPayload> readPayload = null)
         {
-            return new(LoadIDawg (stream, readPayload ?? (Func <BinaryReader, TPayload>) BuiltinTypeIO.Readers [typeof(TPayload)])); 
+            return new(LoadIDawg (stream, readPayload ?? BuiltinTypeIO.GetReader<TPayload>())); 
         }
 
         static IDawg <TPayload> LoadIDawg (Stream stream, Func <BinaryReader, TPayload> readPayload)

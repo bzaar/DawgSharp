@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace DawgSharp
@@ -96,17 +95,12 @@ namespace DawgSharp
         {
             var dawg = BuildDawg();
 
-            BuiltinTypeIO.Writers.TryGetValue(typeof(TPayload), out object writer);
-
-            if (writer == null)
-            {
-                throw new NotImplementedException("BuildYaleDawg only works for built-in types currently.");
-            }
-
+            var writer = BuiltinTypeIO.GetWriter<TPayload>();
+            
             var memoryStream = new MemoryStream();
 
 #pragma warning disable 612,618
-            dawg.SaveAsYaleDawg(memoryStream, (Action<BinaryWriter, TPayload>) writer);
+            dawg.SaveAsYaleDawg(memoryStream, writer);
 #pragma warning restore 612,618
 
             memoryStream.Position = 0;

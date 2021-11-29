@@ -176,9 +176,9 @@ namespace DawgSharp
             }
         }
 
-        private static void WriteInt(BinaryWriter writer, int charIndex, int countOfPossibleValues)
+        private static void WriteInt(BinaryWriter writer, int charIndex, int numPossibleValues)
         {
-            if (countOfPossibleValues > 256)
+            if (numPossibleValues > 256)
             {
                 writer.Write ((ushort) charIndex);
             }
@@ -186,17 +186,6 @@ namespace DawgSharp
             {
                 writer.Write ((byte) charIndex);
             }
-        }
-
-        public static Action<BinaryWriter, TPayload> GetStandardWriter<TPayload>()
-        {
-            if (!BuiltinTypeIO.Writers.TryGetValue(typeof(TPayload), out object writer))
-            {
-                throw new Exception("Could not find a serialization method for " + typeof(TPayload).Name +
-                                    ". Use a SaveXXX overload with a 'writePayload' parameter.");
-            }
-
-            return (Action<BinaryWriter, TPayload>)writer;
         }
     }
 }
