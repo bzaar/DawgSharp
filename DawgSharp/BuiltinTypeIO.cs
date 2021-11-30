@@ -6,7 +6,7 @@ namespace DawgSharp
 {
     static class BuiltinTypeIO
     {
-        public static readonly Dictionary<Type, object> Writers = new()
+        static readonly Dictionary<Type, object> Writers = new()
         {
             {typeof (bool),    new Action <BinaryWriter, bool>    ((r, payload) => r.Write(payload))},
             {typeof (int),     new Action <BinaryWriter, int>     ((r, payload) => r.Write(payload))},
@@ -24,7 +24,7 @@ namespace DawgSharp
             {typeof (decimal), new Action <BinaryWriter, decimal> ((r, payload) => r.Write(payload))},
         };
 
-        public static readonly Dictionary<Type, object> Readers = new()
+        static readonly Dictionary<Type, object> Readers = new()
         {
             {typeof (bool),    new Func <BinaryReader, bool>    (r => r.ReadBoolean())},
             {typeof (int),     new Func <BinaryReader, int>     (r => r.ReadInt32())},
@@ -41,5 +41,27 @@ namespace DawgSharp
             {typeof (float),   new Func <BinaryReader, float>   (r => r.ReadSingle())},
             {typeof (decimal), new Func <BinaryReader, decimal> (r => r.ReadDecimal())},
         };
+
+        public static Func<BinaryReader, T> TryGetReader<T>()
+        {
+            Readers.TryGetValue(typeof(T), out object reader);
+
+            return (Func<BinaryReader, T>) reader;
+        }
+
+        public static Action<BinaryWriter, T> TryGetWriter<T>()
+        {
+            Writers.TryGetValue(typeof(T), out object writer);
+
+            return (Action<BinaryWriter, T>) writer;
+        }
+
+        public static Func<BinaryReader, T> GetReader<T>() => 
+            TryGetReader<T>()
+                ?? throw new Exception(nameof(T) + " is not a built-in type.");
+
+        public static Action<BinaryWriter, T> GetWriter<T>() =>
+            TryGetWriter<T>()
+                ?? throw new Exception(nameof(T) + " is not a built-in type.");
     }
 }

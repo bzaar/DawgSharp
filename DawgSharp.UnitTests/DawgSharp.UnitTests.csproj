@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="MatrixDawgTests.cs" />
     <Compile Include="DawgTests.cs" />
+    <Compile Include="MultiDawgTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OldDawgTests.cs" />
     <Compile Include="DawgBuilderTests.cs" />

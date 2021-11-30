@@ -1,20 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DawgSharp
 {
     class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <NodeWrapper <TPayload>>
     {
+        private readonly IEqualityComparer<TPayload> payloadComparer;
+
+        public NodeWrapperEqualityComparer(IEqualityComparer<TPayload> payloadComparer)
+        {
+            this.payloadComparer = payloadComparer;
+        }
+        
         public bool Equals (NodeWrapper <TPayload> x, NodeWrapper <TPayload> y)
         {
             // ReSharper disable PossibleNullReferenceException
-            var equals = EqualityComparer<TPayload>.Default.Equals (x.Node.Payload, y.Node.Payload)
-                          && SequenceEqual(x.Node.SortedChildren, y.Node.SortedChildren);
+            bool equals = AreEqual(x.Node, y.Node);
             // ReSharper restore PossibleNullReferenceException
 
             return equals;
         }
 
-        private static bool SequenceEqual(
+        private bool AreEqual(Node<TPayload> xNode, Node<TPayload> yNode)
+        {
+            bool equals = payloadComparer.Equals(xNode.Payload, yNode.Payload)
+                          && SequenceEqual(xNode.SortedChildren, yNode.SortedChildren);
+            return equals;
+        }
+
+        private bool SequenceEqual(
             IEnumerable<KeyValuePair<char, Node<TPayload>>> x, 
             IEnumerable<KeyValuePair<char, Node<TPayload>>> y)
         {
@@ -33,15 +47,15 @@ namespace DawgSharp
                 var ycurrent = ye.Current;
 
                 if (xcurrent.Key != ycurrent.Key) return false;
-                if (!Equals(xcurrent.Value, ycurrent.Value)) return false;
+                if (!AreEqual(xcurrent.Value, ycurrent.Value)) return false;
             }
 
             return !ye.MoveNext();
         }
 
-        static int GetHashCode (Node<TPayload> node)
+        int GetHashCode (Node<TPayload> node)
         {
-            int hashCode = EqualityComparer<TPayload>.Default.GetHashCode (node.Payload);
+            int hashCode = payloadComparer.GetHashCode (node.Payload);
 
             foreach (var c in node.Children)
             {

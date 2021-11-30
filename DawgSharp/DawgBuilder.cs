@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace DawgSharp
 {
     public class DawgBuilder <TPayload>
     {
-        readonly Node<TPayload> root = new();
+        internal readonly Node<TPayload> root = new();
 
         readonly List <Node<TPayload>> lastPath = new();
         string lastKey = "";
@@ -82,7 +81,12 @@ namespace DawgSharp
 
         public Dawg <TPayload> BuildDawg ()
         {
-            LevelBuilder <TPayload>.MergeEnds (root);
+            return BuildDawg(EqualityComparer<TPayload>.Default);
+        }
+
+        public Dawg <TPayload> BuildDawg (IEqualityComparer<TPayload> payloadComparer)
+        {
+            new LevelBuilder <TPayload>(payloadComparer).MergeEnds (root);
 
             return new Dawg<TPayload>(new OldDawg <TPayload> (root));
         }
@@ -91,17 +95,12 @@ namespace DawgSharp
         {
             var dawg = BuildDawg();
 
-            BuiltinTypeIO.Writers.TryGetValue(typeof(TPayload), out object writer);
-
-            if (writer == null)
-            {
-                throw new NotImplementedException("BuildYaleDawg only works for built-in types currently.");
-            }
-
+            var writer = BuiltinTypeIO.GetWriter<TPayload>();
+            
             var memoryStream = new MemoryStream();
 
 #pragma warning disable 612,618
-            dawg.SaveAsYaleDawg(memoryStream, (Action<BinaryWriter, TPayload>) writer);
+            dawg.SaveAsYaleDawg(memoryStream, writer);
 #pragma warning restore 612,618
 
             memoryStream.Position = 0;
