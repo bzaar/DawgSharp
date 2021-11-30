@@ -30,12 +30,7 @@
     <PackageProjectUrl>https://github.com/bzaar/DawgSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/bzaar/DawgSharp/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png?raw=true</PackageIconUrl>
-    <PackageReleaseNotes>
-      - XML comments file added.
-      - New method 'Dawg.GetPrefixes' for splitting prefixes off a word.
-      - New method 'DawgBuilder.BuildYaleDawg' for building the optimized DAWG without having to save to it disk.
-      - Support for .NET Standard 1.2 and .NET 3.5 (in addition to .NET 4.0). Apps targeting .NET 4.5+ will work with the .NET 4.0 version.
-      This release only has additive API changes. The file format has not changed.
+    <PackageReleaseNotes>Add class MultiDawg to store multiple values for a key.
     </PackageReleaseNotes>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DawgSharp.xml</DocumentationFile>
     <NoWarn>1591</NoWarn> <!--"Missing XML comment for publicly visible type or member."-->
