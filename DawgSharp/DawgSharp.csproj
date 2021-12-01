@@ -30,7 +30,7 @@
     <PackageProjectUrl>https://github.com/bzaar/DawgSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/bzaar/DawgSharp/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png?raw=true</PackageIconUrl>
-    <PackageReleaseNotes>Add class MultiDawg to store multiple values for a key.
+    <PackageReleaseNotes>Add MultiDawg.MatchPrefix()
     </PackageReleaseNotes>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DawgSharp.xml</DocumentationFile>
     <NoWarn>1591</NoWarn> <!--"Missing XML comment for publicly visible type or member."-->
