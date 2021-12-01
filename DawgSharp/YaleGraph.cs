@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DawgSharp
 {
@@ -12,6 +13,7 @@ namespace DawgSharp
         private readonly ushort[] charToIndexPlusOne;
         private readonly int[] firstChildForNode;
         private readonly YaleChild[] children;
+        private readonly char[] indexToChar;
 
         public YaleGraph(YaleChild[] children,
             int[] firstChildForNode,
@@ -22,8 +24,9 @@ namespace DawgSharp
             this.children = children;
             this.firstChildForNode = firstChildForNode;
             this.charToIndexPlusOne = charToIndexPlusOne;
-            this.lastChar = indexToChar.LastOrDefault();
-            this.firstChar = indexToChar.FirstOrDefault();
+            this.indexToChar = indexToChar;
+            this.lastChar = this.indexToChar.LastOrDefault();
+            this.firstChar = this.indexToChar.FirstOrDefault();
             this.rootNodeIndex = rootNodeIndex;
         }
 
@@ -96,6 +99,32 @@ namespace DawgSharp
         public bool IsLeaf(int node_i)
         {
             return firstChildForNode[node_i] == firstChildForNode[node_i + 1];
+        }
+        
+        public IEnumerable<int> MatchPrefix (StringBuilder sb, int node_i)
+        {
+            if (node_i != -1)
+            {
+                yield return node_i;
+                
+                int firstChild_i = firstChildForNode [node_i];
+
+                int lastChild_i = firstChildForNode[node_i + 1];
+
+                for (int i = firstChild_i; i < lastChild_i; ++i)
+                {
+                    YaleChild child = children [i];
+
+                    sb.Append (indexToChar [child.CharIndex]);
+
+                    foreach (var child_node_i in MatchPrefix (sb, child.Index))
+                    {
+                        yield return child_node_i;
+                    }
+
+                    --sb.Length;
+                }
+            }
         }
     }
 }

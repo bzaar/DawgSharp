@@ -26,7 +26,7 @@ namespace DawgSharp
             new LevelBuilder<IList<TPayload>>(new SequenceEqualityComparer<TPayload>()).MergeEnds(root);
         }
 
-        public static MultiDawg<TPayload> LoadFrom(MemoryStream stream)
+        public static MultiDawg<TPayload> LoadFrom(Stream stream)
         {
             var reader = BuiltinTypeIO.TryGetReader<TPayload>()
                          ?? throw new Exception($"No built in reader found for type {nameof(TPayload)}.");
@@ -34,7 +34,7 @@ namespace DawgSharp
             return LoadFrom(stream, reader);
         }
 
-        public static MultiDawg<TPayload> LoadFrom(MemoryStream stream, Func <BinaryReader, TPayload> readPayload)
+        public static MultiDawg<TPayload> LoadFrom(Stream stream, Func <BinaryReader, TPayload> readPayload)
         {
             var reader = new BinaryReader(stream);
             if (reader.ReadInt32() != Signature)
