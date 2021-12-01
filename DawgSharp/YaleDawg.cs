@@ -61,13 +61,24 @@ namespace DawgSharp
 
         IEnumerable<KeyValuePair<string, TPayload>> IDawg<TPayload>.MatchPrefix(IEnumerable<char> prefix)
         {
+            return MatchPrefix(prefix);
+        }
+
+        private IEnumerable<KeyValuePair<string, TPayload>> MatchPrefix(IEnumerable<char> prefix)
+        {
             string prefixStr = prefix.AsString();
 
-            int node_i = GetPath (prefixStr).Last();
+            var sb = new StringBuilder(prefixStr);
 
-            var sb = new StringBuilder (prefixStr);
+            foreach (int node_i in yaleGraph.MatchPrefix(sb, GetPath(prefixStr).Last()))
+            {
+                var payload = GetPayload(node_i);
 
-            return MatchPrefix(sb, node_i);
+                if (!EqualityComparer<TPayload>.Default.Equals(payload, default))
+                {
+                    yield return new KeyValuePair<string, TPayload>(sb.ToString(), payload);
+                }
+            }
         }
 
         public IEnumerable<KeyValuePair<string, TPayload>> GetPrefixes(IEnumerable<char> key)
@@ -92,39 +103,6 @@ namespace DawgSharp
                 }
 
                 if (strIndex++ == keyStr.Length) break;
-            }
-        }
-
-        private IEnumerable<KeyValuePair<string, TPayload>> MatchPrefix (StringBuilder sb, int node_i)
-        {
-            if (node_i != -1)
-            {
-                var payload = GetPayload(node_i);
-
-                if (!EqualityComparer<TPayload>.Default.Equals(payload, default))
-                {
-                    yield return new KeyValuePair<string, TPayload>(sb.ToString(), payload);
-                }
-
-                int firstChild_i = firstChildForNode [node_i];
-
-                int lastChild_i = node_i + 1 < nodeCount
-                                        ? firstChildForNode[node_i + 1]
-                                        : children.Length;
-
-                for (int i = firstChild_i; i < lastChild_i; ++i)
-                {
-                    YaleChild child = children [i];
-
-                    sb.Append (indexToChar [child.CharIndex]);
-
-                    foreach (var pair in MatchPrefix (sb, child.Index))
-                    {
-                        yield return pair;
-                    }
-
-                    --sb.Length;
-                }
             }
         }
 

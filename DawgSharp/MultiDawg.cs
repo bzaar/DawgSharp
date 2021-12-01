@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DawgSharp
 {
@@ -82,6 +83,21 @@ namespace DawgSharp
                     break;
 
                 yield return arr[i];
+            }
+        }
+
+        public IEnumerable<KeyValuePair<string, IEnumerable<TPayload>>> MatchPrefix(IEnumerable<char> prefix)
+        {
+            string prefixStr = prefix.AsString();
+
+            var sb = new StringBuilder(prefixStr);
+
+            foreach (int node_i in yaleGraph.MatchPrefix(sb, yaleGraph.GetPath(prefixStr).Last()))
+            {
+                if (HasPayload(node_i))
+                {
+                    yield return new KeyValuePair<string, IEnumerable<TPayload>>(sb.ToString(), GetPayloads(node_i));
+                }
             }
         }
 
