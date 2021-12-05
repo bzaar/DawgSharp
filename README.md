@@ -105,6 +105,13 @@ The ```DawgBuilder``` class is *not* thread-safe and must be accessed by only on
 
 The ```Dawg``` class is immutable and thus thread-safe.
 
+
+MultiDawg
+---------
+
+The MultiDawg class can store multiple values agaist a single string key in a very memory-efficient manner.
+
+
 Future plans
 ------------
 ### More usage scenarios
