@@ -36,56 +36,64 @@ namespace DawgSharp
         {
             int node_i = rootNodeIndex;
 
+            yield return node_i;
+
             if (node_i == -1)
             {
-                yield return -1;
                 yield break;
             }
 
-            yield return node_i;
-
             foreach (char c in word)
             {
-                ushort charIndexPlusOne;
-
-                if (c < firstChar || c > lastChar || (charIndexPlusOne = charToIndexPlusOne[c - firstChar]) == 0)
+                if (c >= firstChar && c <= lastChar)
                 {
-                    yield return -1;
-                    yield break;
+                    ushort charIndexPlusOne = charToIndexPlusOne[c - firstChar];
+
+                    if (charIndexPlusOne != 0)
+                    {
+                        int child_i = GetChildIndex(node_i, charIndexPlusOne);
+
+                        if (child_i >= 0)
+                        {
+                            node_i = children[child_i].Index;
+
+                            yield return node_i;
+                            continue;
+                        }
+                    }
                 }
-
-                int firstChild_i = firstChildForNode[node_i];
-
-                int lastChild_i = firstChildForNode[node_i + 1];
-
-                int nChildren = lastChild_i - firstChild_i;
-
-                var charIndex = (ushort)(charIndexPlusOne - 1);
-
-                int child_i;
-                if (nChildren == 1)
-                {
-                    child_i = children[firstChild_i].CharIndex == charIndex ? firstChild_i : -1;
-                }
-                else
-                {
-                    var searchValue = new YaleChild(-1, charIndex);
-
-                    child_i = Array.BinarySearch(children, firstChild_i, nChildren, searchValue, childComparer);
-                }
-
-                if (child_i < 0)
-                {
-                    yield return -1;
-                    yield break;
-                }
-
-                node_i = children[child_i].Index;
-
-                yield return node_i;
+                
+                yield return -1;
+                yield break;
             }
         }
-        
+
+        private int GetChildIndex(int node_i, ushort charIndexPlusOne)
+        {
+            int firstChild_i = firstChildForNode[node_i];
+
+            int lastChild_i = firstChildForNode[node_i + 1];
+
+            int nChildren = lastChild_i - firstChild_i;
+
+            var charIndex = (ushort)(charIndexPlusOne - 1);
+
+            int child_i;
+            
+            if (nChildren == 1)
+            {
+                child_i = children[firstChild_i].CharIndex == charIndex ? firstChild_i : -1;
+            }
+            else
+            {
+                var searchValue = new YaleChild(-1, charIndex);
+
+                child_i = Array.BinarySearch(children, firstChild_i, nChildren, searchValue, childComparer);
+            }
+
+            return child_i;
+        }
+
         private static readonly ChildComparer childComparer = new();
         
         class ChildComparer : IComparer<YaleChild>
