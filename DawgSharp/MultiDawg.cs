@@ -106,5 +106,11 @@ namespace DawgSharp
         public int GetNodeCount() => yaleGraph.NodeCount;
 
         public int MaxPayloads => payloads.Length;
+
+        public IEnumerable<KeyValuePair<string, IEnumerable<TPayload>>> MatchTree(IEnumerable<IEnumerable<char>> tree)
+        {
+            return yaleGraph.MatchTree(tree)
+                .Select(pair => new KeyValuePair<string, IEnumerable<TPayload>> (pair.Key, GetPayloads(pair.Value)));
+        }
     }
 }

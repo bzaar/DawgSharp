@@ -23,14 +23,14 @@
       
       This package is provided under the terms of the GNU GPL v3. Source code and documentation are available on GitHub: https://github.com/bzaar/DawgSharp. Commercial licenses are also available at http://morpher.co.uk
     </Description>
-    <Copyright>2014 - 2021 Sergey Slepov</Copyright>
+    <Copyright>2014 - 2022 Sergey Slepov</Copyright>
     <PackageTags>DAWG;string;dictionary;lookup</PackageTags>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <RepositoryUrl>https://github.com/bzaar/DawgSharp</RepositoryUrl>
     <PackageProjectUrl>https://github.com/bzaar/DawgSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/bzaar/DawgSharp/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png?raw=true</PackageIconUrl>
-    <PackageReleaseNotes>Add MultiDawg.MatchPrefix()
+    <PackageReleaseNotes>Add MultiDawg.MatchTree()
     </PackageReleaseNotes>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DawgSharp.xml</DocumentationFile>
     <NoWarn>1591</NoWarn> <!--"Missing XML comment for publicly visible type or member."-->
@@ -38,5 +38,9 @@
     <!--See this answer: https://stackoverflow.com/a/48363059/1291717 -->
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="IsExternalInit.cs" />
+  </ItemGroup>
 
 </Project>

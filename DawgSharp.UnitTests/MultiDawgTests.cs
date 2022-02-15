@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -8,6 +7,32 @@ namespace DawgSharp.UnitTests
     [TestFixture]
     public class MultiDawgTests
     {
+        [Test]
+        [TestCase("ё")]
+        [TestCase("сё")]
+        [TestCase("сёл")]
+        [TestCase("ёж")]
+        public void MatchTreeTest(string yo)
+        {
+            var builder = new MultiDawgBuilder<int>();
+            string ye = yo.Replace('ё', 'е');
+            builder.Insert(ye, new [] {1});
+            builder.Insert(yo, new [] {2});
+            MultiDawg<int> multiDawg = builder.BuildMultiDawg();
+            AssertSequenceEquals(multiDawg.MatchTree(ye.Select(YeToYeYo)).SelectMany(p => p.Value), 1, 2);
+            AssertSequenceEquals(multiDawg.MatchTree(yo.Select(YeToYeYo)).SelectMany(p => p.Value), 2);
+        }
+
+        static IEnumerable<char> YeToYeYo(char c)
+        {
+            yield return c;
+
+            if (c == 'е')
+            {
+                yield return 'ё';
+            }
+        }
+
         [Test]
         public void Test1()
         {
