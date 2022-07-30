@@ -52,9 +52,9 @@ namespace DawgSharp
             return !ye.MoveNext();
         }
 
-        int GetHashCode (Node<TPayload> node)
+        private int ComputeHashCode(Node<TPayload> node)
         {
-            int hashCode = payloadComparer.GetHashCode (node.Payload);
+            int hashCode = payloadComparer.GetHashCode(node.Payload);
 
             foreach (var c in node.Children)
             {
@@ -64,9 +64,9 @@ namespace DawgSharp
             return hashCode;
         }
 
-        public int GetHashCode (NodeWrapper <TPayload> obj)
+        public int GetHashCode (NodeWrapper <TPayload> wrapper)
         {
-            return GetHashCode (obj.Node);
+            return wrapper.HashCode ??= ComputeHashCode(wrapper.Node);
         }
     }
 }

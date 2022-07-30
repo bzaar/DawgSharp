@@ -16,6 +16,7 @@ namespace DawgSharp
         public readonly Node<TPayload> Super;
         public readonly char Char;
         KeyValuePair<char, Node<TPayload>> [] sortedChildren;
+        public int? HashCode; // set by the comparer, cached for efficiency
 
         private KeyValuePair<char, Node<TPayload>>[] GetSortedChildren()
         {
