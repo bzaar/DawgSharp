@@ -4,175 +4,174 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace DawgSharp
+namespace DawgSharp;
+
+public class Dawg <TPayload> 
+    : IEnumerable <KeyValuePair <string, TPayload>>
 {
-    public class Dawg <TPayload> 
-        : IEnumerable <KeyValuePair <string, TPayload>>
+    readonly IDawg <TPayload> dawg;
+
+    internal Dawg (IDawg <TPayload> dawg)
     {
-        readonly IDawg <TPayload> dawg;
+        this.dawg = dawg;
+    }
 
-        internal Dawg (IDawg <TPayload> dawg)
-        {
-            this.dawg = dawg;
-        }
+    public TPayload this [IEnumerable<char> word] => dawg [word];
 
-        public TPayload this [IEnumerable<char> word] => dawg [word];
+    public int GetLongestCommonPrefixLength (IEnumerable<char> word)
+    {
+        return dawg.GetLongestCommonPrefixLength(word);
+    }
 
-        public int GetLongestCommonPrefixLength (IEnumerable<char> word)
-        {
-            return dawg.GetLongestCommonPrefixLength(word);
-        }
+    /// <summary>
+    /// Returns all items with a given word.
+    /// </summary>
+    public IEnumerable<KeyValuePair<string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
+    {
+        return dawg.MatchPrefix (prefix);
+    }
 
-        /// <summary>
-        /// Returns all items with a given word.
-        /// </summary>
-        public IEnumerable<KeyValuePair<string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
-        {
-            return dawg.MatchPrefix (prefix);
-        }
+    /// <summary>
+    /// Returns all items that are substrings of a given word.
+    /// </summary>
+    public IEnumerable<KeyValuePair<string, TPayload>> GetPrefixes (IEnumerable<char> word)
+    {
+        return dawg.GetPrefixes (word);
+    }
 
-        /// <summary>
-        /// Returns all items that are substrings of a given word.
-        /// </summary>
-        public IEnumerable<KeyValuePair<string, TPayload>> GetPrefixes (IEnumerable<char> word)
-        {
-            return dawg.GetPrefixes (word);
-        }
+    public int GetNodeCount ()
+    {
+        return dawg.GetNodeCount ();
+    }
 
-        public int GetNodeCount ()
-        {
-            return dawg.GetNodeCount ();
-        }
+    public IEnumerator<KeyValuePair<string, TPayload>> GetEnumerator()
+    {
+        return MatchPrefix ("").GetEnumerator ();
+    }
 
-        public IEnumerator<KeyValuePair<string, TPayload>> GetEnumerator()
-        {
-            return MatchPrefix ("").GetEnumerator ();
-        }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator ();
+    }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator ();
-        }
-
-        /// <summary>
-        /// Save the DAWG to a file / stream.
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="writePayload">Optional, can be null for basic types (int, string, etc).</param>
-        public void SaveTo (Stream stream, Action<BinaryWriter, TPayload> writePayload = null)
-        {
+    /// <summary>
+    /// Save the DAWG to a file / stream.
+    /// </summary>
+    /// <param name="stream"></param>
+    /// <param name="writePayload">Optional, can be null for basic types (int, string, etc).</param>
+    public void SaveTo (Stream stream, Action<BinaryWriter, TPayload> writePayload = null)
+    {
 #pragma warning disable 618
-            SaveAsYaleDawg (stream, writePayload ?? GetStandardWriter ());
+        SaveAsYaleDawg (stream, writePayload ?? GetStandardWriter ());
 #pragma warning restore 618
-        }
+    }
 
-        /// <summary>
-        /// This method is only used for testing.
-        /// </summary>
-        [Obsolete ("This method is only used for testing.")]
-        public void SaveAsYaleDawg (Stream stream, Action <BinaryWriter, TPayload> writePayload = null)
+    /// <summary>
+    /// This method is only used for testing.
+    /// </summary>
+    [Obsolete ("This method is only used for testing.")]
+    public void SaveAsYaleDawg (Stream stream, Action <BinaryWriter, TPayload> writePayload = null)
+    {
+        Save (stream, (d, w) => d.root.SaveAsYaleDawg (w, writePayload ?? GetStandardWriter ()));
+    }
+
+    /// <summary>
+    /// This method is only used for testing.
+    /// </summary>
+    [Obsolete ("This method is only used for testing.")]
+    public void SaveAsMatrixDawg (Stream stream, Action <BinaryWriter, TPayload> writePayload = null)
+    {
+        Save (stream, (d, w) => d.root.SaveAsMatrixDawg (w, writePayload ?? GetStandardWriter ()));
+    }
+
+    private void Save (Stream stream, Action <OldDawg<TPayload>, BinaryWriter> save)
+    {
+        // Do not close the BinaryWriter. Users might want to append more data to the stream.
+        var writer = new BinaryWriter (stream);
+
+        writer.Write (GetSignature ());
+
+        save ((OldDawg<TPayload>) dawg, writer);
+    }
+
+    static Action <BinaryWriter, TPayload> GetStandardWriter ()
+    {
+        return BuiltinTypeIO.GetWriter<TPayload>();
+    }
+
+    public static Dawg <TPayload> Load (Stream stream, Func <BinaryReader, TPayload> readPayload = null)
+    {
+        return new(LoadIDawg (stream, readPayload ?? BuiltinTypeIO.GetReader<TPayload>())); 
+    }
+
+    static IDawg <TPayload> LoadIDawg (Stream stream, Func <BinaryReader, TPayload> readPayload)
+    {
+        using (var reader = new BinaryReader (stream))
         {
-            Save (stream, (d, w) => d.root.SaveAsYaleDawg (w, writePayload ?? GetStandardWriter ()));
-        }
+            int signature = GetSignature();
 
-        /// <summary>
-        /// This method is only used for testing.
-        /// </summary>
-        [Obsolete ("This method is only used for testing.")]
-        public void SaveAsMatrixDawg (Stream stream, Action <BinaryWriter, TPayload> writePayload = null)
-        {
-            Save (stream, (d, w) => d.root.SaveAsMatrixDawg (w, writePayload ?? GetStandardWriter ()));
-        }
+            int firstInt = reader.ReadInt32 ();
 
-        private void Save (Stream stream, Action <OldDawg<TPayload>, BinaryWriter> save)
-        {
-            // Do not close the BinaryWriter. Users might want to append more data to the stream.
-            var writer = new BinaryWriter (stream);
-
-            writer.Write (GetSignature ());
-
-            save ((OldDawg<TPayload>) dawg, writer);
-        }
-
-        static Action <BinaryWriter, TPayload> GetStandardWriter ()
-        {
-            return BuiltinTypeIO.GetWriter<TPayload>();
-        }
-
-        public static Dawg <TPayload> Load (Stream stream, Func <BinaryReader, TPayload> readPayload = null)
-        {
-            return new(LoadIDawg (stream, readPayload ?? BuiltinTypeIO.GetReader<TPayload>())); 
-        }
-
-        static IDawg <TPayload> LoadIDawg (Stream stream, Func <BinaryReader, TPayload> readPayload)
-        {
-            using (var reader = new BinaryReader (stream))
+            if (firstInt == signature)
             {
-                int signature = GetSignature();
+                int version = reader.ReadInt32();
 
-                int firstInt = reader.ReadInt32 ();
-
-                if (firstInt == signature)
+                switch (version)
                 {
-                    int version = reader.ReadInt32();
-
-                    switch (version)
-                    {
-                        case 1: return new MatrixDawg <TPayload> (reader, readPayload);
-                        case 2: return new YaleDawg <TPayload> (reader, readPayload);
-                    }
-
-                    throw new Exception("This file was produced by a more recent version of DawgSharp.");
+                    case 1: return new MatrixDawg <TPayload> (reader, readPayload);
+                    case 2: return new YaleDawg <TPayload> (reader, readPayload);
                 }
 
-                // The old, unversioned, file format had the number of nodes as the first 4 bytes of the stream.
-                // It is extremely unlikely that they happen to be exactly the same as the signature "DAWG".
-                return LoadOldDawg (reader, firstInt, readPayload);
+                throw new Exception("This file was produced by a more recent version of DawgSharp.");
             }
+
+            // The old, unversioned, file format had the number of nodes as the first 4 bytes of the stream.
+            // It is extremely unlikely that they happen to be exactly the same as the signature "DAWG".
+            return LoadOldDawg (reader, firstInt, readPayload);
         }
+    }
 
-        private static int GetSignature()
+    private static int GetSignature()
+    {
+        byte[] bytes = Encoding.UTF8.GetBytes("DAWG");
+
+        return bytes [0]
+            + bytes [1] << 8
+            + bytes [2] << 16
+            + bytes [3] << 24;
+    }
+
+    private static OldDawg<TPayload> LoadOldDawg (BinaryReader reader, int nodeCount, Func<BinaryReader, TPayload> readPayload)
+    {
+        var nodes = new Node<TPayload>[nodeCount];
+
+        int rootIndex = reader.ReadInt32 ();
+
+        char[] chars = reader.ReadChars (nodeCount);
+
+        for (int i = 0; i < nodeCount; ++i)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes("DAWG");
-
-            return bytes [0]
-                + bytes [1] << 8
-                + bytes [2] << 16
-                + bytes [3] << 24;
-        }
-
-        private static OldDawg<TPayload> LoadOldDawg (BinaryReader reader, int nodeCount, Func<BinaryReader, TPayload> readPayload)
-        {
-            var nodes = new Node<TPayload>[nodeCount];
-
-            int rootIndex = reader.ReadInt32 ();
-
-            char[] chars = reader.ReadChars (nodeCount);
-
-            for (int i = 0; i < nodeCount; ++i)
-            {
-                var node = new Node <TPayload> ();
+            var node = new Node <TPayload> ();
                     
-                int childCount = reader.ReadInt16 ();
+            int childCount = reader.ReadInt16 ();
 
-                while (childCount --> 0)
-                {
-                    int childIndex = reader.ReadInt32 ();
+            while (childCount --> 0)
+            {
+                int childIndex = reader.ReadInt32 ();
 
-                    node.Children.Add (chars [childIndex], nodes [childIndex]);
-                }
-
-                node.Payload = readPayload (reader);
-
-                nodes [i] = node;
+                node.Children.Add (chars [childIndex], nodes [childIndex]);
             }
 
-            return new OldDawg <TPayload> (nodes [rootIndex]);
+            node.Payload = readPayload (reader);
+
+            nodes [i] = node;
         }
 
-        public KeyValuePair<string, TPayload> GetRandomItem(Random random)
-        {
-            return dawg.GetRandomItem(random);
-        }
+        return new OldDawg <TPayload> (nodes [rootIndex]);
+    }
+
+    public KeyValuePair<string, TPayload> GetRandomItem(Random random)
+    {
+        return dawg.GetRandomItem(random);
     }
 }

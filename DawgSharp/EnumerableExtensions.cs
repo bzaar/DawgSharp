@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace DawgSharp
+namespace DawgSharp;
+
+static class EnumerableExtensions
 {
-    static class EnumerableExtensions
+    public static string AsString(this IEnumerable<char> seq)
     {
-        public static string AsString(this IEnumerable<char> seq)
+        return seq as string ?? ToString(seq);
+    }
+
+    static string ToString(IEnumerable<char> seq)
+    {
+        var sb = new StringBuilder();
+
+        foreach (char c in seq)
         {
-            return seq as string ?? ToString(seq);
+            sb.Append(c);
         }
 
-        static string ToString(IEnumerable<char> seq)
-        {
-            var sb = new StringBuilder();
-
-            foreach (char c in seq)
-            {
-                sb.Append(c);
-            }
-
-            return sb.ToString();
-        }
+        return sb.ToString();
     }
 }
