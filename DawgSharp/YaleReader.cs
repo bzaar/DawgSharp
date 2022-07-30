@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace DawgSharp;
+﻿namespace DawgSharp;
 
 static class YaleReader
 {

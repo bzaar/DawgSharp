@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace DawgSharp;
+﻿namespace DawgSharp;
 
 static class CharToIndexPlusOneMap
 {

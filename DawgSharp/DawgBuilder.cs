@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-
-namespace DawgSharp;
+﻿namespace DawgSharp;
 
 public class DawgBuilder <TPayload>
 {

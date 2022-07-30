@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DawgSharp;
+﻿namespace DawgSharp;
 
 public static class DawgExtensions
 {

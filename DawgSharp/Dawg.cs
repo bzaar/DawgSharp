@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-namespace DawgSharp;
+﻿namespace DawgSharp;
 
 public class Dawg <TPayload> 
     : IEnumerable <KeyValuePair <string, TPayload>>

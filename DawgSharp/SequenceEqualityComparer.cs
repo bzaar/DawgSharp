@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace DawgSharp;
+﻿namespace DawgSharp;
 
 public class SequenceEqualityComparer<T> : IEqualityComparer<IList<T>>
 {
