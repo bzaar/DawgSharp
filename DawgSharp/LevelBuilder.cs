@@ -7,7 +7,8 @@ class LevelBuilder <TPayload>
 {
     public LevelBuilder(IEqualityComparer<TPayload> comparer = null)
     {
-        this.comparer = new NodeWrapperEqualityComparer<TPayload>(comparer ?? EqualityComparer<TPayload>.Default);
+        this.comparer = new NodeWrapperEqualityComparer<TPayload>(
+            comparer ?? EqualityComparer<TPayload>.Default);
     }
         
     public void MergeEnds (Node <TPayload> root)
@@ -24,40 +25,38 @@ class LevelBuilder <TPayload>
             {
                 // depth first
                 Push (stack, stack.Peek().ChildIterator.Current.Value);
+                continue;
+            }
+
+            StackFrame current = stack.Pop ();
+
+            if (stack.Count == 0) continue;
+                
+            StackFrame parent = stack.Peek ();
+
+            if (levels.Count <= current.Level)
+            {
+                levels.Add (NewLevel());
+            }
+
+            var level = levels [current.Level];
+
+            var nodeWrapper = new NodeWrapper<TPayload>(current.Node);
+
+            if (level.TryGetValue (nodeWrapper, out NodeWrapper<TPayload> existing))
+            {
+                parent.Node.Children [parent.ChildIterator.Current.Key] = existing.Node;
             }
             else
             {
-                StackFrame current = stack.Pop ();
+                level.Add (nodeWrapper, nodeWrapper);
+            }
 
-                if (stack.Count > 0)
-                {
-                    StackFrame parent = stack.Peek ();
+            int parentLevel = current.Level + 1;
 
-                    if (levels.Count <= current.Level)
-                    {
-                        levels.Add (NewLevel());
-                    }
-
-                    var level = levels [current.Level];
-
-                    var nodeWrapper = new NodeWrapper<TPayload>(current.Node);
-
-                    if (level.TryGetValue (nodeWrapper, out NodeWrapper<TPayload> existing))
-                    {
-                        parent.Node.Children [parent.ChildIterator.Current.Key] = existing.Node;
-                    }
-                    else
-                    {
-                        level.Add (nodeWrapper, nodeWrapper);
-                    }
-
-                    int parentLevel = current.Level + 1;
-
-                    if (parent.Level < parentLevel)
-                    {
-                        parent.Level = parentLevel;
-                    }
-                }
+            if (parent.Level < parentLevel)
+            {
+                parent.Level = parentLevel;
             }
         }
     }
