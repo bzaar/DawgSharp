@@ -5,16 +5,12 @@ namespace DawgSharp
 {
     class NodeWrapper <TPayload>
     {
-        public NodeWrapper (Node<TPayload> node, Node<TPayload> super, char @char)
+        public NodeWrapper (Node<TPayload> node)
         {
             this.Node = node;
-            this.Super = super;
-            this.Char = @char;
         }
 
         public readonly Node<TPayload> Node;
-        public readonly Node<TPayload> Super;
-        public readonly char Char;
         KeyValuePair<char, Node<TPayload>> [] sortedChildren;
         public int? HashCode; // set by the comparer, cached for efficiency
 

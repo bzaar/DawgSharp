@@ -41,9 +41,7 @@ namespace DawgSharp
                         var level = levels [current.Level];
 
                         var nodeWrapper = new NodeWrapper <TPayload> (
-                            current.Node,
-                            parent.Node,
-                            parent.ChildIterator.Current.Key);
+                            current.Node);
 
                         if (level.TryGetValue (nodeWrapper, out NodeWrapper<TPayload> existing))
                         {
