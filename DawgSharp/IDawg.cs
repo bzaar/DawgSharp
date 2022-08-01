@@ -1,4 +1,7 @@
-﻿namespace DawgSharp;
+﻿using System;
+using System.Collections.Generic;
+
+namespace DawgSharp;
 
 interface IDawg<TPayload>
 {

@@ -1,4 +1,8 @@
-﻿namespace DawgSharp;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace DawgSharp;
 
 static class BuiltinTypeIO
 {

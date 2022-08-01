@@ -1,4 +1,7 @@
-﻿namespace DawgSharp;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace DawgSharp;
 
 class Node <TPayload>
 {

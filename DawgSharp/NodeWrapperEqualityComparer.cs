@@ -1,4 +1,6 @@
-﻿namespace DawgSharp;
+﻿using System.Collections.Generic;
+
+namespace DawgSharp;
 
 class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <Node<TPayload>>
 {

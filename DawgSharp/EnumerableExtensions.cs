@@ -1,4 +1,7 @@
-﻿namespace DawgSharp;
+﻿using System.Collections.Generic;
+using System.Text;
+
+namespace DawgSharp;
 
 static class EnumerableExtensions
 {
