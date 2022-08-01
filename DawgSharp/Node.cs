@@ -6,6 +6,8 @@ class Node <TPayload>
 
     public TPayload Payload { get; set; }
 
+    public int? HashCode; // set by the comparer, cached for efficiency
+    
     public Node<TPayload> GetOrAddEdge (char c)
     {
         if (! children.TryGetValue (c, out Node<TPayload> newNode))

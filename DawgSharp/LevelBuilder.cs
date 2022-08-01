@@ -11,9 +11,7 @@ class LevelBuilder <TPayload>
     public void MergeEnds (Node <TPayload> root)
     {
         var levels = new[] {NewLevel()}.ToList();
-
         var stack = new Stack <StackFrame> ();
-
         Push (stack, root);
 
         while (stack.Count > 0)
@@ -31,34 +29,25 @@ class LevelBuilder <TPayload>
                 
             StackFrame parent = stack.Peek ();
 
-            if (levels.Count <= current.Level)
-            {
-                levels.Add (NewLevel());
-            }
+            if (levels.Count <= current.Level) 
+                levels.Add(NewLevel());
 
             var level = levels [current.Level];
+            var currentNode = current.Node;
 
-            var nodeWrapper = new NodeWrapper<TPayload>(current.Node);
-
-            if (level.TryGetValue (nodeWrapper, out NodeWrapper<TPayload> existing))
-            {
-                parent.Node.Children [parent.ChildIterator.Current.Key] = existing.Node;
-            }
+            if (level.TryGetValue(currentNode, out Node<TPayload> existing))
+                parent.Node.Children[parent.ChildIterator.Current.Key] = existing;
             else
-            {
-                level.Add (nodeWrapper, nodeWrapper);
-            }
+                level.Add(currentNode, currentNode);
 
             int parentLevel = current.Level + 1;
 
-            if (parent.Level < parentLevel)
-            {
+            if (parent.Level < parentLevel) 
                 parent.Level = parentLevel;
-            }
         }
     }
 
-    private Dictionary<NodeWrapper<TPayload>, NodeWrapper<TPayload>> NewLevel() => new(comparer);
+    private Dictionary<Node<TPayload>, Node<TPayload>> NewLevel() => new(comparer);
     private readonly NodeWrapperEqualityComparer<TPayload> comparer;
 
     private static void Push (Stack <StackFrame> stack, Node <TPayload> node)

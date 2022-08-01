@@ -1,6 +1,6 @@
 ﻿namespace DawgSharp;
 
-class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <NodeWrapper <TPayload>>
+class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <Node<TPayload>>
 {
     private readonly IEqualityComparer<TPayload> payloadComparer;
 
@@ -9,10 +9,10 @@ class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <NodeWrapper <T
         this.payloadComparer = payloadComparer;
     }
         
-    public bool Equals (NodeWrapper <TPayload> x, NodeWrapper <TPayload> y)
+    public bool Equals (Node<TPayload> x, Node<TPayload> y)
     {
         // ReSharper disable PossibleNullReferenceException
-        bool equals = AreEqual(x.Node, y.Node);
+        bool equals = AreEqual(x, y);
         // ReSharper restore PossibleNullReferenceException
 
         return equals;
@@ -62,8 +62,8 @@ class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <NodeWrapper <T
         return hashCode;
     }
 
-    public int GetHashCode (NodeWrapper <TPayload> wrapper)
+    public int GetHashCode (Node<TPayload> node)
     {
-        return wrapper.HashCode ??= ComputeHashCode(wrapper.Node);
+        return node.HashCode ??= ComputeHashCode(node);
     }
 }
