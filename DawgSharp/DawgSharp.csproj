@@ -5,6 +5,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
     <LangVersion>10</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <PackageId>DawgSharp</PackageId>
     <RootNamespace>DawgSharp</RootNamespace>

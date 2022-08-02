@@ -12,10 +12,8 @@ dotnet_csproj:
   assembly_version: '{version}'
   file_version: '{version}'
   informational_version: '{version}'
-before_build:
-- nuget restore
-after_build:
-- cmd: dotnet pack DawgSharp/DawgSharp.csproj --no-build -c Release
+build_script:
+  - cmd: dotnet build -c Release
 artifacts:
 - path: 'DawgSharp\**\*.nupkg'
   name: Nuget
