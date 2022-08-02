@@ -1,8 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29418.71
-MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DawgSharp", "DawgSharp\DawgSharp.csproj", "{4285FED3-5A96-493E-8B52-F7D93758D62F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DawgSharp.UnitTests", "DawgSharp.UnitTests\DawgSharp.UnitTests.csproj", "{68692CCC-230D-4092-A530-6C47B6ED1A2D}"
