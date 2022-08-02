@@ -108,7 +108,7 @@ namespace DawgSharp.UnitTests
             
             var words = File.ReadAllLines (Path.Combine(TestContext.CurrentContext.TestDirectory, "eneko-words.txt"));
 
-            var dawgBuilder = words.ToDawgBuilderParallel(w => w, w => true);
+            var dawgBuilder = words.ToDawgBuilderParallel(w => w, _ => true);
 
             Console.WriteLine(stopwatch.ElapsedMilliseconds);
 
