@@ -46,7 +46,10 @@ class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <Node<TPayload>
             var ycurrent = ye.Current;
 
             if (xcurrent.Key != ycurrent.Key) return false;
-            if (!AreEqual(xcurrent.Value, ycurrent.Value)) return false;
+            
+            // Child nodes have already been merged 
+            // so we can use reference equality here.
+            if (xcurrent.Value != ycurrent.Value) return false;
         }
 
         return !ye.MoveNext();
@@ -60,6 +63,9 @@ class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <Node<TPayload>
         {
             char c = pair.Key;
             Node<TPayload> childNode = pair.Value;
+
+            // Child nodes have already been merged 
+            // so we can use reference equality here.
             hashCode ^= c ^ childNode.GetHashCode();
         }
 
