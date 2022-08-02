@@ -1,4 +1,5 @@
-image: Visual Studio 2022
+image: Visual Studio 2019
+configuration: Release
 environment:
   major_version: 1
   minor_version: 7
@@ -11,8 +12,10 @@ dotnet_csproj:
   assembly_version: '{version}'
   file_version: '{version}'
   informational_version: '{version}'
-build_script:
-- cmd: dotnet pack -c Release
+before_build:
+- nuget restore
+after_build:
+- cmd: dotnet pack DawgSharp/DawgSharp.csproj --no-build -c Release
 artifacts:
 - path: 'DawgSharp\**\*.nupkg'
   name: Nuget
