@@ -56,9 +56,11 @@ class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <Node<TPayload>
     {
         int hashCode = payloadComparer.GetHashCode(node.Payload);
 
-        foreach (var c in node.Children)
+        foreach (var pair in node.Children)
         {
-            hashCode ^= c.Key ^ c.Value.GetHashCode();
+            char c = pair.Key;
+            Node<TPayload> childNode = pair.Value;
+            hashCode ^= c ^ childNode.GetHashCode();
         }
 
         return hashCode;
