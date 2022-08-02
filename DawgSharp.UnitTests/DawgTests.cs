@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
@@ -103,6 +104,8 @@ namespace DawgSharp.UnitTests
         [Test]
         public void EnekoWordListTest()
         {
+            var stopwatch = Stopwatch.StartNew();
+            
             var words = File.ReadAllLines (Path.Combine(TestContext.CurrentContext.TestDirectory, "eneko-words.txt"));
 
             var dawgBuilder = new DawgBuilder<bool> ();
@@ -112,12 +115,18 @@ namespace DawgSharp.UnitTests
                 dawgBuilder.Insert (word, true);
             }
 
+            Console.WriteLine(stopwatch.ElapsedMilliseconds);
+
             var rehydrated = GetDawg (dawgBuilder);
+            
+            Console.WriteLine(stopwatch.ElapsedMilliseconds);
 
             foreach (string word in words)
             {
                 Assert.IsTrue(rehydrated [word], word);
             }
+            
+            Console.WriteLine(stopwatch.ElapsedMilliseconds);
         }
 
         [Test]
