@@ -34,7 +34,8 @@
     </PackageReleaseNotes>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DawgSharp.xml</DocumentationFile>
     <NoWarn>1591</NoWarn> <!--"Missing XML comment for publicly visible type or member."-->
-
+    <LangVersion>10</LangVersion>
+    
     <!--See this answer: https://stackoverflow.com/a/48363059/1291717 -->
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
   </PropertyGroup>
