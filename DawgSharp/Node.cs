@@ -8,8 +8,6 @@ class Node <TPayload>
     readonly Dictionary<char, Node<TPayload>> children = new();
 
     public TPayload Payload { get; set; }
-
-    public int? HashCode; // set by the comparer, cached for efficiency
     
     public Node<TPayload> GetOrAddEdge (char c)
     {

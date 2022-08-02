@@ -68,6 +68,6 @@ class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <Node<TPayload>
 
     public int GetHashCode (Node<TPayload> node)
     {
-        return node.HashCode ??= ComputeHashCode(node);
+        return ComputeHashCode(node);
     }
 }
