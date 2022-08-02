@@ -5,11 +5,21 @@ namespace DawgSharp;
 
 public class DawgBuilder <TPayload>
 {
-    internal readonly Node<TPayload> root = new();
+    internal readonly Node<TPayload> root;
 
     readonly List <Node<TPayload>> lastPath = new();
     string lastKey = "";
 
+    public DawgBuilder()
+    {
+        this.root = new Node<TPayload>();
+    }
+
+    internal DawgBuilder(Node<TPayload> root)
+    {
+        this.root = root;
+    }
+    
     /// <summary>
     /// Inserts a new key/value pair or updates the value for an existing key.
     /// </summary>
@@ -108,5 +118,11 @@ public class DawgBuilder <TPayload>
         var rehydrated = Dawg<TPayload>.Load(memoryStream);
 
         return rehydrated;
+    }
+
+    internal static DawgBuilder<TPayload> Merge(Dictionary<char, Node<TPayload>> children)
+    {
+        var root = new Node<TPayload>(children);
+        return new DawgBuilder<TPayload>(root);
     }
 }

@@ -108,12 +108,7 @@ namespace DawgSharp.UnitTests
             
             var words = File.ReadAllLines (Path.Combine(TestContext.CurrentContext.TestDirectory, "eneko-words.txt"));
 
-            var dawgBuilder = new DawgBuilder<bool> ();
-
-            foreach (string word in words)
-            {
-                dawgBuilder.Insert (word, true);
-            }
+            var dawgBuilder = words.ToDawgBuilderParallel(w => w, w => true);
 
             Console.WriteLine(stopwatch.ElapsedMilliseconds);
 
@@ -123,7 +118,7 @@ namespace DawgSharp.UnitTests
 
             foreach (string word in words)
             {
-                Assert.IsTrue(rehydrated [word], word);
+                Assert.IsTrue(rehydrated [word], $"{word} is not in the dictionary");
             }
             
             Console.WriteLine(stopwatch.ElapsedMilliseconds);

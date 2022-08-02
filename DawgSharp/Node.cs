@@ -5,8 +5,18 @@ namespace DawgSharp;
 
 class Node <TPayload>
 {
-    readonly Dictionary<char, Node<TPayload>> children = new();
+    readonly Dictionary<char, Node<TPayload>> children;
 
+    public Node()
+    {
+        this.children = new Dictionary<char, Node<TPayload>>();
+    }
+
+    internal Node(Dictionary<char, Node<TPayload>> children)
+    {
+        this.children = children;
+    }
+    
     public TPayload Payload { get; set; }
     
     public Node<TPayload> GetOrAddEdge (char c)

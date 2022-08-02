@@ -10,6 +10,14 @@ public class MultiDawgBuilder<TPayload> : DawgBuilder<IList<TPayload>>
     private const int Version = 0;
     private static readonly int Signature = BitConverter.ToInt32(Encoding.UTF8.GetBytes("MDWG"), 0);
 
+    public MultiDawgBuilder()
+    {
+    }
+    
+    internal MultiDawgBuilder(Node<IList<TPayload>> root) : base (root)
+    {
+    }
+    
     public MultiDawg<TPayload> BuildMultiDawg()
     {
         FuseEnds();
@@ -67,5 +75,11 @@ public class MultiDawgBuilder<TPayload> : DawgBuilder<IList<TPayload>>
         writer.Write(Version);
         Serializer.SaveAsMultiDawg(writer, root, BuiltinTypeIO.GetWriter<TPayload>());
         writer.Flush(); // do not close the stream
+    }
+
+    internal static MultiDawgBuilder<TPayload> MergeMulti(Dictionary<char, Node<IList<TPayload>>> children)
+    {
+        var root = new Node<IList<TPayload>>(children);
+        return new MultiDawgBuilder<TPayload>(root);
     }
 }
