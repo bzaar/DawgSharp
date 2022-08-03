@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net35;net40</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
     <LangVersion>10</LangVersion>
@@ -35,9 +35,6 @@
     </PackageReleaseNotes>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DawgSharp.xml</DocumentationFile>
     <NoWarn>1591</NoWarn> <!--"Missing XML comment for publicly visible type or member."-->
-    
-    <!--See this answer: https://stackoverflow.com/a/48363059/1291717 -->
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net35'">
