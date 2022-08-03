@@ -7,7 +7,7 @@ class LevelBuilder <TPayload>
 {
     public LevelBuilder(IEqualityComparer<TPayload> comparer = null)
     {
-        this.comparer = new NodeWrapperEqualityComparer<TPayload>(
+        this.comparer = new LevelBuilderEqualityComparer<TPayload>(
             comparer ?? EqualityComparer<TPayload>.Default);
     }
         
@@ -51,7 +51,7 @@ class LevelBuilder <TPayload>
     }
 
     private Dictionary<Node<TPayload>, Node<TPayload>> NewLevel() => new(comparer);
-    private readonly NodeWrapperEqualityComparer<TPayload> comparer;
+    private readonly LevelBuilderEqualityComparer<TPayload> comparer;
 
     private static void Push (Stack <StackFrame> stack, Node <TPayload> node)
     {

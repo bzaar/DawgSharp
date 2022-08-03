@@ -2,11 +2,11 @@
 
 namespace DawgSharp;
 
-class NodeWrapperEqualityComparer <TPayload> : IEqualityComparer <Node<TPayload>>
+class LevelBuilderEqualityComparer <TPayload> : IEqualityComparer <Node<TPayload>>
 {
     private readonly IEqualityComparer<TPayload> payloadComparer;
 
-    public NodeWrapperEqualityComparer(IEqualityComparer<TPayload> payloadComparer)
+    public LevelBuilderEqualityComparer(IEqualityComparer<TPayload> payloadComparer)
     {
         this.payloadComparer = payloadComparer;
     }
