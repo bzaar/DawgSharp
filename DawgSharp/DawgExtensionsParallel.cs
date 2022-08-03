@@ -24,7 +24,7 @@ public static class DawgExtensionsParallel
         return ToDawgBuilderParallel2(enumerable, key, payload, DawgBuilder<TPayload>.Merge);
     }
 
-    public static MultiDawgBuilder<TPayload> ToDawgBuilderParallel<T, TPayload>(
+    public static MultiDawgBuilder<TPayload> ToMultiDawgBuilderParallel<T, TPayload>(
         this IEnumerable<T> enumerable,
         Func<T, string> key,
         Func<T, IList<TPayload>> payload)
