@@ -31,7 +31,7 @@
     <PackageProjectUrl>https://github.com/bzaar/DawgSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/bzaar/DawgSharp/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png?raw=true</PackageIconUrl>
-    <PackageReleaseNotes>Add ToDawgBuilderParallel() which _may_ be faster for really large word lists. Speed up FuseEnds() by 25%
+    <PackageReleaseNotes>Speed up BuildDawg() by 25%. Add ToDawgBuilderParallel() which _may_ be faster for really large word lists.
     </PackageReleaseNotes>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\DawgSharp.xml</DocumentationFile>
     <NoWarn>1591</NoWarn> <!--"Missing XML comment for publicly visible type or member."-->
