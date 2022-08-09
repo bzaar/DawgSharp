@@ -30,19 +30,23 @@ First get the code by cloning this repository or installing the [NuGet package](
 Create and populate a ```DawgBuilder``` object:
 
 ```csharp
+var words = new [] { "Aaron", "abacus", "abashed" };
+
 var dawgBuilder = new DawgBuilder <bool> (); // <bool> is the value type.
                                              // Key type is always string.
-
-foreach (string key in new [] {"Aaron", "abacus", "abashed"})
+foreach (string key in words)
 {
     dawgBuilder.Insert (key, true);
 }
 ```
 
+(Alternatively, do ```var dawgBuilder = words.ToDawgBuilder(key => key, _ => true);```)
+
 Call ```BuildDawg``` on it to get the compressed version and save it to disk:
 
 ```csharp
-var dawg = dawgBuilder.BuildDawg (); // Computer is working.  Please wait ...
+Dawg<bool> dawg = dawgBuilder.BuildDawg (); 
+// Computer is working.  Please wait ...
 
 using (var file = File.Create ("DAWG.bin")) 
     dawg.SaveTo (file);
