@@ -1,8 +1,7 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 
-namespace DawgSharp.UnitTests
+namespace DawgSharp
 {
     [TestFixture]
     public class YaleDawgTests : DawgTests

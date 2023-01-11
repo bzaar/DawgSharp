@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace DawgSharp.UnitTests
+namespace DawgSharp
 {
     [TestFixture]
     public class OldDawgTests : DawgTests

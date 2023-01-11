@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using NUnit.Framework;
 
-namespace DawgSharp.UnitTests
+namespace DawgSharp
 {
     [TestFixture]
     public class MatrixDawgTests : DawgTests

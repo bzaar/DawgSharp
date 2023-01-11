@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using NUnit.Framework;
 
-namespace DawgSharp.UnitTests
+namespace DawgSharp
 {
     [TestFixture]
     public abstract class DawgTests
