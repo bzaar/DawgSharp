@@ -66,7 +66,7 @@ if (dawg ["chihuahua"])
 The Value Type, &lt;TPayload&gt;
 ----------
 
-The ```Dawg``` and ```DawgBuilder``` classes take a template parameter called ```<TPayload>```.  It can be any type you want.  Just to be able to test if a word is in the dictionary, a bool is enough.  You can also make it an ```int``` or a ```string``` or a custom class.  But beware of one important limitation.  DAWG works well only when the set of values that TPayload can take is relatively small.  The smaller the better.  Eg if you add a definition for each word, it will make each entry unique and it won't be able to compact the graph and thus you will loose all the benefits of DAWG.
+The ```Dawg``` and ```DawgBuilder``` classes take a template parameter called ```<TPayload>```.  It can be any type you want.  Just to be able to test if a word is in the dictionary, a bool is enough.  You can also make it an ```int``` or a ```string``` or a custom class.  But beware of one important limitation.  DAWG works well only when the set of values that TPayload can take is relatively small.  The smaller the better.  Eg if you add a definition for each word, it will make each entry unique and your graph will become a tree (which may not be too bad!).
 
 MatchPrefix()
 -------------
