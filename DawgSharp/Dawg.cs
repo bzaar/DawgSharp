@@ -106,29 +106,27 @@ public class Dawg <TPayload>
 
     static IDawg <TPayload> LoadIDawg (Stream stream, Func <BinaryReader, TPayload> readPayload)
     {
-        using (var reader = new BinaryReader (stream))
+        using var reader = new BinaryReader (stream);
+        
+        int signature = GetSignature();
+
+        int firstInt = reader.ReadInt32 ();
+
+        if (firstInt == signature)
         {
-            int signature = GetSignature();
+            int version = reader.ReadInt32();
 
-            int firstInt = reader.ReadInt32 ();
-
-            if (firstInt == signature)
+            return version switch
             {
-                int version = reader.ReadInt32();
-
-                switch (version)
-                {
-                    case 1: return new MatrixDawg <TPayload> (reader, readPayload);
-                    case 2: return new YaleDawg <TPayload> (reader, readPayload);
-                }
-
-                throw new Exception("This file was produced by a more recent version of DawgSharp.");
-            }
-
-            // The old, unversioned, file format had the number of nodes as the first 4 bytes of the stream.
-            // It is extremely unlikely that they happen to be exactly the same as the signature "DAWG".
-            return LoadOldDawg (reader, firstInt, readPayload);
+                1 => new MatrixDawg<TPayload>(reader, readPayload),
+                2 => new YaleDawg<TPayload>(reader, readPayload),
+                _ => throw new Exception("This file was produced by a more recent version of DawgSharp.")
+            };
         }
+
+        // The old, unversioned, file format had the number of nodes as the first 4 bytes of the stream.
+        // It is extremely unlikely that they happen to be exactly the same as the signature "DAWG".
+        return LoadOldDawg (reader, firstInt, readPayload);
     }
 
     private static int GetSignature()
