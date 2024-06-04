@@ -27,9 +27,9 @@ public class MultiDawg<TPayload>
         out int wordsFound,
         char separator = ' ')
     {
-        int last_word_end_node_i = -1;
-        int last_word_count = 0;
-        int node_i = -1;
+        int lastWordEndNodeIndex = -1;
+        int lastWordCount = 0;
+        int nodeIndex = -1;
         int wordCount = 0;
             
         // ReSharper disable AccessToModifiedClosure
@@ -44,13 +44,13 @@ public class MultiDawg<TPayload>
 
                 ++wordCount;
 
-                if (HasPayload(node_i))
+                if (HasPayload(nodeIndex))
                 {
-                    last_word_end_node_i = node_i;
-                    last_word_count = wordCount;
+                    lastWordEndNodeIndex = nodeIndex;
+                    lastWordCount = wordCount;
                 }
                     
-                if (yaleGraph.IsLeaf(node_i))
+                if (yaleGraph.IsLeaf(nodeIndex))
                 {
                     break;
                 }
@@ -62,12 +62,12 @@ public class MultiDawg<TPayload>
 
         foreach(int i in yaleGraph.GetPath(GetChars()))
         {
-            node_i = i;
+            nodeIndex = i;
         }
 
-        wordsFound = last_word_count;
+        wordsFound = lastWordCount;
             
-        return GetPayloads(last_word_end_node_i);
+        return GetPayloads(lastWordEndNodeIndex);
     }
 
     public IEnumerable<TPayload> this[IEnumerable<char> key] => 
@@ -92,16 +92,16 @@ public class MultiDawg<TPayload>
 
         var sb = new StringBuilder(prefixStr);
 
-        foreach (int node_i in yaleGraph.MatchPrefix(sb, yaleGraph.GetPath(prefixStr).Last()))
+        foreach (int nodeIndex in yaleGraph.MatchPrefix(sb, yaleGraph.GetPath(prefixStr).Last()))
         {
-            if (HasPayload(node_i))
+            if (HasPayload(nodeIndex))
             {
-                yield return new KeyValuePair<string, IEnumerable<TPayload>>(sb.ToString(), GetPayloads(node_i));
+                yield return new KeyValuePair<string, IEnumerable<TPayload>>(sb.ToString(), GetPayloads(nodeIndex));
             }
         }
     }
 
-    private bool HasPayload(int node_i) => payloads.Length > 0 && node_i < payloads[0].Length;
+    private bool HasPayload(int nodeIndex) => payloads.Length > 0 && nodeIndex < payloads[0].Length;
 
     public int GetNodeCount() => yaleGraph.NodeCount;
 

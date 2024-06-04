@@ -36,17 +36,17 @@ class YaleDawg <TPayload> : IDawg<TPayload>
     {
         get
         {
-            int node_i = GetPath(word).Last();
+            int nodeIndex = GetPath(word).Last();
 
-            if (node_i == -1) return default;
+            if (nodeIndex == -1) return default;
 
-            return GetPayload(node_i);
+            return GetPayload(nodeIndex);
         }
     }
 
-    private TPayload GetPayload(int node_i)
+    private TPayload GetPayload(int nodeIndex)
     {
-        return node_i < payloads.Length ? payloads [node_i] : default;
+        return nodeIndex < payloads.Length ? payloads [nodeIndex] : default;
     }
 
     IEnumerable<int> GetPath(IEnumerable<char> word)
@@ -70,9 +70,9 @@ class YaleDawg <TPayload> : IDawg<TPayload>
 
         var sb = new StringBuilder(prefixStr);
 
-        foreach (int node_i in yaleGraph.MatchPrefix(sb, GetPath(prefixStr).Last()))
+        foreach (int nodeIndex in yaleGraph.MatchPrefix(sb, GetPath(prefixStr).Last()))
         {
-            var payload = GetPayload(node_i);
+            var payload = GetPayload(nodeIndex);
 
             if (!EqualityComparer<TPayload>.Default.Equals(payload, default))
             {
@@ -89,13 +89,13 @@ class YaleDawg <TPayload> : IDawg<TPayload>
 
         int strIndex = -1;
 
-        foreach (int node_i in GetPath(keyStr))
+        foreach (int nodeIndex in GetPath(keyStr))
         {
-            if (node_i == -1) break;
+            if (nodeIndex == -1) break;
 
             if (strIndex >= 0) sb.Append(keyStr[strIndex]);
 
-            var payload = GetPayload(node_i);
+            var payload = GetPayload(nodeIndex);
                 
             if (!EqualityComparer<TPayload>.Default.Equals(payload, default))
             {

@@ -34,24 +34,24 @@ class YaleGraph
         
     public IEnumerable<int> GetPath(IEnumerable<char> word)
     {
-        int node_i = rootNodeIndex;
+        int nodeIndex = rootNodeIndex;
 
-        yield return node_i;
+        yield return nodeIndex;
 
-        if (node_i == -1)
+        if (nodeIndex == -1)
         {
             yield break;
         }
 
         foreach (char c in word)
         {
-            int child_i = GetChildIndex(node_i, c);
+            int childIndex = GetChildIndex(nodeIndex, c);
 
-            if (child_i >= 0)
+            if (childIndex >= 0)
             {
-                node_i = children[child_i].Index;
+                nodeIndex = children[childIndex].Index;
 
-                yield return node_i;
+                yield return nodeIndex;
                 continue;
             }
                 
@@ -60,7 +60,7 @@ class YaleGraph
         }
     }
 
-    private int GetChildIndex(int node_i, char c)
+    private int GetChildIndex(int nodeIndex, char c)
     {
         if (c >= firstChar && c <= lastChar)
         {
@@ -68,28 +68,28 @@ class YaleGraph
 
             if (charIndexPlusOne != 0)
             {
-                int firstChild_i = firstChildForNode[node_i];
+                int firstChildIndex = firstChildForNode[nodeIndex];
 
-                int lastChild_i = firstChildForNode[node_i + 1];
+                int lastChildIndex = firstChildForNode[nodeIndex + 1];
 
-                int nChildren = lastChild_i - firstChild_i;
+                int nChildren = lastChildIndex - firstChildIndex;
 
                 var charIndex = (ushort)(charIndexPlusOne - 1);
 
-                int child_i;
+                int childIndex;
             
                 if (nChildren == 1)
                 {
-                    child_i = children[firstChild_i].CharIndex == charIndex ? firstChild_i : -1;
+                    childIndex = children[firstChildIndex].CharIndex == charIndex ? firstChildIndex : -1;
                 }
                 else
                 {
                     var searchValue = new YaleChild(-1, charIndex);
 
-                    child_i = Array.BinarySearch(children, firstChild_i, nChildren, searchValue, childComparer);
+                    childIndex = Array.BinarySearch(children, firstChildIndex, nChildren, searchValue, childComparer);
                 }
 
-                return child_i;
+                return childIndex;
             }
         }
             
@@ -98,7 +98,7 @@ class YaleGraph
 
     public IEnumerable<KeyValuePair<string, int>> MatchTree(IEnumerable<IEnumerable<char>> tree)
     {
-        int node_i = rootNodeIndex;
+        int nodeIndex = rootNodeIndex;
 
         var stack = new Stack<Frame>();
 
@@ -115,7 +115,7 @@ class YaleGraph
                 int childIndex = -1;
                 while (enumerator.MoveNext())
                 {
-                    childIndex = GetChildIndex(node_i, enumerator.Current);
+                    childIndex = GetChildIndex(nodeIndex, enumerator.Current);
 
                     if (childIndex >= 0)
                     {
@@ -126,8 +126,8 @@ class YaleGraph
                 if (childIndex >= 0)
                 {
                     sb.Append(enumerator.Current);
-                    stack.Push(new Frame(node_i, enumerator));
-                    node_i = children[childIndex].Index;
+                    stack.Push(new Frame(nodeIndex, enumerator));
+                    nodeIndex = children[childIndex].Index;
                     enumerator = null;
                 }
                 else
@@ -136,7 +136,7 @@ class YaleGraph
                         
                     if (stack.Count == 0) yield break;
                         
-                    (node_i, enumerator) = stack.Pop();
+                    (nodeIndex, enumerator) = stack.Pop();
                     --sb.Length;
                 }
             }
@@ -146,11 +146,11 @@ class YaleGraph
             }
             else
             {
-                yield return new KeyValuePair<string, int>(sb.ToString(), node_i);
+                yield return new KeyValuePair<string, int>(sb.ToString(), nodeIndex);
                     
                 if (stack.Count == 0) yield break;
                         
-                (node_i, enumerator) = stack.Pop();
+                (nodeIndex, enumerator) = stack.Pop();
                 --sb.Length;
             }
         }
@@ -184,30 +184,30 @@ class YaleGraph
         }
     }
 
-    public bool IsLeaf(int node_i)
+    public bool IsLeaf(int nodeIndex)
     {
-        return firstChildForNode[node_i] == firstChildForNode[node_i + 1];
+        return firstChildForNode[nodeIndex] == firstChildForNode[nodeIndex + 1];
     }
         
-    public IEnumerable<int> MatchPrefix (StringBuilder sb, int node_i)
+    public IEnumerable<int> MatchPrefix (StringBuilder sb, int nodeIndex)
     {
-        if (node_i != -1)
+        if (nodeIndex != -1)
         {
-            yield return node_i;
+            yield return nodeIndex;
                 
-            int firstChild_i = firstChildForNode [node_i];
+            int firstChildIndex = firstChildForNode [nodeIndex];
 
-            int lastChild_i = firstChildForNode[node_i + 1];
+            int lastChildIndex = firstChildForNode[nodeIndex + 1];
 
-            for (int i = firstChild_i; i < lastChild_i; ++i)
+            for (int i = firstChildIndex; i < lastChildIndex; ++i)
             {
                 YaleChild child = children [i];
 
                 sb.Append (indexToChar [child.CharIndex]);
 
-                foreach (var child_node_i in MatchPrefix (sb, child.Index))
+                foreach (var child_nodeIndex in MatchPrefix (sb, child.Index))
                 {
-                    yield return child_node_i;
+                    yield return child_nodeIndex;
                 }
 
                 --sb.Length;

@@ -81,15 +81,15 @@ static class Serializer
 
         writer.Write(maxPayloadCount);
             
-        for (int payload_i = 0; payload_i < maxPayloadCount; ++payload_i)
+        for (int payloadIndex = 0; payloadIndex < maxPayloadCount; ++payloadIndex)
         {
-            var ggs = groups.TakeWhile(g => g.PayloadCount > payload_i).ToList();
+            var ggs = groups.TakeWhile(g => g.PayloadCount > payloadIndex).ToList();
                 
             writer.Write(ggs.Sum(g => g.Nodes.Count));
 
             foreach (var n in ggs.SelectMany(g => g.Nodes))
             {
-                writePayload(writer, n.Payload[payload_i]);
+                writePayload(writer, n.Payload[payloadIndex]);
             }
         }
 

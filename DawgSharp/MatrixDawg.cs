@@ -12,20 +12,20 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
     {
         get
         {
-            int node_i = rootNodeIndex;
+            int nodeIndex = rootNodeIndex;
 
             foreach (var c in word)
             {
-                int childIndexPlusOne = GetChildIndexPlusOne(node_i, c);
+                int childIndexPlusOne = GetChildIndexPlusOne(nodeIndex, c);
 
                 if (childIndexPlusOne == 0) return default;
 
-                node_i = childIndexPlusOne - 1;
+                nodeIndex = childIndexPlusOne - 1;
             }
 
-            if (node_i == -1) return default;
+            if (nodeIndex == -1) return default;
 
-            return node_i < payloads.Length ? payloads [node_i] : default;
+            return nodeIndex < payloads.Length ? payloads [nodeIndex] : default;
         }
     }
 
@@ -34,13 +34,13 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
     /// </summary>
     IEnumerable <int> GetPath (IEnumerable<char> word)
     {
-        int node_i = rootNodeIndex;
+        int nodeIndex = rootNodeIndex;
 
-        yield return node_i;
+        yield return nodeIndex;
 
         foreach (var c in word)
         {
-            int childIndexPlusOne = GetChildIndexPlusOne(node_i, c);
+            int childIndexPlusOne = GetChildIndexPlusOne(nodeIndex, c);
 
             if (childIndexPlusOne == 0)
             {
@@ -48,19 +48,19 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
                 yield break;
             }
 
-            node_i = childIndexPlusOne - 1;
+            nodeIndex = childIndexPlusOne - 1;
 
-            yield return node_i;
+            yield return nodeIndex;
         }
     }
 
-    int GetChildIndexPlusOne (int node_i, char c)
+    int GetChildIndexPlusOne (int nodeIndex, char c)
     {
-        var children = node_i < payloads.Length ? children1 : children0;
+        var children = nodeIndex < payloads.Length ? children1 : children0;
 
-        if (node_i >= payloads.Length) node_i -= payloads.Length;
+        if (nodeIndex >= payloads.Length) nodeIndex -= payloads.Length;
 
-        if (node_i >= children.GetLength(0)) return 0; // node has no children
+        if (nodeIndex >= children.GetLength(0)) return 0; // node has no children
 
         if (c < firstChar) return 0;
         if (c > lastChar) return 0;
@@ -69,7 +69,7 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
 
         if (charIndexPlusOne == 0) return 0;
 
-        return children [node_i, charIndexPlusOne - 1];
+        return children [nodeIndex, charIndexPlusOne - 1];
     }
 
     public int GetLongestCommonPrefixLength (IEnumerable <char> word)
@@ -79,22 +79,22 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
 
     struct StackItem
     {
-        public int node_i, child_i;
+        public int nodeIndex, childIndex;
     }
 
     public IEnumerable <KeyValuePair <string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
     {
         string prefixStr = prefix.AsString();
 
-        int node_i = prefixStr.Length == 0 ? rootNodeIndex : GetPath (prefixStr).Last();
+        int nodeIndex = prefixStr.Length == 0 ? rootNodeIndex : GetPath (prefixStr).Last();
 
         var stack = new Stack<StackItem>();
 
-        if (node_i != -1)
+        if (nodeIndex != -1)
         {
-            if (node_i < payloads.Length)
+            if (nodeIndex < payloads.Length)
             {
-                var payload = payloads [node_i];
+                var payload = payloads [nodeIndex];
 
                 if (! EqualityComparer<TPayload>.Default.Equals(payload, default))
                 {
@@ -104,37 +104,37 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
 
             var sb = new StringBuilder (prefixStr);
 
-            int child_i = -1;
+            int childIndex = -1;
 
             for (;;)
             {
-                var children = node_i < payloads.Length ? children1 : children0;
+                var children = nodeIndex < payloads.Length ? children1 : children0;
 
-                int adj_node_i = (node_i >= payloads.Length) 
-                    ? node_i - payloads.Length
-                    : node_i;
+                int adj_nodeIndex = (nodeIndex >= payloads.Length) 
+                    ? nodeIndex - payloads.Length
+                    : nodeIndex;
 
-                if (adj_node_i < children.GetLength(0))
+                if (adj_nodeIndex < children.GetLength(0))
                 {
-                    int next_child_i = child_i + 1;
+                    int next_childIndex = childIndex + 1;
 
-                    for (; next_child_i < indexToChar.Length; ++next_child_i)
+                    for (; next_childIndex < indexToChar.Length; ++next_childIndex)
                     {
-                        if (children [adj_node_i, next_child_i] != 0)
+                        if (children [adj_nodeIndex, next_childIndex] != 0)
                         {
                             break;
                         }
                     }
 
-                    if (next_child_i < indexToChar.Length)
+                    if (next_childIndex < indexToChar.Length)
                     {
-                        stack.Push(new StackItem {node_i = node_i, child_i = next_child_i});
-                        sb.Append(indexToChar [next_child_i]);
-                        node_i = children [adj_node_i, next_child_i] - 1;
+                        stack.Push(new StackItem {nodeIndex = nodeIndex, childIndex = next_childIndex});
+                        sb.Append(indexToChar [next_childIndex]);
+                        nodeIndex = children [adj_nodeIndex, next_childIndex] - 1;
 
-                        if (node_i < payloads.Length)
+                        if (nodeIndex < payloads.Length)
                         {
-                            var payload = payloads [node_i];
+                            var payload = payloads [nodeIndex];
 
                             if (! EqualityComparer<TPayload>.Default.Equals(payload, default))
                             {
@@ -153,8 +153,8 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
                 --sb.Length;
                 var item = stack.Pop();
 
-                node_i = item.node_i;
-                child_i = item.child_i;
+                nodeIndex = item.nodeIndex;
+                childIndex = item.childIndex;
             }
         }
     }
@@ -214,16 +214,16 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
 
         var children = new int [nodeCount, indexToChar.Length];
 
-        for (int node_i = 0; node_i < nodeCount; ++node_i)
+        for (int nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)
         {
             ushort childCount = YaleReader.ReadInt (reader, indexToChar.Length + 1);
 
-            for (ushort child_i = 0; child_i < childCount; ++child_i)
+            for (ushort childIndex = 0; childIndex < childCount; ++childIndex)
             {
                 ushort charIndex = YaleReader.ReadInt (reader, indexToChar.Length);
                 int childNodeIndex = reader.ReadInt32();
 
-                children [node_i, charIndex] = childNodeIndex + 1;
+                children [nodeIndex, charIndex] = childNodeIndex + 1;
             }
         }
 

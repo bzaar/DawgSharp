@@ -14,7 +14,7 @@ public class SequenceEqualityComparer<T> : IEqualityComparer<IList<T>>
         
     public bool Equals(IList<T> x, IList<T> y)
     {
-        return object.ReferenceEquals(x, y) || (x != null && y != null && x.SequenceEqual(y, elementComparer));
+        return ReferenceEquals(x, y) || (x != null && y != null && x.SequenceEqual(y, elementComparer));
     }
 
     public int GetHashCode(IList<T> obj)
