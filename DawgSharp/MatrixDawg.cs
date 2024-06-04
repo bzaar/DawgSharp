@@ -67,9 +67,7 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
 
         ushort charIndexPlusOne = charToIndexPlusOne [c - firstChar];
 
-        if (charIndexPlusOne == 0) return 0;
-
-        return children [nodeIndex, charIndexPlusOne - 1];
+        return charIndexPlusOne == 0 ? 0 : children [nodeIndex, charIndexPlusOne - 1];
     }
 
     public int GetLongestCommonPrefixLength (IEnumerable <char> word)
