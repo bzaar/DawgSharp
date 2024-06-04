@@ -79,7 +79,7 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
 
     struct StackItem
     {
-        public int nodeIndex, childIndex;
+        public int NodeIndex, ChildIndex;
     }
 
     public IEnumerable <KeyValuePair <string, TPayload>> MatchPrefix (IEnumerable<char> prefix)
@@ -128,7 +128,7 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
 
                     if (next_childIndex < indexToChar.Length)
                     {
-                        stack.Push(new StackItem {nodeIndex = nodeIndex, childIndex = next_childIndex});
+                        stack.Push(new StackItem {NodeIndex = nodeIndex, ChildIndex = next_childIndex});
                         sb.Append(indexToChar [next_childIndex]);
                         nodeIndex = children [adj_nodeIndex, next_childIndex] - 1;
 
@@ -153,8 +153,8 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
                 --sb.Length;
                 var item = stack.Pop();
 
-                nodeIndex = item.nodeIndex;
-                childIndex = item.childIndex;
+                nodeIndex = item.NodeIndex;
+                childIndex = item.ChildIndex;
             }
         }
     }
