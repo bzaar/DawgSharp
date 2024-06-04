@@ -29,7 +29,7 @@
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <RepositoryUrl>https://github.com/bzaar/DawgSharp</RepositoryUrl>
     <PackageProjectUrl>https://github.com/bzaar/DawgSharp</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/bzaar/DawgSharp/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <PackageIconUrl>https://github.com/bzaar/DawgSharp/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageReleaseNotes>Speed up BuildDawg() by 25%. Add ToDawgBuilderParallel() which _may_ be faster for really large word lists.
     </PackageReleaseNotes>
