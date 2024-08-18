@@ -165,26 +165,33 @@ static class Serializer
         {
             WriteInt (writer, node.Children.Count, allChars.Length + 1);
 
-            foreach (var child in node.Children.OrderBy(c => c.Key))
+            foreach (var child in node.SortedChildren)
             {
                 int charIndex = charToIndexPlusOne [child.Key - firstChar] - 1;
 
                 WriteInt (writer, charIndex, allChars.Length);
-
-                writer.Write (nodeIndex [child.Value]);
+                
+                int childNodeIndex = nodeIndex [child.Value];
+                
+                writer.Write (childNodeIndex);
             }
         }
     }
 
-    private static void WriteInt(BinaryWriter writer, int charIndex, int numPossibleValues)
+    private static void WriteInt(BinaryWriter writer, int i, int numPossibleValues)
     {
+        if (i < 0 || i >= numPossibleValues)
+        {
+            throw new ArgumentOutOfRangeException(nameof(i));
+        }
+        
         if (numPossibleValues > 256)
         {
-            writer.Write ((ushort) charIndex);
+            writer.Write ((ushort) i);
         }
         else
         {
-            writer.Write ((byte) charIndex);
+            writer.Write ((byte) i);
         }
     }
 }

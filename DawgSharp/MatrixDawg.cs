@@ -108,27 +108,27 @@ class MatrixDawg <TPayload> : IDawg <TPayload>
             {
                 var children = nodeIndex < payloads.Length ? children1 : children0;
 
-                int adj_nodeIndex = (nodeIndex >= payloads.Length) 
+                int adjNodeIndex = (nodeIndex >= payloads.Length) 
                     ? nodeIndex - payloads.Length
                     : nodeIndex;
 
-                if (adj_nodeIndex < children.GetLength(0))
+                if (adjNodeIndex < children.GetLength(0))
                 {
-                    int next_childIndex = childIndex + 1;
+                    int nextChildIndex = childIndex + 1;
 
-                    for (; next_childIndex < indexToChar.Length; ++next_childIndex)
+                    for (; nextChildIndex < indexToChar.Length; ++nextChildIndex)
                     {
-                        if (children [adj_nodeIndex, next_childIndex] != 0)
+                        if (children [adjNodeIndex, nextChildIndex] != 0)
                         {
                             break;
                         }
                     }
 
-                    if (next_childIndex < indexToChar.Length)
+                    if (nextChildIndex < indexToChar.Length)
                     {
-                        stack.Push(new StackItem {NodeIndex = nodeIndex, ChildIndex = next_childIndex});
-                        sb.Append(indexToChar [next_childIndex]);
-                        nodeIndex = children [adj_nodeIndex, next_childIndex] - 1;
+                        stack.Push(new StackItem {NodeIndex = nodeIndex, ChildIndex = nextChildIndex});
+                        sb.Append(indexToChar [nextChildIndex]);
+                        nodeIndex = children [adjNodeIndex, nextChildIndex] - 1;
 
                         if (nodeIndex < payloads.Length)
                         {

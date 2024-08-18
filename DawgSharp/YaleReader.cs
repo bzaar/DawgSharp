@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace DawgSharp;
 
@@ -20,7 +21,7 @@ static class YaleReader
 
         int globalChildIndex = 0;
 
-        for (int child1Index = 0; child1Index < nodeCount; ++child1Index)
+        for (int nodeIndex = 0; nodeIndex < nodeCount; ++nodeIndex)
         {
             firstChildForNode[firstChildForNodeIndex++] = globalChildIndex;
 
@@ -38,6 +39,11 @@ static class YaleReader
 
     public static ushort ReadInt (BinaryReader reader, int countOfPossibleValues)
     {
-        return countOfPossibleValues > 256 ? reader.ReadUInt16() : reader.ReadByte();
+        ushort result = countOfPossibleValues > 256 ? reader.ReadUInt16() : reader.ReadByte();
+        if (result >= countOfPossibleValues)
+        {
+            throw new Exception($"Unexpected value: {result}. Expected < {countOfPossibleValues}.");
+        }
+        return result;
     }
 }

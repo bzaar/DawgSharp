@@ -43,7 +43,7 @@ class Node <TPayload>
     public Dictionary<char, Node<TPayload>> Children => children;
 
     public IOrderedEnumerable<KeyValuePair<char, Node<TPayload>>> SortedChildren 
-        => children.OrderBy(e => e.Key);
+        => children.OrderBy(c => c.Key);
 
     public int GetRecursiveChildNodeCount () 
         => GetAllDistinctNodes ().Count ();
