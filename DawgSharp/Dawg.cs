@@ -92,6 +92,8 @@ public class Dawg <TPayload>
         writer.Write (GetSignature ());
 
         save ((OldDawg<TPayload>) dawg, writer);
+        
+        writer.Flush();
     }
 
     static Action <BinaryWriter, TPayload> GetStandardWriter ()
